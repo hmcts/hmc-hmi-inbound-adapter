@@ -1,0 +1,12 @@
+java:
+  applicationPort: 4559
+  image: 'hmctspublic.azurecr.io/hmc/hmi-inbound-adapter:latest'
+  ingressHost: hmc-hmi-inbound-adapter-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+  aadIdentityName: hmc
+#  Uncomment once the vault containing the app insights key has been set up
+#  keyVaults:
+#    hmc:
+#      secrets:
+#        - name: AppInsightsInstrumentationKey
+#          alias: azure.application-insights.instrumentation-key
+  environment:

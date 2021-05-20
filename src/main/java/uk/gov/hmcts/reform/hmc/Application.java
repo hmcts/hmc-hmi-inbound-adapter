@@ -1,11 +1,10 @@
-package uk.gov.hmcts.reform.demo;
+package uk.gov.hmcts.reform.hmc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication
-@EnableCircuitBreaker
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @SuppressWarnings("HideUtilityClassConstructor") // Spring needs a constructor, its not a utility class
 public class Application {
 
