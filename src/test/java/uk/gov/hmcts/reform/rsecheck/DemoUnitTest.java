@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DemoUnitTest {
 
-    // Test for  unit test files
     @Test
     public void exampleOfTest() {
         assertTrue(System.currentTimeMillis() > 0, "Example of Unit Test");
