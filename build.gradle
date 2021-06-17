@@ -279,6 +279,7 @@ dependencies {
   implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformLogging
 
   implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+  implementation group: 'javax.inject', name: 'javax.inject', version: '1'
   annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
   testImplementation libraries.junit5
