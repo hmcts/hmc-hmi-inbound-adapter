@@ -8,12 +8,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
-import uk.gov.hmcts.reform.hmc.client.hmi.model.HearingManagementInterfaceResponse;
+import uk.gov.hmcts.reform.hmc.client.hmi.model.response.CftHearingServiceRsp;
+import uk.gov.hmcts.reform.hmc.client.hmi.model.response.HearingManagementInterfaceRsp;
 import uk.gov.hmcts.reform.hmc.exceptions.ResourceNotFoundException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
 
@@ -42,22 +42,22 @@ public class HearingManagementInterfaceServiceImpl implements HearingManagementI
     }
 
     @Override
-    public HearingManagementInterfaceResponse getResponseFromHmi(Long hearingId) {
+    public HearingManagementInterfaceRsp getResponseFromHmi(Long hearingId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Long> entity = new HttpEntity<>(hearingId);
         return restTemplate.exchange(applicationParams.hmiHearingPutUrl(), HttpMethod.PUT, entity,
-                                     HearingManagementInterfaceResponse.class).getBody();
+                                     HearingManagementInterfaceRsp.class).getBody();
     }
 
     @Override
-    public ResponseEntity<HttpEntity> isValidHearingId(Long hearingId) {
+    public CftHearingServiceRsp isValidHearingId(Long hearingId) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Long> requestEntity = new HttpEntity<>(hearingId, headers);
         try {
             return restTemplate.exchange(applicationParams.cftHearingValidateHearingIdUrl(hearingId),
-                                         HttpMethod.GET, requestEntity, HttpEntity.class);
+                                         HttpMethod.GET, requestEntity, CftHearingServiceRsp.class).getBody();
         } catch (Exception e) {
             logger.warn("Error while validating hearing Id={}", hearingId, e);
             if (e instanceof HttpClientErrorException

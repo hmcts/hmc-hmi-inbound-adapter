@@ -1,12 +1,11 @@
 package uk.gov.hmcts.reform.hmc.service;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
-import uk.gov.hmcts.reform.hmc.client.hmi.model.HearingManagementInterfaceResponse;
+import uk.gov.hmcts.reform.hmc.client.hmi.model.response.CftHearingServiceRsp;
+import uk.gov.hmcts.reform.hmc.client.hmi.model.response.HearingManagementInterfaceRsp;
 
 public interface HearingManagementInterfaceService {
 
-    HearingManagementInterfaceResponse getResponseFromHmi(Long hearingId);
+    HearingManagementInterfaceRsp getResponseFromHmi(Long hearingId);
 
-    ResponseEntity<HttpEntity> isValidHearingId(Long hearingId);
+    CftHearingServiceRsp isValidHearingId(Long hearingId);
 }

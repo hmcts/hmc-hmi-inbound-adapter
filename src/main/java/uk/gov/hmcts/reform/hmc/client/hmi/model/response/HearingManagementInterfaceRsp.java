@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.hmc.client.hmi.model;
+package uk.gov.hmcts.reform.hmc.client.hmi.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class HearingManagementInterfaceResponse {
+public class HearingManagementInterfaceRsp {
 
     private String apiVersion;
 
