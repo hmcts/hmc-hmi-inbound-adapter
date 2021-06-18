@@ -19,7 +19,7 @@ public class ApplicationParams {
         return hmiHearingHost + "/listings/" + caseId;
     }
 
-    public String cftHearingValidatecaseIdUrl(String caseId) {
+    public String cftHearingValidateCaseIdUrl(String caseId) {
         return cftHearingServiceHost + "/hearing/" + caseId + "?isValid";
     }
 }

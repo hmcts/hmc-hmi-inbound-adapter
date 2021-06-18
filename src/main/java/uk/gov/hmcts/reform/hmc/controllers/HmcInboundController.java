@@ -29,6 +29,5 @@ public class HmcInboundController {
     public HearingManagementInterfaceRsp getResponseFromHmi(@PathVariable("id") String id) {
         return hearingManagementService.execute(id);
 
-
     }
 }

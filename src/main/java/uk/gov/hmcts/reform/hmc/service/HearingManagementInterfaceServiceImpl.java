@@ -48,6 +48,26 @@ public class HearingManagementInterfaceServiceImpl implements HearingManagementI
     }
 
     @Override
+    public CftHearingServiceRsp isValidCaseId(String caseId) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            HttpEntity<String> requestEntity = new HttpEntity<>(caseId, headers);
+            return restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
+                                         HttpMethod.GET, requestEntity, CftHearingServiceRsp.class).getBody();
+        } catch (Exception e) {
+            logger.warn("Error while validating hearing Id:{}", caseId, e);
+            if (e instanceof HttpClientErrorException
+                && ((HttpClientErrorException) e).getRawStatusCode() == RESOURCE_NOT_FOUND) {
+                throw new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_MSG, caseId));
+            } else {
+                logger.warn("Error while validating hearing Id:{}", caseId, e);
+                throw new ServiceException(CFT_SERVICE_DOWN_ERR_MESSAGE, e);
+            }
+        }
+    }
+
+    @Override
     public HearingManagementInterfaceRsp getResponseFromHmi(String caseId) {
         try {
             HttpHeaders headers = new HttpHeaders();
@@ -67,23 +87,4 @@ public class HearingManagementInterfaceServiceImpl implements HearingManagementI
         }
     }
 
-    @Override
-    public CftHearingServiceRsp isValidCaseId(String caseId) {
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            HttpEntity<String> requestEntity = new HttpEntity<>(caseId, headers);
-            return restTemplate.exchange(applicationParams.cftHearingValidatecaseIdUrl(caseId),
-                                         HttpMethod.GET, requestEntity, CftHearingServiceRsp.class).getBody();
-        } catch (Exception e) {
-            logger.warn("Error while validating hearing Id:{}", caseId, e);
-            if (e instanceof HttpClientErrorException
-                && ((HttpClientErrorException) e).getRawStatusCode() == RESOURCE_NOT_FOUND) {
-                throw new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_MSG, caseId));
-            } else {
-                logger.warn("Error while validating hearing Id:{}", caseId, e);
-                throw new ServiceException(CFT_SERVICE_DOWN_ERR_MESSAGE, e);
-            }
-        }
-    }
 }
