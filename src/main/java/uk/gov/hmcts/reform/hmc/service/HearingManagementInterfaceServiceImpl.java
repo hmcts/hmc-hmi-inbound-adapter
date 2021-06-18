@@ -17,7 +17,7 @@ import uk.gov.hmcts.reform.hmc.client.hmi.model.response.HearingManagementInterf
 import uk.gov.hmcts.reform.hmc.exceptions.ResourceNotFoundException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.CFT_SERVICE_DOWN_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.RESOURCE_NOT_FOUND;
@@ -42,29 +42,46 @@ public class HearingManagementInterfaceServiceImpl implements HearingManagementI
     }
 
     @Override
-    public HearingManagementInterfaceRsp getResponseFromHmi(Long hearingId) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Long> entity = new HttpEntity<>(hearingId);
-        return restTemplate.exchange(applicationParams.hmiHearingPutUrl(), HttpMethod.PUT, entity,
-                                     HearingManagementInterfaceRsp.class).getBody();
+    public HearingManagementInterfaceRsp execute(String caseId) {
+        isValidCaseId(caseId);
+        return getResponseFromHmi(caseId);
     }
 
     @Override
-    public CftHearingServiceRsp isValidHearingId(Long hearingId) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Long> requestEntity = new HttpEntity<>(hearingId, headers);
+    public HearingManagementInterfaceRsp getResponseFromHmi(String caseId) {
         try {
-            return restTemplate.exchange(applicationParams.cftHearingValidateHearingIdUrl(hearingId),
-                                         HttpMethod.GET, requestEntity, CftHearingServiceRsp.class).getBody();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            HttpEntity<String> requestEntity = new HttpEntity<>(caseId, headers);
+            return restTemplate.exchange(applicationParams.hmiHearingPutUrl(caseId), HttpMethod.PUT, requestEntity,
+                                         HearingManagementInterfaceRsp.class).getBody();
         } catch (Exception e) {
-            logger.warn("Error while validating hearing Id={}", hearingId, e);
+            logger.warn("Error while retrieving response from HMI for hearing Id:{}", caseId, e);
             if (e instanceof HttpClientErrorException
                 && ((HttpClientErrorException) e).getRawStatusCode() == RESOURCE_NOT_FOUND) {
-                throw new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_MSG, hearingId));
+                throw new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_MSG, caseId));
             } else {
-                logger.warn("Error while validating hearing Id={}", hearingId, e);
+                logger.warn("Error while retrieving response from HMI for hearing Id:{}", caseId, e);
+                throw new ServiceException(CFT_SERVICE_DOWN_ERR_MESSAGE, e);
+            }
+        }
+    }
+
+    @Override
+    public CftHearingServiceRsp isValidCaseId(String caseId) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            HttpEntity<String> requestEntity = new HttpEntity<>(caseId, headers);
+            return restTemplate.exchange(applicationParams.cftHearingValidatecaseIdUrl(caseId),
+                                         HttpMethod.GET, requestEntity, CftHearingServiceRsp.class).getBody();
+        } catch (Exception e) {
+            logger.warn("Error while validating hearing Id:{}", caseId, e);
+            if (e instanceof HttpClientErrorException
+                && ((HttpClientErrorException) e).getRawStatusCode() == RESOURCE_NOT_FOUND) {
+                throw new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_MSG, caseId));
+            } else {
+                logger.warn("Error while validating hearing Id:{}", caseId, e);
                 throw new ServiceException(CFT_SERVICE_DOWN_ERR_MESSAGE, e);
             }
         }

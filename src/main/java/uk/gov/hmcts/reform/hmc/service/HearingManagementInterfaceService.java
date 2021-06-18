@@ -5,7 +5,9 @@ import uk.gov.hmcts.reform.hmc.client.hmi.model.response.HearingManagementInterf
 
 public interface HearingManagementInterfaceService {
 
-    HearingManagementInterfaceRsp getResponseFromHmi(Long hearingId);
+    HearingManagementInterfaceRsp execute(String caseId);
 
-    CftHearingServiceRsp isValidHearingId(Long hearingId);
+    HearingManagementInterfaceRsp getResponseFromHmi(String caseId);
+
+    CftHearingServiceRsp isValidCaseId(String caseId);
 }

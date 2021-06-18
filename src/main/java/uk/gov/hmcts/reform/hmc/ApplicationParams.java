@@ -1,5 +1,7 @@
 package uk.gov.hmcts.reform.hmc;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -7,14 +9,17 @@ import javax.inject.Singleton;
 @Singleton
 public class ApplicationParams {
 
-    private String cftHearingServiceHost = "http://localhost:4459";
-    private String hmiHearingHost = "http://localhost:8080";
+    @Value("${hmc.cft-hearing-service.host}")
+    private String cftHearingServiceHost;
 
-    public String hmiHearingPutUrl() {
-        return hmiHearingHost + "listings/{id}";
+    @Value("${hearing-management-interface.host}")
+    private String hmiHearingHost;
+
+    public String hmiHearingPutUrl(String caseId) {
+        return hmiHearingHost + "/listings/" + caseId;
     }
 
-    public String cftHearingValidateHearingIdUrl(Long hearingId) {
-        return cftHearingServiceHost + "/hearing/" + hearingId + "?isValid";
+    public String cftHearingValidatecaseIdUrl(String caseId) {
+        return cftHearingServiceHost + "/hearing/" + caseId + "?isValid";
     }
 }
