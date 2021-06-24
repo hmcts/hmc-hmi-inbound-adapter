@@ -12,14 +12,26 @@ public class ApplicationParams {
     @Value("${hmc.cft-hearing-service.host}")
     private String cftHearingServiceHost;
 
-    @Value("${hearing-management-interface.host}")
-    private String hmiHearingHost;
+    @Value("${spring.jms.servicebus.queue-name}")
+    private String queueName;
 
-    public String hmiHearingPutUrl(String caseId) {
-        return hmiHearingHost + "/listings/" + caseId;
-    }
+    @Value("${spring.jms.servicebus.connection-string}")
+    private String connectionString;
+
 
     public String cftHearingValidateCaseIdUrl(String caseId) {
         return cftHearingServiceHost + "/hearing/" + caseId + "?isValid";
+    }
+
+    public String getCftHearingServiceHost() {
+        return cftHearingServiceHost;
+    }
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public String getConnectionString() {
+        return connectionString;
     }
 }
