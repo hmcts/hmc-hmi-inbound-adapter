@@ -1,6 +1,5 @@
 package uk.gov.hmcts.reform.hmc.service.hmi;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,8 +73,8 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     }
 
     private void sendHearingRspToQueue(Object response) {
-        JsonNode responseNode = objectMapperService.convertObjectToJsonNode(response);
-        messageSenderConfiguration.sendMessageToQueue(responseNode.toString());
+        var jsonNode  = objectMapperService.convertObjectToJsonNode(response);
+        messageSenderConfiguration.sendMessageToQueue(jsonNode.toString());
     }
 
 }

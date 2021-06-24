@@ -2,6 +2,8 @@ package uk.gov.hmcts.reform.hmc;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -20,7 +22,7 @@ public class ApplicationParams {
 
 
     public String cftHearingValidateCaseIdUrl(String caseId) {
-        return cftHearingServiceHost + "/hearing/" + caseId + "?isValid";
+        return cftHearingServiceHost + "/hearing/" + encode(caseId) + "?isValid";
     }
 
     public String getCftHearingServiceHost() {
@@ -33,5 +35,9 @@ public class ApplicationParams {
 
     public String getConnectionString() {
         return connectionString;
+    }
+
+    public static String encode(final String stringToEncode) {
+        return URLEncoder.encode(stringToEncode, StandardCharsets.UTF_8);
     }
 }

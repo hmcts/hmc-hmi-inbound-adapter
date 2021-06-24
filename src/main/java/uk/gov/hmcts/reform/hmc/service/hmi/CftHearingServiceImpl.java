@@ -41,9 +41,9 @@ public class CftHearingServiceImpl implements CftHearingService {
     @Override
     public CftHearingServiceRsp isValidCaseId(String caseId) {
         try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-            HttpEntity<String> requestEntity = new HttpEntity<>(caseId, headers);
+            var httpHeaders = new HttpHeaders();
+            httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);
             return restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
                                          HttpMethod.GET, requestEntity, CftHearingServiceRsp.class).getBody();
         } catch (Exception e) {
