@@ -13,13 +13,10 @@ public class RestTemplateConfiguration {
 
     @Bean(name = "cftServiceRestTemplate")
     public RestTemplate cftServiceRestTemplate() {
-        final RestTemplate restTemplate = new RestTemplate();
-        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter =
-            new MappingJackson2HttpMessageConverter();
-        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_OCTET_STREAM
-        ));
+        var restTemplate  = new RestTemplate();
+        var mappingJackson2HttpMessageConverter  = new MappingJackson2HttpMessageConverter();
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(Arrays.asList(MediaType.APPLICATION_JSON,
+                                                              MediaType.APPLICATION_OCTET_STREAM));
         restTemplate.getMessageConverters().add(mappingJackson2HttpMessageConverter);
         return restTemplate;
     }
