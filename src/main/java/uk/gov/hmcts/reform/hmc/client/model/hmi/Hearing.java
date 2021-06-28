@@ -3,9 +3,10 @@ package uk.gov.hmcts.reform.hmc.client.model.hmi;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uk.gov.hmcts.reform.hmc.validators.HearingPayloadConstraint;
+import uk.gov.hmcts.reform.hmc.exceptions.ValidationError;
 
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -13,43 +14,43 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class Hearing {
 
-    @HearingPayloadConstraint
+    @NotEmpty(message = ValidationError.HEARING_ID_CASE_HQ_EMPTY)
     private String hearingIdCaseHQ;
 
-    @HearingPayloadConstraint
+    @NotEmpty(message = ValidationError.HEARING_TYPE_EMPTY)
     private String hearingType;
 
-    @NotNull
+    @NotNull(message = ValidationError.HEARING_STARTING_TIME_EMPTY)
     private LocalDateTime hearingStartTime;
 
-    @NotNull
+    @NotNull(message = ValidationError.HEARING_END_TIME_EMPTY)
     private LocalDateTime hearingEndTime;
 
     @JsonProperty("hearingCaseIdHMCTS")
-    @HearingPayloadConstraint
-    @Size(max = 30, message = "hearing case Id must not be greater than 30 characters")
+    @NotEmpty(message = ValidationError.HEARING_CASE_ID_HMCTS_EMPTY)
+    @Size(max = 30, message = ValidationError.HEARING_CASE_ID_HMCTS_INVALID_LENGTH)
     private String hearingCaseIdHmcts;
 
     private Integer hearingSessionIdCaseHQ;
 
-    @NotNull(message = "HearingTranslatorRequired must not be null")
+    @NotNull(message = ValidationError.HEARING_TRANSLATOR_REQUIRED_EMPTY)
     private Boolean hearingTranslatorRequired;
 
-    @HearingPayloadConstraint
+    @NotEmpty(message = ValidationError.HEARING_TRANSLATOR_LANGUAGE_EMPTY)
     private String hearingTranslatorLanguage;
 
-    @NotNull(message = "HearingCreatedDate must not be null")
+    @NotNull(message = ValidationError.HEARING_CREATED_DATE_EMPTY)
     private LocalDateTime hearingCreatedDate;
 
-    @NotNull(message = "HearingCreatedBy must not be null")
+    @NotEmpty(message = ValidationError.HEARING_CREATED_BY_EMPTY)
     private String hearingCreatedBy;
 
-    @HearingPayloadConstraint
+    @NotEmpty(message = ValidationError.HEARING_VENUE_ID_EMPTY)
     private String hearingVenueId; //LOV
 
     private String hearingRoomId; //LOV
 
-    @HearingPayloadConstraint
+    @NotEmpty(message = ValidationError.HEARING_JUDGE_ID_EMPTY)
     private String hearingJudgeId;
 
 }

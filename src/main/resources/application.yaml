@@ -16,7 +16,16 @@ spring:
   config:
     import: "optional:configtree:/mnt/secrets/"
   application:
-    name: Spring Boot Template
+    name: HMC HMI Inbound Adapter
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+
+hmc:
+  cft-hearing-service:
+    host: http://localhost:4459
 #  datasource:
 #    driver-class-name: org.postgresql.Driver
 #    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}${DB_OPTIONS:}
@@ -42,3 +51,7 @@ spring:
 azure:
   application-insights:
     instrumentation-key: ${hmc.AppInsightsInstrumentationKey:00000000-0000-0000-0000-000000000000}
+jms:
+  servicebus:
+    connection-string: ${SB_CONN_STRING:Endpoint=sb://hmc-servicebus-demo.servicebus.windows.net/;SharedAccessKeyName=SendSharedAccessKey;SharedAccessKey=8EY5+1PU55K/yuWM/KEYhdVK549JBqVLXCeIcvHQFm8=;EntityPath=hmc-from-hmi-demo}
+    queue-name: ${SERVICE_BUS_QUEUE_NAME:hmc-from-hmi-demo}

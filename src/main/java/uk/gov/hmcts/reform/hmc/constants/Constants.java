@@ -11,5 +11,5 @@ public final class Constants {
         + "your browser or try again later";
     public static final int CASE_LISTING_ERROR_CODE = 2000;
     public static final String INVALID_ERROR_CODE_ERR_MESSAGE = "Error code is invalid";
-    public static final String INVALID_HEARING_PAYLOAD = "Hearing payload is invalid";
+    public static final String INVALID_HEARING_PAYLOAD = "Malformed json request";
 }

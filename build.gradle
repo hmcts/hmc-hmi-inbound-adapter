@@ -278,8 +278,7 @@ dependencies {
   implementation group: 'uk.gov.hmcts.reform', name: 'logging', version: versions.reformLogging
   implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformLogging
 
-  implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
-  implementation group: 'javax.inject', name: 'javax.inject', version: '1'
+  implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombokf
   implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.0.2'
@@ -287,6 +286,7 @@ dependencies {
 
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.14.0'
+  implementation 'org.jetbrains:annotations:20.1.0'
 
   annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 

@@ -9,4 +9,7 @@ java:
       secrets:
         - name: AppInsightsInstrumentationKey
           alias: azure.application-insights.instrumentation-key
+        - name: ConnectionString
+          alias: spring.jms.servicebus.connection-string
+
   environment:

@@ -1,24 +1,51 @@
 package uk.gov.hmcts.reform.hmc.exceptions;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
+import java.util.List;
+
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
+
+@RestControllerAdvice
+@Slf4j
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RestExceptionHandler.class);
+    @Override
+    public ResponseEntity<Object> handleHttpMessageNotReadable(
+        HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        log.debug("HttpMessageNotReadableException:{}", ex.getLocalizedMessage());
+        return toResponseEntity(status, INVALID_HEARING_PAYLOAD);
+    }
 
     @ExceptionHandler(BadRequestException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public @ResponseBody ExceptionResponse handleHearingRequestException(Exception exception) {
-        LOG.warn(exception.getMessage(), exception);
-        return new ExceptionResponse(exception.getMessage());
+    public ResponseEntity<Object> handleBadRequestException(BadRequestException ex) {
+        log.debug("BadRequestException:{}", ex.getLocalizedMessage());
+        return toResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage());
+    }
+
+    @Override
+    public ResponseEntity<Object> handleMethodArgumentNotValid(
+        MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        String[] errors = ex.getBindingResult().getFieldErrors().stream()
+            .map(FieldError:: getDefaultMessage)
+            .toArray(String[]::new);
+        log.debug("MethodArgumentNotValidException:{}", ex.getMessage());
+        return toResponseEntity(status, errors);
+    }
+
+    private ResponseEntity<Object> toResponseEntity(HttpStatus status, String... errors) {
+        var apiError = new ApiError(status, errors == null ? null : List.of(errors));
+        return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
 }

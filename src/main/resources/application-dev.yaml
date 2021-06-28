@@ -1,0 +1,22 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus, hawtio, jolokia
+
+endpoints:
+  jolokia:
+    sensitive: false
+
+hawtio:
+  authenticationEnabled: false
+
+jms:
+  servicebus:
+    enabled: false
+    connection-string: ${SB_CONN_STRING:Endpoint=sb://hmc-servicebus-demo.servicebus.windows.net/;SharedAccessKeyName=SendSharedAccessKey;SharedAccessKey=8EY5+1PU55K/yuWM/KEYhdVK549JBqVLXCeIcvHQFm8=;EntityPath=hmc-from-hmi-demo}
+    queue-name: ${SERVICE_BUS_QUEUE_NAME:hmc-from-hmi-demo}
+  activemq:
+    in-memory: true
+  autoconfigure:
+    exclude:
