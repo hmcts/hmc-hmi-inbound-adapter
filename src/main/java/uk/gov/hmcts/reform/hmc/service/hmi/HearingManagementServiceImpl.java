@@ -3,7 +3,7 @@ package uk.gov.hmcts.reform.hmc.service.hmi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRqst;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.config.MessageSenderConfiguration;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
@@ -32,41 +32,41 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     }
 
     @Override
-    public void processRequest(String caseId, HearingDetailsRqst hearingDetailsRqst) {
+    public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
         cftHearingService.isValidCaseId(caseId);
-        isValidRequest(hearingDetailsRqst);
-        validateHmiHearingRequest(hearingDetailsRqst);
+        isValidRequest(hearingDetailsRequest);
+        validateHmiHearingRequest(hearingDetailsRequest);
     }
 
-    private void isValidRequest(HearingDetailsRqst hearingDetailsRqst) {
+    private void isValidRequest(HearingDetailsRequest hearingDetailsRequest) {
         log.info("Validating hearing response");
-        if (hearingDetailsRqst.getHearingResponse() != null && hearingDetailsRqst.getErrorDetails() != null) {
+        if (hearingDetailsRequest.getHearingResponse() != null && hearingDetailsRequest.getErrorDetails() != null) {
             throw new BadRequestException(INVALID_HEARING_PAYLOAD);
         }
     }
 
-    private void validateHmiHearingRequest(HearingDetailsRqst hearingDetailsRqst) {
-        if (null != hearingDetailsRqst.getErrorDetails()) {
-            isValidErrorDetails(hearingDetailsRqst);
+    private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest) {
+        if (null != hearingDetailsRequest.getErrorDetails()) {
+            isValidErrorDetails(hearingDetailsRequest);
         }
-        if (null != hearingDetailsRqst.getHearingResponse()) {
-            sendHearingRspToQueue(hearingDetailsRqst);
+        if (null != hearingDetailsRequest.getHearingResponse()) {
+            sendHearingRspToQueue(hearingDetailsRequest);
         }
     }
 
-    private void isValidErrorDetails(HearingDetailsRqst hearingDetailsRqst) {
+    private void isValidErrorDetails(HearingDetailsRequest hearingDetailsRequest) {
         log.info("Validating hearing response error details");
-        if (null != hearingDetailsRqst.getErrorDetails().getErrorCode()
-            && CASE_LISTING_ERROR_CODE != hearingDetailsRqst.getErrorDetails().getErrorCode()) {
+        if (null != hearingDetailsRequest.getErrorDetails().getErrorCode()
+            && CASE_LISTING_ERROR_CODE != hearingDetailsRequest.getErrorDetails().getErrorCode()) {
             throw new BadRequestException(INVALID_ERROR_CODE_ERR_MESSAGE);
         } else {
-            sendHearingRspToQueue(hearingDetailsRqst);
+            sendHearingRspToQueue(hearingDetailsRequest);
         }
     }
 
     private void sendHearingRspToQueue(Object response) {
         var jsonNode  = objectMapperService.convertObjectToJsonNode(response);
-        messageSenderConfiguration.sendMessageToQueue(jsonNode.toString());
+        messageSenderConfiguration.sendMessage(jsonNode.toString());
     }
 
 }

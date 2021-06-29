@@ -1,9 +1,9 @@
 package uk.gov.hmcts.reform.hmc.service.hmi;
 
-import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRqst;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 
 public interface HearingManagementService {
 
-    void processRequest(String caseId, HearingDetailsRqst hearingDetailsRqst);
+    void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest);
 
 }

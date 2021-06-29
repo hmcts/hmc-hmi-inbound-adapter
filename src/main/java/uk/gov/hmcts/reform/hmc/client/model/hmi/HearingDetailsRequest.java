@@ -10,7 +10,7 @@ import javax.validation.Valid;
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class HearingDetailsRqst  {
+public class HearingDetailsRequest {
 
     @Valid
     private HearingResponse hearingResponse;

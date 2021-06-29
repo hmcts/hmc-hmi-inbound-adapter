@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
-import uk.gov.hmcts.reform.hmc.client.model.hmi.CftHearingServiceRsp;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
 
@@ -35,13 +35,14 @@ public class CftHearingServiceImpl implements CftHearingService {
     }
 
     @Override
-    public CftHearingServiceRsp isValidCaseId(String caseId) {
+    public boolean isValidCaseId(String caseId) {
         try {
             var httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);
-            return restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
-                                         HttpMethod.GET, requestEntity, CftHearingServiceRsp.class).getBody();
+            restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
+                                         HttpMethod.GET, requestEntity, HttpStatus.class);
+            return true;
         } catch (Exception e) {
             log.warn("Error while validating case Id:{}", caseId, e);
             if (e instanceof HttpClientErrorException

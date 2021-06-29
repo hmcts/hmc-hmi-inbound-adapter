@@ -18,7 +18,7 @@ public class MessageSenderConfiguration {
         this.applicationParams = applicationParams;
     }
 
-    public void sendMessageToQueue(String message) {
+    public void sendMessage(String message) {
         try {
             ServiceBusSenderClient senderClient = new ServiceBusClientBuilder()
                 .connectionString(applicationParams.getConnectionString())
