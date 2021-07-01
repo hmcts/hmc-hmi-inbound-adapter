@@ -1,6 +1,7 @@
 package uk.gov.hmcts.reform.hmc.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,7 +18,6 @@ import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -55,21 +55,25 @@ class HearingManagementServiceImplTest {
     @Test
      void shouldFailAsRequestHasHearingAndErrorDetails() {
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
-        Exception exception = assertThrows(BadRequestException.class, () -> {
+        try {
             hearingManagementService.processRequest(validCaseId, TestingUtil.getHearingAndErrorRequest());
-        });
-        assertEquals(INVALID_HEARING_PAYLOAD, exception.getMessage());
-        assertThat(exception).isInstanceOf(BadRequestException.class);
+            Assertions.fail("Expected an BadRequestException to be thrown");
+        } catch (Exception exception) {
+            assertEquals(INVALID_HEARING_PAYLOAD, exception.getMessage());
+            assertThat(exception).isInstanceOf(BadRequestException.class);
+        }
     }
 
     @Test
-     void shouldFailAsErrorCodeIsInValid() {
+    void shouldFailAsErrorCodeIsInValid() {
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
-        Exception exception = assertThrows(BadRequestException.class, () -> {
+        try {
             hearingManagementService.processRequest(validCaseId, TestingUtil.getErrorRequest(100));
-        });
-        assertEquals(INVALID_ERROR_CODE_ERR_MESSAGE, exception.getMessage());
-        assertThat(exception).isInstanceOf(BadRequestException.class);
+            Assertions.fail("Expected an BadRequestException to be thrown");
+        } catch (Exception exception) {
+            assertEquals(INVALID_ERROR_CODE_ERR_MESSAGE, exception.getMessage());
+            assertThat(exception).isInstanceOf(BadRequestException.class);
+        }
     }
 
     @Test
