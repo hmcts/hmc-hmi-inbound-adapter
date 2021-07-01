@@ -33,6 +33,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return toResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        log.debug("ResourceNotFoundException:{}", ex.getLocalizedMessage());
+        return toResponseEntity(HttpStatus.NOT_FOUND, ex.getMessage());
+    }
+
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(
         MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

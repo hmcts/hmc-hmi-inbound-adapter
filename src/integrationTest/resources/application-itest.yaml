@@ -1,0 +1,8 @@
+hmc:
+  cft-hearing-service:
+    host: ${CFT_HEARING_SERVICE_URL:http://localhost:4459}
+
+jms:
+  servicebus:
+    connection-string: ${HMC_SERVICE_BUS_CONNECTION_STRING:Endpoint=sb://destination1.servicebus.windows.net;SharedAccessKeyName=[KEYNAME];SharedAccessKey=[KEY]}
+    queue-name: ${HMC_SERVICE_BUS_QUEUE:hmc-from-hmi}
