@@ -18,8 +18,11 @@ import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
@@ -35,7 +38,6 @@ class HearingManagementServiceImplTest {
     @Mock
     private ObjectMapperService objectMapperService;
 
-    @InjectMocks
     private HearingManagementServiceImpl hearingManagementService;
 
     @Mock
@@ -49,7 +51,9 @@ class HearingManagementServiceImplTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-
+        hearingManagementService = new HearingManagementServiceImpl(messageSenderConfiguration,
+                                                                    objectMapperService,
+                                                                    cftHearingService);
     }
 
     @Test
@@ -82,6 +86,7 @@ class HearingManagementServiceImplTest {
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).isValidCaseId(any());
     }
 
 
@@ -91,6 +96,7 @@ class HearingManagementServiceImplTest {
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).isValidCaseId(any());
     }
 
     @Test
@@ -99,6 +105,7 @@ class HearingManagementServiceImplTest {
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).isValidCaseId(any());
     }
 
 }
