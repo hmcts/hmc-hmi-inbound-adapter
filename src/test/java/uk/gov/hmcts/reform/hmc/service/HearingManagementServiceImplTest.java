@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
@@ -12,8 +11,6 @@ import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.config.MessageSenderConfiguration;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
-import uk.gov.hmcts.reform.hmc.service.hmi.CftHearingServiceImpl;
-import uk.gov.hmcts.reform.hmc.service.hmi.HearingManagementServiceImpl;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +41,6 @@ class HearingManagementServiceImplTest {
     private MessageSenderConfiguration messageSenderConfiguration;
 
     private String validCaseId = "Case1234";
-    private String inValidCaseId = "Case1111";
 
     JsonNode jsonNode = mock(JsonNode.class);
 
@@ -78,6 +74,15 @@ class HearingManagementServiceImplTest {
             assertEquals(INVALID_ERROR_CODE_ERR_MESSAGE, exception.getMessage());
             assertThat(exception).isInstanceOf(BadRequestException.class);
         }
+    }
+
+    @Test
+    void shouldPassAsErrorCodeIsValid() {
+        HearingDetailsRequest request = TestingUtil.getErrorRequest(2000);
+        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
+        when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
+        hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).isValidCaseId(any());
     }
 
     @Test

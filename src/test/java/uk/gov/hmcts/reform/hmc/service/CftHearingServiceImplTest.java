@@ -16,7 +16,6 @@ import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
 import uk.gov.hmcts.reform.hmc.exceptions.ResourceNotFoundException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
-import uk.gov.hmcts.reform.hmc.service.hmi.CftHearingServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
