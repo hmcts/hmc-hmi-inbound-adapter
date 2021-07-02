@@ -37,6 +37,15 @@
             }
           }
         },
+        "diskSpace" : {
+          "status" : "UP",
+          "details" : {
+            "total" : 103880232960,
+            "free" : 16973086720,
+            "threshold" : 10485760,
+            "exists" : true
+          }
+        },
         "livenessState": {
           "status": "UP"
         },
