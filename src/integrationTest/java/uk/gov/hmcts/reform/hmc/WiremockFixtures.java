@@ -20,6 +20,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static java.net.HttpURLConnection.HTTP_ACCEPTED;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 
@@ -49,15 +50,30 @@ public class WiremockFixtures {
         }
     }
 
-    public static void stubSuccessfullyGetResponseFromHmi() {
-        stubFor(WireMock.put(urlEqualTo("/listings/CASE123456"))
-                    .withHeader("Content-Type", equalTo(APPLICATION_JSON_VALUE))
-                    .withHeader("Accept", equalTo(APPLICATION_JSON_VALUE))
+    public static void stubSuccessfullyGetResponseFromHmi(String caseListingId) {
+        stubFor(WireMock.put(urlEqualTo("/listings/" + caseListingId))
+                    .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
+                    .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
                     .withRequestBody(
                         equalToJson(
                             getJsonString(TestingUtil.getHearingRequest())))
                     .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
     }
+
+    public static void stubSuccessfullyGetResponseFromCft(String caseListingId) {
+        stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid"))
+                    .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
+                    .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                    .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
+    }
+
+    public static void stubReturn404FromCft(String caseListingId) {
+        stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid"))
+                    .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
+                    .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                    .willReturn(aResponse().withStatus(HTTP_NOT_FOUND)));
+    }
+
 
     @SuppressWarnings({"PMD.AvoidThrowingRawExceptionTypes", "squid:S112"})
     // Required as wiremock's Json.getObjectMapper().registerModule(..); not working

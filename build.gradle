@@ -275,17 +275,14 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.0.2'
-  implementation group: 'io.github.openfeign', name: 'feign-okhttp', version: '11.2'
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
 
   implementation group: 'uk.gov.hmcts.reform', name: 'logging', version: versions.reformLogging
   implementation group: 'uk.gov.hmcts.reform', name: 'logging-appinsights', version: versions.reformLogging
 
   implementation group: 'com.github.tomakehurst', name: 'wiremock', version: '2.27.2'
-  implementation group: 'javax.inject', name: 'javax.inject', version: '1'
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.0.2'
   implementation group: 'com.azure', name: 'azure-core', version: '1.13.0'
-  implementation group: 'io.hawt', name: 'hawtio-springboot', version: '2.12.0'
 
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.14.0'
@@ -301,7 +298,6 @@ dependencies {
   }
 
   testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.11.1'
-  testImplementation group: 'org.powermock', name: 'powermock-api-mockito2', version: '2.0.9'
   testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.9'
 
   testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-contract-stub-runner', version: '3.0.2'
@@ -314,10 +310,6 @@ dependencies {
 }
 
 mainClassName = 'uk.gov.hmcts.reform.hmc.Application'
-
-run {
-  args = ["--spring.profiles.active=dev"]
-}
 
 bootJar {
   getArchiveFileName().set(provider {

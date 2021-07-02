@@ -1,6 +1,6 @@
 hmc:
   cft-hearing-service:
-    host: ${CFT_HEARING_SERVICE_URL:http://localhost:4459}
+    host: http://localhost:${wiremock.server.port:5000}
 
 jms:
   servicebus:

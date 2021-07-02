@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.hmc.service.hmi;
+package uk.gov.hmcts.reform.hmc.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,6 +38,7 @@ public class CftHearingServiceImpl implements CftHearingService {
         try {
             var httpHeaders = new HttpHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);
             restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
                                   HttpMethod.GET, requestEntity, HttpStatus.class);

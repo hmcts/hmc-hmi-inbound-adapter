@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.hmc.service.hmi;
+package uk.gov.hmcts.reform.hmc.service;
 
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 
