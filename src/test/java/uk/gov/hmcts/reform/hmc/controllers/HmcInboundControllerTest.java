@@ -15,7 +15,10 @@ import org.springframework.web.context.WebApplicationContext;
 import uk.gov.hmcts.reform.hmc.service.HearingManagementService;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = HmcInboundController.class)
@@ -45,6 +48,7 @@ class HmcInboundControllerTest {
         doNothing().when(hearingManagementService).processRequest(Mockito.anyString(),Mockito.any());
         HmcInboundController controller = new HmcInboundController(hearingManagementService);
         controller.getResponseFromHmi("123", TestingUtil.getHearingRequest());
+        verify(hearingManagementService, times(1)).processRequest(any(), any());
 
     }
 
@@ -53,6 +57,7 @@ class HmcInboundControllerTest {
         doNothing().when(hearingManagementService).processRequest(Mockito.anyString(),Mockito.any());
         HmcInboundController controller = new HmcInboundController(hearingManagementService);
         controller.getResponseFromHmi("123", TestingUtil.getErrorRequest(2000));
+        verify(hearingManagementService, times(1)).processRequest(any(), any());
     }
 
     @Test
@@ -60,6 +65,7 @@ class HmcInboundControllerTest {
         doNothing().when(hearingManagementService).processRequest(Mockito.anyString(),Mockito.any());
         HmcInboundController controller = new HmcInboundController(hearingManagementService);
         controller.getResponseFromHmi(null, TestingUtil.getErrorRequest(2000));
+        verify(hearingManagementService, times(1)).processRequest(any(), any());
     }
 
     @Test
@@ -67,6 +73,7 @@ class HmcInboundControllerTest {
         doNothing().when(hearingManagementService).processRequest(Mockito.anyString(),Mockito.any());
         HmcInboundController controller = new HmcInboundController(hearingManagementService);
         controller.getResponseFromHmi("123", TestingUtil.getHearingRequestMandatoryFieldMissing());
+        verify(hearingManagementService, times(1)).processRequest(any(), any());
     }
 
     @Test
@@ -74,6 +81,7 @@ class HmcInboundControllerTest {
         doNothing().when(hearingManagementService).processRequest(Mockito.anyString(),Mockito.any());
         HmcInboundController controller = new HmcInboundController(hearingManagementService);
         controller.getResponseFromHmi("123", TestingUtil.getMetaRequestMandatoryFieldMissing());
+        verify(hearingManagementService, times(1)).processRequest(any(), any());
     }
 
 }
