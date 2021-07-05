@@ -10,7 +10,7 @@ java:
         - name: AppInsightsInstrumentationKey
           alias: azure.application-insights.instrumentation-key
         - name: HMCServiceBusConnectionString
-          alias: spring.jms.servicebus.connection-string
+          alias: jms.servicebus.connection-string
 
   environment:
     HMC_SERVICE_BUS_QUEUE: hmc-from-hmi-{{ .Values.global.environment }}
