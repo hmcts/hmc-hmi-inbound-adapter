@@ -25,9 +25,9 @@ public class MessageSenderConfiguration {
                 .sender()
                 .queueName(applicationParams.getQueueName())
                 .buildClient();
-            log.info("Connected to Queue {}", applicationParams.getQueueName());
+            log.debug("Connected to Queue {}", applicationParams.getQueueName());
             senderClient.sendMessage(new ServiceBusMessage(message));
-            log.info("Message has been sent to the Queue {}", applicationParams.getQueueName());
+            log.debug("Message has been sent to the Queue {}", applicationParams.getQueueName());
         } catch (Exception e) {
             log.error("Error while sending the message to queue:{}", e.getMessage());
         }
