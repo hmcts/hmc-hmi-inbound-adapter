@@ -2,3 +2,23 @@ java:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  environment:
+    HMC_SERVICE_BUS_QUEUE: hmc-from-hmi
+  secrets:
+    HMC_SERVICE_BUS_CONNECTION_STRING:
+      secretRef: servicebus-secret-queue-{{ .Release.Name }}-servicebus-hmc-from-hmi
+      key: connectionString
+  keyVaults:
+    hmc:
+      resourceGroup: hmc-shared
+      secrets:
+        - name: AppInsightsInstrumentationKey
+
+servicebus:
+  enabled: true
+  teamName: CCD
+  resourceGroup: hmc-aks
+  serviceplan: standard
+  setup:
+    queues:
+      - name: hmc-from-hmi

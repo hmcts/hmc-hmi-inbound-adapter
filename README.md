@@ -89,6 +89,16 @@ docker image rm <image-id>
 
 There is no need to remove postgres and java or similar core images.
 
+## Azure Service Bus & Local Testing
+
+### Azure Service Bus
+
+To enable publishing to an Azure Service Bus destination:
+
+1. Set the Azure Service Bus connection string in the `HMC_SERVICE_BUS_CONNECTION_STRING` environment variable
+1. Set the Azure Service Bus queue name in the `HMC_SERVICE_BUS_QUEUE` environment variable
+1. Restart the application
+
 ## Developing
 
 ### Unit tests
