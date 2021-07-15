@@ -297,25 +297,25 @@ dependencies {
   implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
   annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
 
-  compile group: 'org.eclipse.jetty', name: 'jetty-server', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-alpn-client', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-continuation', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-util', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-util-ajax', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-xml', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-client', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-security', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-http', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-io', version: versions.jetty
-  compile group: 'org.eclipse.jetty.http2', name: 'http2-server', version: versions.jetty
-  compile group: 'org.eclipse.jetty.http2', name: 'http2-common', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-servlets', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-proxy', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-alpn-server', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-server', version: versions.jetty
-  compile group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-client', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-continuation', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-util', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-util-ajax', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-xml', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-client', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-security', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-http', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-io', version: versions.jetty
+  implementation group: 'org.eclipse.jetty.http2', name: 'http2-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty.http2', name: 'http2-common', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-servlet', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-servlets', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-webapp', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-proxy', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: versions.jetty
 
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {

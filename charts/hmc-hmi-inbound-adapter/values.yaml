@@ -9,8 +9,11 @@ java:
       secrets:
         - name: AppInsightsInstrumentationKey
           alias: azure.application-insights.instrumentation-key
-        - name: HMCServiceBusConnectionString
-          alias: jms.servicebus.connection-string
+        - name: hmc-servicebus-connection-string
+          alias: HMC_SERVICE_BUS_CONNECTION_STRING
 
   environment:
     HMC_SERVICE_BUS_QUEUE: hmc-from-hmi-{{ .Values.global.environment }}
+
+servicebus:
+  enabled: false
