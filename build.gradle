@@ -201,8 +201,11 @@ def versions = [
   springBoot      : springBoot.class.package.implementationVersion,
   springCloud     : '2020.0.1',
   springfoxSwagger: '3.0.0',
-  testcontainers  : '1.15.2'
+  testcontainers  : '1.15.2',
+  jetty           : '9.4.43.v20210629'
 ]
+
+ext['spring-framework.version'] = '5.3.7'
 
 // before committing a change, make sure task still works
 dependencyUpdates {
@@ -287,9 +290,32 @@ dependencies {
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.0'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.14.0'
 
+  implementation group: 'net.minidev', name: 'json-smart', version: '2.4.7'
+
+  implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
 
   implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
   annotationProcessor group: 'org.projectlombok', name: 'lombok', version: versions.lombok
+
+  implementation group: 'org.eclipse.jetty', name: 'jetty-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-client', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-continuation', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-util', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-util-ajax', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-xml', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-client', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-security', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-http', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-io', version: versions.jetty
+  implementation group: 'org.eclipse.jetty.http2', name: 'http2-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty.http2', name: 'http2-common', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-servlet', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-servlets', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-webapp', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-proxy', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-server', version: versions.jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: versions.jetty
 
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
