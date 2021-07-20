@@ -8,11 +8,11 @@ properties([
 @Library("Infrastructure")
 
 def type = "java"
-def product = "rpe"
+def product = "hmc"
 def component = "spring-boot-template"
 
 withNightlyPipeline(type, product, component) {
-  enableFortifyScan('ccd-aat')
+  enableFortifyScan('hmc-aat')
   after('fortify-scan') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
   }
