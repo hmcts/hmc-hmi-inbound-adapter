@@ -333,6 +333,8 @@ dependencies {
   functionalTestImplementation sourceSets.main.runtimeClasspath
   functionalTestImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '6.14.2'
   functionalTestImplementation libraries.junit5
+
+  testCompile 'com.github.hmcts:fortify-client:1.2.0:all'
 }
 
 mainClassName = 'uk.gov.hmcts.reform.hmc.Application'
@@ -349,4 +351,10 @@ bootJar {
 
 wrapper {
   distributionType = Wrapper.DistributionType.ALL
+}
+
+task fortifyScan(type: JavaExec)  {
+  main = "uk.gov.hmcts.fortifyclient.FortifyClientMainApp"
+  classpath += sourceSets.test.runtimeClasspath
+  jvmArgs = ['--add-opens=java.base/java.lang.reflect=ALL-UNNAMED']
 }
