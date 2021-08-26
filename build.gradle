@@ -292,6 +292,9 @@ dependencies {
 
   implementation group: 'net.minidev', name: 'json-smart', version: '2.4.7'
 
+  // Explicitly specify version of jakarta.el to be used to resolve CVE-2021-28170
+  implementation group: 'org.glassfish', name: 'jakarta.el', version: '4.0.1'
+
   implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
 
   implementation group: 'org.projectlombok', name: 'lombok', version: versions.lombok
