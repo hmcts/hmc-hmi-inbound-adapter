@@ -202,7 +202,8 @@ def versions = [
   springCloud     : '2020.0.1',
   springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
-  jetty           : '9.4.43.v20210629'
+  jetty           : '9.4.43.v20210629',
+  netty           : '4.1.68.Final'
 ]
 
 ext['spring-framework.version'] = '5.3.12'
@@ -319,6 +320,24 @@ dependencies {
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-server', version: versions.jetty
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-server', version: versions.jetty
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: versions.jetty
+
+  // Explicitly set versions of io.netty components to resolve CVE-2021-37136 and CVE-2021-37137
+  implementation group: 'io.netty', name: 'netty-buffer', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-codec', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-codec-dns', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-codec-http', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-codec-http2', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-codec-socks', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-common', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-handler', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-handler-proxy', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-resolver', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-resolver-dns', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-transport', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-transport-native-epoll', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-transport-native-kqueue', version: versions.netty
+  implementation group: 'io.netty', name: 'netty-transport-native-unix-common', version: versions.netty
 
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
