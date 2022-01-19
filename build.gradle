@@ -253,12 +253,10 @@ cucumberReports {
 
 repositories {
   mavenLocal()
-  jcenter()
   maven {
     url "https://jitpack.io"
   }
   mavenCentral()
-  jcenter()
 }
 
 ext.libraries = [
