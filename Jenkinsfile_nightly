@@ -12,11 +12,10 @@ def product = "hmc"
 def component = "spring-boot-template"
 
 withNightlyPipeline(type, product, component) {
-  // Temporarily disable fortify scan stage until 'entitlementPreferenceType is not available' issue is fixed
-  //enableFortifyScan('hmc-aat')
-  //after('fortify-scan') {
-  //  steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
-  //}
+  enableFortifyScan('hmc-aat')
+  after('fortify-scan') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
+  }
 }
 
 // env variables needed for BEFTA.
