@@ -8,7 +8,7 @@ public class TestDataLoaderMain {
     }
 
     public static void main(String[] args) {
-        new InboundAdapterTestAutomationAdapter().getDataLoader().loadTestDataIfNecessary();
+        new InboundAdapterTestAutomationAdapter().getDataLoader().loadDataIfNotLoadedVeryRecently();
     }
 
 }
