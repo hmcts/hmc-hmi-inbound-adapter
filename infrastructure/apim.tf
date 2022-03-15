@@ -24,7 +24,7 @@ data "azurerm_key_vault_secret" "s2s_client_secret" {
 
 module "api_mgmt_product" {
   source        = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
-  name          = var.product_name
+  name          = "${var.product}-${var.component}"
   api_mgmt_name = local.api_mgmt_name
   api_mgmt_rg   = local.api_mgmt_rg
 }
