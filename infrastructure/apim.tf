@@ -19,7 +19,7 @@ data "azurerm_key_vault" "hmc_key_vault" {
 }
 
 data "azurerm_key_vault_secret" "s2s_client_secret" {
-  name         = "gateway-s2s-client-secret"
+  name         = "api-gateway-s2s-secret"
   key_vault_id = data.azurerm_key_vault.hmc_key_vault.id
 }
 
