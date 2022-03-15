@@ -2,7 +2,7 @@ locals {
   api_mgmt_name     = "cft-api-mgmt-${var.env}"
   api_mgmt_rg       = "cft-${var.env}-network-rg"
   hmc_key_vault     = "${var.product}-${var.env}"
-  api_base_path     = "${var.product}"
+  api_base_path     = var.product
   gateway_client_id = "api_gw"
   idam_audience     = "hmi"
 
