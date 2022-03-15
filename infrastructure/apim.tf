@@ -47,7 +47,7 @@ data "template_file" "policy_template" {
   template = file("${path.module}/template/api-policy.xml")
 
   vars = {
-    idam_url          = local.idam_url
+    idam_base_url     = local.idam_url
     oidc_issuer       = local.oidc_issuer
     audience          = local.idam_audience
     s2s_client_id     = local.gateway_client_id
