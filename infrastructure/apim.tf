@@ -2,6 +2,7 @@ locals {
   api_mgmt_name     = "cft-api-mgmt-${var.env}"
   api_mgmt_rg       = "cft-${var.env}-network-rg"
   hmc_key_vault     = "${var.product}-${var.env}"
+  hmc_shared_rg     = "${var.product}-shared-${var.env}"
   api_base_path     = var.product
   gateway_client_id = "api_gw"
   idam_audience     = "hmi"
@@ -14,7 +15,7 @@ locals {
 
 data "azurerm_key_vault" "hmc_key_vault" {
   name                = local.hmc_key_vault
-  resource_group_name = local.hmc_key_vault
+  resource_group_name = local.hmc_shared_rg
 }
 
 data "azurerm_key_vault_secret" "s2s_client_secret" {
