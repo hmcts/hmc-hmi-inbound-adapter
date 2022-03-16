@@ -34,7 +34,7 @@ module "api_mgmt_product" {
   name          = "${var.product}-${var.component}"
   api_mgmt_name = local.api_mgmt_name
   api_mgmt_rg   = local.api_mgmt_rg
-  provider      = azurerm.aks-cftapps
+  # provider      = azurerm.aks-cftapps
 }
 
 module "api_mgmt_api" {
