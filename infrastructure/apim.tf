@@ -13,6 +13,12 @@ locals {
   s2s_url                 = "http://rpe-service-auth-provider-${var.env}.service.core-compute-${var.env}.internal"
 }
 
+provider "azurerm" {
+  alias           = "aks-cftapps"
+  subscription_id = var.aks_subscription_id
+  features {}
+}
+
 data "azurerm_key_vault" "hmc_key_vault" {
   name                = local.hmc_key_vault
   resource_group_name = local.hmc_shared_rg
@@ -28,6 +34,7 @@ module "api_mgmt_product" {
   name          = "${var.product}-${var.component}"
   api_mgmt_name = local.api_mgmt_name
   api_mgmt_rg   = local.api_mgmt_rg
+  provider      = azurerm.aks-cftapps
 }
 
 module "api_mgmt_api" {
@@ -41,6 +48,7 @@ module "api_mgmt_api" {
   service_url   = local.hmi_inbound_adapter_url
   swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/hmc-hmi-inbound-adapter.json"
   revision      = "1"
+  provider      = azurerm.aks-cftapps
 }
 
 data "template_file" "policy_template" {
@@ -62,4 +70,5 @@ module "api_mgmt_policy" {
   api_mgmt_rg            = local.api_mgmt_rg
   api_name               = module.api_mgmt_api.name
   api_policy_xml_content = data.template_file.policy_template.rendered
+  provider               = azurerm.aks-cftapps
 }
