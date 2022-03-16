@@ -7,12 +7,12 @@
         <!-- validate access token -->
         <validate-jwt header-name="Authorization" failed-validation-httpcode="401" require-scheme="Bearer" require-signed-tokens="true">
             <openid-config url="${idam_base_url}/o/.well-known/openid-configuration" />
-            <issuers>
-                <issuer>${oidc_issuer}</issuer>
-            </issuers>
             <audiences>
                 <audience>${audience}</audience>
             </audiences>
+            <issuers>
+                <issuer>${oidc_issuer}</issuer>
+            </issuers>
         </validate-jwt>
 
         <!-- generate totp -->
