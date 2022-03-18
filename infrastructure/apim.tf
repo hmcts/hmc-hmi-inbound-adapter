@@ -30,11 +30,12 @@ data "azurerm_key_vault_secret" "s2s_client_secret" {
 }
 
 module "api_mgmt_product" {
-  source        = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
-  name          = "${var.product}-${var.component}"
-  api_mgmt_name = local.api_mgmt_name
-  api_mgmt_rg   = local.api_mgmt_rg
-  providers     = {
+  source                = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
+  name                  = "${var.product}-${var.component}"
+  subscription_required = "false"
+  api_mgmt_name         = local.api_mgmt_name
+  api_mgmt_rg           = local.api_mgmt_rg
+  providers             = {
     azurerm = azurerm.aks-cftapps
   }
 }
@@ -48,6 +49,7 @@ module "api_mgmt_api" {
   product_id    = module.api_mgmt_product.product_id
   path          = local.api_base_path
   service_url   = local.hmi_inbound_adapter_url
+  protocols     = ['http', 'https']
   swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/hmc-hmi-inbound-adapter.json"
   revision      = "1"
   providers     = {
