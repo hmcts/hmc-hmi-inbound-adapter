@@ -19,7 +19,7 @@ class MessageSenderConfigurationIT extends BaseTest {
     @Test
     void shouldSuccessfullyProcessRequest() {
         stubSuccessfullyGetResponseFromHmi(caseListingId);
-        messageSenderConfiguration.sendMessage("Test Message");
-        verify(messageSenderConfiguration, times(1)).sendMessage(any());
+        messageSenderConfiguration.sendMessage("Test Message", MessageType.HEARING_RESPONSE, "123456");
+        verify(messageSenderConfiguration, times(1)).sendMessage(any(), any(), any());
     }
 }
