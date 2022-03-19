@@ -29,9 +29,11 @@ public class MessageSenderConfiguration {
                 .queueName(applicationParams.getQueueName())
                 .buildClient();
             log.debug("Connected to Queue {}", applicationParams.getQueueName());
-            senderClient.sendMessage(new ServiceBusMessage(message)
-                                         .addContext(MESSAGE_TYPE, messageType)
-                                         .addContext(HEARING_ID, caseId));
+            ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
+            serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType);
+            serviceBusMessage.getApplicationProperties().put(HEARING_ID, caseId);
+
+            senderClient.sendMessage(serviceBusMessage);
             log.debug("Message has been sent to the Queue {}", applicationParams.getQueueName());
         } catch (Exception e) {
             log.error("Error while sending the message to queue:{}", e.getMessage());
