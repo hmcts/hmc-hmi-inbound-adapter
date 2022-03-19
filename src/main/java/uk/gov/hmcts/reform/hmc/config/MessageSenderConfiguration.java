@@ -23,16 +23,15 @@ public class MessageSenderConfiguration {
 
     public void sendMessage(String message, MessageType messageType, String caseId) {
         try {
+            ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
+            serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType);
+            serviceBusMessage.getApplicationProperties().put(HEARING_ID, caseId);
             ServiceBusSenderClient senderClient = new ServiceBusClientBuilder()
                 .connectionString(applicationParams.getConnectionString())
                 .sender()
                 .queueName(applicationParams.getQueueName())
                 .buildClient();
             log.debug("Connected to Queue {}", applicationParams.getQueueName());
-            ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
-            serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType);
-            serviceBusMessage.getApplicationProperties().put(HEARING_ID, caseId);
-
             senderClient.sendMessage(serviceBusMessage);
             log.debug("Message has been sent to the Queue {}", applicationParams.getQueueName());
         } catch (Exception e) {
