@@ -9,7 +9,7 @@ locals {
 
   hmi_inbound_adapter_url = "http://hmc-hmi-inbound-adapter-${var.env}.service.core-compute-${var.env}.internal"
   idam_url                = "${var.env == "prod" ? "https://hmcts-access.service.gov.uk" : "https://idam-web-public.${var.env}.platform.hmcts.net"}"
-  oidc_issuer             = "https://forgerock-am.service.core-compute-idam-${var.env}.internal:8443/openam/oauth2/hmcts"
+  oidc_issuer             = "https://forgerock-am.service.core-compute-idam-${var.env}.internal:8443/openam/oauth2/realms/root/realms/hmcts"
   s2s_url                 = "http://rpe-service-auth-provider-${var.env}.service.core-compute-${var.env}.internal"
 }
 
