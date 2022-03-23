@@ -9,7 +9,6 @@ import uk.gov.hmcts.reform.hmc.config.MessageType;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
-import static uk.gov.hmcts.reform.hmc.constants.Constants.CASE_LISTING_ERROR_CODE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
 
@@ -57,8 +56,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     private void isValidErrorDetails(HearingDetailsRequest hearingDetailsRequest, String caseId) {
         log.info("Validating hearing response error details");
-        if (null != hearingDetailsRequest.getErrorDetails().getErrorCode()
-            && CASE_LISTING_ERROR_CODE != hearingDetailsRequest.getErrorDetails().getErrorCode()) {
+        if (null != hearingDetailsRequest.getErrorDetails().getErrorCode()) {
             throw new BadRequestException(INVALID_ERROR_CODE_ERR_MESSAGE);
         } else {
             sendHearingRspToQueue(hearingDetailsRequest, MessageType.ERROR, caseId);
