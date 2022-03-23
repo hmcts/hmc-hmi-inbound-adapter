@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -27,16 +28,20 @@ public class CftHearingServiceImpl implements CftHearingService {
     private final RestTemplate restTemplate;
 
     private final ApplicationParams applicationParams;
+    private final SecurityUtils securityUtils;
 
-    public CftHearingServiceImpl(RestTemplate restTemplate, ApplicationParams applicationParams) {
+    public CftHearingServiceImpl(RestTemplate restTemplate,
+                                 ApplicationParams applicationParams,
+                                 SecurityUtils securityUtils) {
         this.restTemplate = restTemplate;
         this.applicationParams = applicationParams;
+        this.securityUtils = securityUtils;
     }
 
     @Override
     public boolean isValidCaseId(String caseId) {
         try {
-            var httpHeaders = new HttpHeaders();
+            var httpHeaders = securityUtils.serviceAuthorizationHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);
