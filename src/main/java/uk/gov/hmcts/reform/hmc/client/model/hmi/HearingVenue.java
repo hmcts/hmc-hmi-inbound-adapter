@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
+import javax.validation.Valid;
 
 @Data
 @NoArgsConstructor
