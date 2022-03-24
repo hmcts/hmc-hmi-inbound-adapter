@@ -40,20 +40,20 @@ public  class TestingUtil {
 
         MetaResponse metaResponse = new MetaResponse();
         metaResponse.setTransactionIdCaseHQ("123");
-        hearingResponse.setMetaResponse(metaResponse);
+       // hearingResponse.setMetaResponse(metaResponse);
 
         Hearing hearing = new Hearing();
         hearing.setHearingIdCaseHQ("47743382");
-        hearing.setHearingType("type");
+     //   hearing.setHearingType("type");
         hearing.setHearingStartTime(LocalDateTime.now());
         hearing.setHearingEndTime(LocalDateTime.now());
         hearing.setHearingCaseIdHmcts("SW710014");
         hearing.setHearingTranslatorRequired(false);
-        hearing.setHearingTranslatorLanguage("test");
+      //  hearing.setHearingTranslatorLanguage("test");
         hearing.setHearingCreatedDate(LocalDateTime.now());
         hearing.setHearingCreatedBy("sysadm");
-        hearing.setHearingVenueId("300");
-        hearing.setHearingJudgeId("test");
+     //   hearing.setHearingVenueId("300");
+     //   hearing.setHearingJudgeId("test");
         hearingResponse.setHearing(hearing);
 
         HearingDetailsRequest request = new HearingDetailsRequest();
@@ -63,8 +63,8 @@ public  class TestingUtil {
 
     public static HearingDetailsRequest getHearingOptionalFields() {
         HearingDetailsRequest request = getHearingRequest();
-        request.getHearingResponse().getMetaResponse().setApiVersion("version1");
-        request.getHearingResponse().getHearing().setHearingSessionIdCaseHQ(123);
+//        request.getHearingResponse().getMetaResponse().setApiVersion("version1");
+//        request.getHearingResponse().getHearing().setHearingSessionIdCaseHQ(123);
         return request;
     }
 
@@ -73,16 +73,16 @@ public  class TestingUtil {
 
         MetaResponse metaResponse = new MetaResponse();
         metaResponse.setTransactionIdCaseHQ("123");
-        hearingResponse.setMetaResponse(metaResponse);
+     //   hearingResponse.setMetaResponse(metaResponse);
 
         Hearing hearing = new Hearing();
-        hearing.setHearingType("type");
+      //  hearing.setHearingType("type");
         hearing.setHearingCaseIdHmcts("SW710014");
         hearing.setHearingTranslatorRequired(false);
-        hearing.setHearingTranslatorLanguage("test");
+      //  hearing.setHearingTranslatorLanguage("test");
         hearing.setHearingCreatedDate(LocalDateTime.now());
         hearing.setHearingCreatedBy("sysadm");
-        hearing.setHearingVenueId("300");
+      //  hearing.setHearingVenueId("300");
         hearingResponse.setHearing(hearing);
 
         HearingDetailsRequest request = new HearingDetailsRequest();
@@ -94,8 +94,8 @@ public  class TestingUtil {
         HearingResponse hearingResponse = new HearingResponse();
 
         MetaResponse metaResponse = new MetaResponse();
-        metaResponse.setApiVersion("version");
-        hearingResponse.setMetaResponse(metaResponse);
+//        metaResponse.setApiVersion("version");
+//        hearingResponse.setMetaResponse(metaResponse);
 
         HearingDetailsRequest request = new HearingDetailsRequest();
         request.setHearingResponse(hearingResponse);
