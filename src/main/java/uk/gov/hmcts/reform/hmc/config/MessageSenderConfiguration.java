@@ -24,7 +24,7 @@ public class MessageSenderConfiguration {
     public void sendMessage(String message, MessageType messageType, String caseId) {
         try {
             ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
-            serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType);
+            serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType.name());
             serviceBusMessage.getApplicationProperties().put(HEARING_ID, caseId);
             ServiceBusSenderClient senderClient = new ServiceBusClientBuilder()
                 .connectionString(applicationParams.getConnectionString())
