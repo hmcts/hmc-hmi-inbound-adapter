@@ -11,7 +11,6 @@ management:
       exposure:
         include: health, info, prometheus
 
-#If you use a database then uncomment below lines and update db properties accordingly
 spring:
   config:
     import: "optional:configtree:/mnt/secrets/hmc/"
@@ -22,31 +21,20 @@ spring:
       fail-on-unknown-properties: true
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+  main:
+    allow-bean-definition-overriding: true
 
 hmc:
   cft-hearing-service:
-    host: ${CFT_HEARING_SERVICE_URL:http://localhost:4459}
-#  datasource:
-#    driver-class-name: org.postgresql.Driver
-#    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}${DB_OPTIONS:}
-#    username: ${DB_USER_NAME}
-#    password: ${DB_PASSWORD}
-#    properties:
-#      charSet: UTF-8
-#    hikari:
-#      minimumIdle: 2
-#      maximumPoolSize: 10
-#      idleTimeout: 10000
-#      poolName: {to-be-defined}HikariCP
-#      maxLifetime: 7200000
-#      connectionTimeout: 30000
-#  jpa:
-#    properties:
-#      hibernate:
-#        jdbc:
-#          lob:
-#            # silence the 'wall-of-text' - unnecessary exception throw about blob types
-#            non_contextual_creation: true
+    host: ${CFT_HEARING_SERVICE_URL:http://localhost:4561}
+
+idam:
+  s2s-auth:
+    microservice: hmc_hmi_inbound_adapter
+    totp_secret: ${IDAM_KEY_HMI_INBOUND_ADAPTER:AAAAAAAAAAAAAAAA}
+    url: ${S2S_URL:http://localhost:4502}
+  s2s-authorised:
+    services: ${HMI_INBOUND_ADAPTER_S2S_AUTHORISED_SERVICES:api_gw}
 
 azure:
   application-insights:
