@@ -68,7 +68,7 @@ class HearingManagementServiceImplTest {
     void shouldFailAsErrorCodeIsInValid() {
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         try {
-            hearingManagementService.processRequest(validCaseId, TestingUtil.getErrorRequest(100));
+            hearingManagementService.processRequest(validCaseId, TestingUtil.getErrorRequest(null));
             Assertions.fail("Expected an BadRequestException to be thrown");
         } catch (Exception exception) {
             assertEquals(INVALID_ERROR_CODE_ERR_MESSAGE, exception.getMessage());

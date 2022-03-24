@@ -56,7 +56,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     private void isValidErrorDetails(HearingDetailsRequest hearingDetailsRequest, String caseId) {
         log.info("Validating hearing response error details");
-        if (null != hearingDetailsRequest.getErrorDetails().getErrorCode()) {
+        if (null == hearingDetailsRequest.getErrorDetails().getErrorCode()) {
             throw new BadRequestException(INVALID_ERROR_CODE_ERR_MESSAGE);
         } else {
             sendHearingRspToQueue(hearingDetailsRequest, MessageType.ERROR, caseId);

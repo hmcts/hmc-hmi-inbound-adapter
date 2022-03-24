@@ -13,7 +13,7 @@ public  class TestingUtil {
     private TestingUtil() {
     }
 
-    public static HearingDetailsRequest getErrorRequest(int errorCode) {
+    public static HearingDetailsRequest getErrorRequest(Integer errorCode) {
         final HearingDetailsRequest request = new HearingDetailsRequest();
 
         ErrorDetails errorDetails = new ErrorDetails();
