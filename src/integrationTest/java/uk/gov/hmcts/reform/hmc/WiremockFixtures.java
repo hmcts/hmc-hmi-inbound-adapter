@@ -61,14 +61,14 @@ public class WiremockFixtures {
     }
 
     public static void stubSuccessfullyGetResponseFromCft(String caseListingId) {
-        stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid"))
+        stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid=true"))
                     .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
                     .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
                     .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
     }
 
     public static void stubReturn404FromCft(String caseListingId) {
-        stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid"))
+        stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid=true"))
                     .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
                     .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
                     .willReturn(aResponse().withStatus(HTTP_NOT_FOUND)));

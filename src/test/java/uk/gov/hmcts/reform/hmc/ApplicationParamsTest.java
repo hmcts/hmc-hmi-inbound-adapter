@@ -36,7 +36,7 @@ class ApplicationParamsTest {
     void shouldTestGetCftHearingValidateCaseIdUrl() {
         ReflectionTestUtils.setField(applicationParams, "cftHearingServiceHost", VALUE);
         assertEquals(applicationParams.cftHearingValidateCaseIdUrl(CASE_ID),
-                     applicationParams.getCftHearingServiceHost() + "/hearing/" + CASE_ID + "?isValid");
+                     applicationParams.getCftHearingServiceHost() + "/hearing/" + CASE_ID + "?isValid=true");
     }
 
     @Test
