@@ -23,18 +23,33 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS: false
   main:
     allow-bean-definition-overriding: true
+  cache:
+    cache-names: hmcAccessTokenCache
+    caffeine:
+      spec: expireAfterWrite=1800s
 
 hmc:
   cft-hearing-service:
     host: ${CFT_HEARING_SERVICE_URL:http://localhost:4561}
 
 idam:
+  api:
+    url: ${IDAM_API_URL:http://localhost:5000}
+  client:
+    id: hmc_hmi_inbound_adapter
+    secret: ${IDAM_CLIENT_SECRET:hmc_hmi_inbound_adapter_secret}
+    scope: openid roles profile manage-user
+    # same for all environments - not used in mca but configured as idam mandates for token generation
+    redirect_uri: https://hmi-inbound-adapter/oauth2redirect
   s2s-auth:
     microservice: hmc_hmi_inbound_adapter
     totp_secret: ${IDAM_KEY_HMI_INBOUND_ADAPTER:AAAAAAAAAAAAAAAA}
     url: ${S2S_URL:http://localhost:4502}
   s2s-authorised:
     services: ${HMI_INBOUND_ADAPTER_S2S_AUTHORISED_SERVICES:api_gw}
+  system-user:
+    id: ${HMC_SYSTEM_USER_ID:master.caseworker@gmail.com}
+    password: ${HMC_SYSTEM_USER_PASSWORD:Pa55word11}
 
 azure:
   application-insights:
