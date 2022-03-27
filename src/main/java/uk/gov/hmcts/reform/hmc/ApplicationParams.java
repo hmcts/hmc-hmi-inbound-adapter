@@ -20,6 +20,12 @@ public class ApplicationParams {
     @Value("${jms.servicebus.connection-string}")
     private String connectionString;
 
+    @Value("${idam.system-user.id}")
+    private String hmcSystemUserId;
+
+    @Value("${idam.system-user.password}")
+    private String hmcSystemUserPassword;
+
     public String cftHearingValidateCaseIdUrl(String caseId) {
         return cftHearingServiceHost + "/hearing/" + encode(caseId) + "?isValid";
     }
