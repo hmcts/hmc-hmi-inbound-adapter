@@ -50,7 +50,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
             isValidErrorDetails(hearingDetailsRequest, caseId);
         }
         if (null != hearingDetailsRequest.getHearingResponse()) {
-            sendHearingRspToQueue(hearingDetailsRequest, MessageType.HEARING_RESPONSE, caseId);
+            sendHearingRspToQueue(hearingDetailsRequest.getHearingResponse(), MessageType.HEARING_RESPONSE, caseId);
         }
     }
 
@@ -59,7 +59,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
         if (null == hearingDetailsRequest.getErrorDetails().getErrorCode()) {
             throw new BadRequestException(INVALID_ERROR_CODE_ERR_MESSAGE);
         } else {
-            sendHearingRspToQueue(hearingDetailsRequest, MessageType.ERROR, caseId);
+            sendHearingRspToQueue(hearingDetailsRequest.getErrorDetails(), MessageType.ERROR, caseId);
         }
     }
 

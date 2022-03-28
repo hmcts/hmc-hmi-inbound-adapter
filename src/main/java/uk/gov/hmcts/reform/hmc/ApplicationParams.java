@@ -27,7 +27,7 @@ public class ApplicationParams {
     private String hmcSystemUserPassword;
 
     public String cftHearingValidateCaseIdUrl(String caseId) {
-        return cftHearingServiceHost + "/hearing/" + encode(caseId) + "?isValid";
+        return cftHearingServiceHost + "/hearing/" + encode(caseId) + "?isValid=true";
     }
 
     public static String encode(final String stringToEncode) {
