@@ -27,3 +27,7 @@ variable "jenkins_AAD_objectId" {
 
 variable "aks_subscription_id" {
 }
+
+variable "apim_suffix" {
+  default = ""
+}

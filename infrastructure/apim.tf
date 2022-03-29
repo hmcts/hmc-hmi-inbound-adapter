@@ -1,5 +1,6 @@
 locals {
-  api_mgmt_name     = "cft-api-mgmt-${var.env}"
+  api_mgmt_suffix   = var.apim_suffix == "" ? var.env : var.apim_suffix
+  api_mgmt_name     = "cft-api-mgmt-${local.api_mgmt_suffix}"
   api_mgmt_rg       = "cft-${var.env}-network-rg"
   hmc_key_vault     = "${var.product}-${var.env}"
   hmc_shared_rg     = "${var.product}-shared-${var.env}"
