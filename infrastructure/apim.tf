@@ -1,5 +1,6 @@
 locals {
-  api_mgmt_name     = "cft-api-mgmt-${var.env}"
+  api_mgmt_suffix   = var.apim_suffix == "" ? var.env : var.apim_suffix
+  api_mgmt_name     = "cft-api-mgmt-${local.api_mgmt_suffix}"
   api_mgmt_rg       = "cft-${var.env}-network-rg"
   hmc_key_vault     = "${var.product}-${var.env}"
   hmc_shared_rg     = "${var.product}-shared-${var.env}"
@@ -9,8 +10,14 @@ locals {
 
   hmi_inbound_adapter_url = "http://hmc-hmi-inbound-adapter-${var.env}.service.core-compute-${var.env}.internal"
   idam_url                = "${var.env == "prod" ? "https://hmcts-access.service.gov.uk" : "https://idam-web-public.${var.env}.platform.hmcts.net"}"
-  oidc_issuer             = "https://forgerock-am.service.core-compute-idam-${var.env}.internal:8443/openam/oauth2/hmcts"
+  oidc_issuer             = "https://forgerock-am.service.core-compute-idam-${var.env}.internal:8443/openam/oauth2/realms/root/realms/hmcts"
   s2s_url                 = "http://rpe-service-auth-provider-${var.env}.service.core-compute-${var.env}.internal"
+}
+
+provider "azurerm" {
+  alias           = "aks-cftapps"
+  subscription_id = var.aks_subscription_id
+  features {}
 }
 
 data "azurerm_key_vault" "hmc_key_vault" {
@@ -24,10 +31,15 @@ data "azurerm_key_vault_secret" "s2s_client_secret" {
 }
 
 module "api_mgmt_product" {
-  source        = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
-  name          = "${var.product}-${var.component}"
-  api_mgmt_name = local.api_mgmt_name
-  api_mgmt_rg   = local.api_mgmt_rg
+  source                = "git@github.com:hmcts/cnp-module-api-mgmt-product?ref=master"
+  name                  = "${var.product}-${var.component}"
+  approval_required     = "false"
+  subscription_required = "false"
+  api_mgmt_name         = local.api_mgmt_name
+  api_mgmt_rg           = local.api_mgmt_rg
+  providers             = {
+    azurerm = azurerm.aks-cftapps
+  }
 }
 
 module "api_mgmt_api" {
@@ -39,8 +51,12 @@ module "api_mgmt_api" {
   product_id    = module.api_mgmt_product.product_id
   path          = local.api_base_path
   service_url   = local.hmi_inbound_adapter_url
+  protocols     = ["http", "https"]
   swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/hmc-hmi-inbound-adapter.json"
   revision      = "1"
+  providers     = {
+    azurerm = azurerm.aks-cftapps
+  }
 }
 
 data "template_file" "policy_template" {
@@ -62,4 +78,7 @@ module "api_mgmt_policy" {
   api_mgmt_rg            = local.api_mgmt_rg
   api_name               = module.api_mgmt_api.name
   api_policy_xml_content = data.template_file.policy_template.rendered
+  providers              = {
+    azurerm = azurerm.aks-cftapps
+  }
 }
