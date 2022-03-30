@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
     Application.class,
 })
 @AutoConfigureMockMvc(addFilters = false)
-@AutoConfigureWireMock(port = 0)
+@AutoConfigureWireMock(port = 0, stubs = "classpath:/wiremock-stubs")
 @ActiveProfiles("itest")
 public class BaseTest {
 
