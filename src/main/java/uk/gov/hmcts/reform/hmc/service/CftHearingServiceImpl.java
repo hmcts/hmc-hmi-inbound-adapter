@@ -3,7 +3,6 @@ package uk.gov.hmcts.reform.hmc.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,16 +26,20 @@ public class CftHearingServiceImpl implements CftHearingService {
     private final RestTemplate restTemplate;
 
     private final ApplicationParams applicationParams;
+    private final SecurityUtils securityUtils;
 
-    public CftHearingServiceImpl(RestTemplate restTemplate, ApplicationParams applicationParams) {
+    public CftHearingServiceImpl(RestTemplate restTemplate,
+                                 ApplicationParams applicationParams,
+                                 SecurityUtils securityUtils) {
         this.restTemplate = restTemplate;
         this.applicationParams = applicationParams;
+        this.securityUtils = securityUtils;
     }
 
     @Override
     public boolean isValidCaseId(String caseId) {
         try {
-            var httpHeaders = new HttpHeaders();
+            var httpHeaders = securityUtils.authorizationHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);

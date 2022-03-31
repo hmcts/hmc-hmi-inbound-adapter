@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,9 @@ class CftHearingServiceImplTest {
     @Mock
     private ApplicationParams applicationParams;
 
+    @Mock
+    private SecurityUtils securityUtils;
+
     @InjectMocks
     private CftHearingServiceImpl cftHearingService;
 
@@ -47,6 +51,7 @@ class CftHearingServiceImplTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         given(applicationParams.cftHearingValidateCaseIdUrl(Mockito.anyString())).willReturn(cftBaseUrl);
+        given(securityUtils.authorizationHeaders()).willReturn(new HttpHeaders());
     }
 
     @Test
