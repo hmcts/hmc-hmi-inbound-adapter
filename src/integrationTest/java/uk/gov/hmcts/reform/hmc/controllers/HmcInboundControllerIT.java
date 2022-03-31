@@ -58,7 +58,7 @@ class HmcInboundControllerIT extends BaseTest {
         mockMvc.perform(put(url)
                .contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON)
-               .content(objectMapper.writeValueAsString(TestingUtil.getErrorRequest(1234))))
+               .content(objectMapper.writeValueAsString(TestingUtil.getErrorRequest(null))))
                .andExpect(status().is(400))
                .andReturn();
     }

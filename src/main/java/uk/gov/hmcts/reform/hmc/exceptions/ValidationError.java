@@ -1,22 +1,28 @@
 package uk.gov.hmcts.reform.hmc.exceptions;
 
 public final class ValidationError {
-
-    public static final String TRANSACTION_ID_CASE_HQ_EMPTY = "Transaction Id case HQ can not be empty";
-    public static final String HEARING_ID_CASE_HQ_EMPTY = "Hearing Id case HQ can not be empty";
-    public static final String HEARING_TYPE_EMPTY = "Hearing type can not be empty";
-    public static final String HEARING_STARTING_TIME_EMPTY = "Hearing start time can not be empty";
-    public static final String HEARING_END_TIME_EMPTY = "Hearing end time can not be empty";
-    public static final String HEARING_CASE_ID_HMCTS_EMPTY = "Hearing case id Hmcts can not be empty";
-    public static final String HEARING_TRANSLATOR_REQUIRED_EMPTY = "Hearing translator can not be empty";
-    public static final String HEARING_TRANSLATOR_LANGUAGE_EMPTY = "Hearing translator language can not be empty ";
-    public static final String HEARING_CREATED_DATE_EMPTY = "Hearing created date can not be empty";
-    public static final String HEARING_CREATED_BY_EMPTY = "Hearing created by can not be empty";
-    public static final String HEARING_VENUE_ID_EMPTY = "Hearing venue id can not be empty";
-    public static final String HEARING_JUDGE_ID_EMPTY = "Hearing judge id can not be empty";
-    public static final String HEARING_CASE_ID_HMCTS_INVALID_LENGTH =
-        "Hearing case id must not be more than 30 characters long";
-    public static final String API_VERSION_INVALID_LENGTH = "API Version must not be more than 32 characters long";
+    private static final String CHARACTERS_LONG = "characters long";
+    public static final String VENUE_LOCATION_CODE_NULL = "Venue location code can not be null or empty";
+    public static final String VENUE_LOCATION_CODE_LENGTH = "Venue location code must not be more than 30 "
+        + CHARACTERS_LONG;
+    public static final String TRANSACTION_ID_CASE_HQ_NULL = "Transaction Id Case Hq can not be null or empty";
+    public static final String TRANSACTION_ID_CASE_HQ_LENGTH = "Transaction Id Case Hq must not be more than 60 "
+        + CHARACTERS_LONG;
+    public static final String TRANSACTION_ID_CASE_HQ_EMPTY = "Timestamp Id Case Hq can not be null or empty";
+    public static final String HEARING_STATUS_CODE_NULL = "Hearing status code can not be null or empty";
+    public static final String HEARING_STATUS_CODE_LENGTH = "Hearing status code must not be more than 30 "
+        + CHARACTERS_LONG;
+    public static final String HEARING_ROOM_NAME_LENGTH = "Hearing room name must not be more than 70 "
+        + CHARACTERS_LONG;
+    public static final String HEARING_JOH_CODE_LENGTH = "Hearing joh code must not be more than 30 "
+        + CHARACTERS_LONG;
+    public static final String HEARING_CODE_NULL = "Hearing code can not be null or empty";
+    public static final String HEARING_ATTENDEE_ENTITY_ID_LENGTH =
+        "Hearing attendee entity id must not be more than 40 " + CHARACTERS_LONG;
+    public static final String HEARING_CASE_VERSION_ID_NULL = "Hearing case version id can not be null or empty";
+    public static final String HEARING_CASE_STATUS_NULL = "Hearing case status not be null or empty";
+    public static final String HEARING_CANCELLATION_REASON_LENGTH =
+        "Hearing cancellation reason must not be more than 70 " + CHARACTERS_LONG;
 
     private ValidationError() {
     }

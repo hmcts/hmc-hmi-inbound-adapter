@@ -68,7 +68,7 @@ class HearingManagementServiceImplTest {
     void shouldFailAsErrorCodeIsInValid() {
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         try {
-            hearingManagementService.processRequest(validCaseId, TestingUtil.getErrorRequest(100));
+            hearingManagementService.processRequest(validCaseId, TestingUtil.getErrorRequest(null));
             Assertions.fail("Expected an BadRequestException to be thrown");
         } catch (Exception exception) {
             assertEquals(INVALID_ERROR_CODE_ERR_MESSAGE, exception.getMessage());
@@ -80,7 +80,7 @@ class HearingManagementServiceImplTest {
     void shouldPassAsErrorCodeIsValid() {
         HearingDetailsRequest request = TestingUtil.getErrorRequest(2000);
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
-        when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
+        when(objectMapperService.convertObjectToJsonNode(request.getErrorDetails())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
         verify(cftHearingService, times(1)).isValidCaseId(any());
     }
@@ -89,7 +89,7 @@ class HearingManagementServiceImplTest {
      void shouldPassWithOptionalErrorDetails() {
         HearingDetailsRequest request = TestingUtil.getErrorRequestWithOptionalFields();
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
-        when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
+        when(objectMapperService.convertObjectToJsonNode(request.getErrorDetails())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
         verify(cftHearingService, times(1)).isValidCaseId(any());
     }
@@ -99,7 +99,7 @@ class HearingManagementServiceImplTest {
      void shouldPassWithOptionalHearingDetails() {
         HearingDetailsRequest request = TestingUtil.getHearingOptionalFields();
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
-        when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
         verify(cftHearingService, times(1)).isValidCaseId(any());
     }
@@ -108,7 +108,7 @@ class HearingManagementServiceImplTest {
      void shouldFailAsHearingMandatoryFieldsMissing() {
         HearingDetailsRequest request = TestingUtil.getHearingRequestMandatoryFieldMissing();
         given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
-        when(objectMapperService.convertObjectToJsonNode(request)).thenReturn(jsonNode);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
         verify(cftHearingService, times(1)).isValidCaseId(any());
     }
