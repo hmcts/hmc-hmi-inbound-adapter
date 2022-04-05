@@ -39,7 +39,7 @@ idam:
     id: hmc_hmi_inbound_adapter
     secret: ${IDAM_CLIENT_SECRET:hmc_hmi_inbound_adapter_secret}
     scope: openid roles profile manage-user
-    # same for all environments - not used in mca but configured as idam mandates for token generation
+    # same for all environments - not used in hmc but configured as idam mandates for token generation
     redirect_uri: https://hmi-inbound-adapter/oauth2redirect
   s2s-auth:
     microservice: hmc_hmi_inbound_adapter

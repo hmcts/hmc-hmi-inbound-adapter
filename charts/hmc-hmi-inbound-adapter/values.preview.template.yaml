@@ -13,6 +13,17 @@ java:
       resourceGroup: hmc-shared
       secrets:
         - name: AppInsightsInstrumentationKey
+          alias: azure.application-insights.instrumentation-key
+        - name: hmc-servicebus-connection-string
+          alias: HMC_SERVICE_BUS_CONNECTION_STRING
+        - name: hmc-hmi-inbound-adapter-s2s-secret
+          alias: IDAM_KEY_HMI_INBOUND_ADAPTER
+        - name: idam-hmc-hmi-inbound-adapter-client-secret
+          alias: IDAM_CLIENT_SECRET
+        - name: idam-hmc-system-user-username
+          alias: HMC_SYSTEM_USER_ID
+        - name: idam-hmc-system-user-password
+          alias: HMC_SYSTEM_USER_PASSWORD
 
 servicebus:
   enabled: true
