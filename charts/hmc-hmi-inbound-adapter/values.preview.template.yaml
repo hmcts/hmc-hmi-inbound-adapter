@@ -20,6 +20,10 @@ java:
           alias: IDAM_KEY_HMI_INBOUND_ADAPTER
         - name: idam-hmc-hmi-inbound-adapter-client-secret
           alias: IDAM_CLIENT_SECRET
+        - name: idam-hmc-system-user-username
+          alias: HMC_SYSTEM_USER_ID
+        - name: idam-hmc-system-user-password
+          alias: HMC_SYSTEM_USER_PASSWORD
 
 servicebus:
   enabled: true
