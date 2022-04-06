@@ -30,7 +30,6 @@ public class Hearing {
     @Valid
     private HearingCaseStatus hearingCaseStatus;
 
-    @NotNull(message = ValidationError.HEARING_STATUS_NULL)
     @Valid
     private HearingStatus hearingStatus;
 
