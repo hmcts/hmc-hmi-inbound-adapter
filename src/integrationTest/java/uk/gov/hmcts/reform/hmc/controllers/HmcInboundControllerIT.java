@@ -79,7 +79,7 @@ class HmcInboundControllerIT extends BaseTest {
         stubReturn404FromCft(listingId);
         mockMvc.perform(put(url)
                .contentType(MediaType.APPLICATION_JSON_VALUE)
-               .content(objectMapper.writeValueAsString(TestingUtil.getHearingRequest())))
+               .content(objectMapper.writeValueAsString(TestingUtil.getHearingWithCodesRequest())))
                .andExpect(status().is(404))
                .andReturn();
 

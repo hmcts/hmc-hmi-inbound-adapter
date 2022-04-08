@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class HearingCaseStatus {
 
-    @NotNull(message = ValidationError.HEARING_CODE_NULL)
+    @NotNull(message = ValidationError.HEARING_STATUS_NULL)
     private HearingCode code;
     private String description;
 }
