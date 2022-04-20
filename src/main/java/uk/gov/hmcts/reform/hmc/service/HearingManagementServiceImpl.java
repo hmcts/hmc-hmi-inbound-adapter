@@ -11,6 +11,7 @@ import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_VERSION;
 
 @Service
 @Slf4j
@@ -33,9 +34,25 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     @Override
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
-        cftHearingService.isValidCaseId(caseId);
+        Integer latestVersion = cftHearingService.getLatestVersion(caseId);
         isValidRequest(hearingDetailsRequest);
-        validateHmiHearingRequest(hearingDetailsRequest, caseId);
+        validateHmiHearingRequest(hearingDetailsRequest, caseId, latestVersion);
+    }
+
+    public boolean isValidRequestVersion(HearingDetailsRequest hearingDetailsRequest,
+                                         Integer latestHearingRequestVersion) {
+        Integer hearingCaseVersionId = 0;
+        if (null != hearingDetailsRequest.getHearingResponse()
+            && null != hearingDetailsRequest.getHearingResponse().getHearing()
+            && null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseVersionId()) {
+            hearingCaseVersionId = hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseVersionId();
+        }
+        if (latestHearingRequestVersion.intValue() != hearingCaseVersionId) {
+            log.warn("Error while validating case version against latest request version: {}, {}",
+                    hearingCaseVersionId, latestHearingRequestVersion);
+            throw new BadRequestException(INVALID_VERSION);
+        }
+        return true;
     }
 
     private void isValidRequest(HearingDetailsRequest hearingDetailsRequest) {
@@ -45,9 +62,12 @@ public class HearingManagementServiceImpl implements HearingManagementService {
         }
     }
 
-    private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId) {
+    private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId,
+                                           Integer latestVersion) {
         if (null != hearingDetailsRequest.getErrorDetails()) {
             isValidErrorDetails(hearingDetailsRequest, caseId);
+        } else {
+            isValidRequestVersion(hearingDetailsRequest, latestVersion);
         }
         if (null != hearingDetailsRequest.getHearingResponse()) {
             sendHearingRspToQueue(hearingDetailsRequest.getHearingResponse(), MessageType.HEARING_RESPONSE, caseId);

@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.hmc.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import uk.gov.hmcts.reform.hmc.BaseTest;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
 import static uk.gov.hmcts.reform.hmc.WiremockFixtures.stubSuccessfullyGetResponseFromCft;
@@ -20,7 +21,9 @@ class HearingManagementServiceIT extends BaseTest {
     @Test
     void testProcessRequest() {
         stubSuccessfullyGetResponseFromCft(caseListingId);
-        hearingManagementService.processRequest(caseListingId, TestingUtil.getHearingRequest());
+        HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
+        hearingRequest.getHearingResponse().getHearing().setHearingCaseVersionId(0);
+        hearingManagementService.processRequest(caseListingId, hearingRequest);
     }
 
 }

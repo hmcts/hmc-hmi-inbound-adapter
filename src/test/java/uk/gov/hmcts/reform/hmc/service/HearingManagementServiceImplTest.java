@@ -23,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_VERSION;
 
 class HearingManagementServiceImplTest {
 
@@ -54,7 +55,6 @@ class HearingManagementServiceImplTest {
 
     @Test
      void shouldFailAsRequestHasHearingAndErrorDetails() {
-        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         try {
             hearingManagementService.processRequest(validCaseId, TestingUtil.getHearingAndErrorRequest());
             Assertions.fail("Expected an BadRequestException to be thrown");
@@ -66,7 +66,7 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldFailAsErrorCodeIsInValid() {
-        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         try {
             hearingManagementService.processRequest(validCaseId, TestingUtil.getErrorRequest(null));
             Assertions.fail("Expected an BadRequestException to be thrown");
@@ -79,38 +79,49 @@ class HearingManagementServiceImplTest {
     @Test
     void shouldPassAsErrorCodeIsValid() {
         HearingDetailsRequest request = TestingUtil.getErrorRequest(2000);
-        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getErrorDetails())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
-        verify(cftHearingService, times(1)).isValidCaseId(any());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
     }
 
     @Test
-     void shouldPassWithOptionalErrorDetails() {
+    void shouldPassWithOptionalErrorDetails() {
         HearingDetailsRequest request = TestingUtil.getErrorRequestWithOptionalFields();
-        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         when(objectMapperService.convertObjectToJsonNode(request.getErrorDetails())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
-        verify(cftHearingService, times(1)).isValidCaseId(any());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
     }
 
 
     @Test
      void shouldPassWithOptionalHearingDetails() {
         HearingDetailsRequest request = TestingUtil.getHearingOptionalFields();
-        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
-        verify(cftHearingService, times(1)).isValidCaseId(any());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
     }
 
     @Test
      void shouldFailAsHearingMandatoryFieldsMissing() {
         HearingDetailsRequest request = TestingUtil.getHearingRequestMandatoryFieldMissing();
-        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
-        verify(cftHearingService, times(1)).isValidCaseId(any());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
+    void shouldFailAsHearingRequestVersionDiffersFromLatestVersion() {
+        HearingDetailsRequest request = TestingUtil.getHearingRequest();
+        try {
+            hearingManagementService.isValidRequestVersion(request, 29);
+            Assertions.fail("Expected an BadRequestException to be thrown");
+        } catch (Exception exception) {
+            assertEquals(INVALID_VERSION, exception.getMessage());
+            assertThat(exception).isInstanceOf(BadRequestException.class);
+        }
     }
 
 }

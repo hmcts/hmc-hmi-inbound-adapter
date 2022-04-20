@@ -56,12 +56,17 @@ class CftHearingServiceImplTest {
 
     @Test
     void shouldSuccessfullyValidateCaseId() {
-        doReturn(ResponseEntity.status(204).build()).when(restTemplate).exchange(anyString(),
+        final String latestHearingRequestVersion = "latestHearingRequestVersion";
+        final String versionValue = "170";
+        ResponseEntity responseEntity = ResponseEntity.status(204)
+                .header(latestHearingRequestVersion, versionValue).build();
+
+        doReturn(responseEntity).when(restTemplate).exchange(anyString(),
                                                                                  eq(HttpMethod.GET),
                                                                                  any(HttpEntity.class),
                                                                                  eq(HttpStatus.class));
-        assertTrue(true);
-
+        assertTrue(responseEntity.getHeaders().containsKey(latestHearingRequestVersion));
+        assertEquals(responseEntity.getHeaders().get(latestHearingRequestVersion).get(0), versionValue);
     }
 
     @Test
@@ -70,7 +75,7 @@ class CftHearingServiceImplTest {
         doThrow(exception).when(restTemplate).exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class),
                                                        eq(HttpStatus.class));
         final ResourceNotFoundException expectedException =
-            assertThrows(ResourceNotFoundException.class, () -> cftHearingService.isValidCaseId(inValidCaseId));
+            assertThrows(ResourceNotFoundException.class, () -> cftHearingService.getLatestVersion(inValidCaseId));
         assertEquals("Hearing Case Id:'Case1111' not found", expectedException.getMessage());
 
     }
@@ -81,7 +86,7 @@ class CftHearingServiceImplTest {
         doThrow(exception).when(restTemplate).exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class),
                                                        eq(HttpStatus.class));
         final ResourceNotFoundException expectedException =
-            assertThrows(ResourceNotFoundException.class, () -> cftHearingService.isValidCaseId(inValidCaseId));
+            assertThrows(ResourceNotFoundException.class, () -> cftHearingService.getLatestVersion(inValidCaseId));
         assertEquals("Hearing Case Id:'Case1111' not found", expectedException.getMessage());
 
     }
@@ -92,7 +97,7 @@ class CftHearingServiceImplTest {
         doThrow(exception).when(restTemplate).exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class),
                                                        eq(HttpStatus.class));
         final ResourceNotFoundException expectedException =
-            assertThrows(ResourceNotFoundException.class, () -> cftHearingService.isValidCaseId(inValidCaseId));
+            assertThrows(ResourceNotFoundException.class, () -> cftHearingService.getLatestVersion(inValidCaseId));
         assertEquals("Hearing Case Id:'Case1111' not found", expectedException.getMessage());
 
     }
@@ -103,7 +108,7 @@ class CftHearingServiceImplTest {
         doThrow(exception).when(restTemplate).exchange(anyString(), eq(HttpMethod.GET), any(HttpEntity.class),
                                                        eq(HttpStatus.class));
         final ServiceException expectedException =
-            assertThrows(ServiceException.class, () -> cftHearingService.isValidCaseId(validCaseId));
+            assertThrows(ServiceException.class, () -> cftHearingService.getLatestVersion(validCaseId));
         assertEquals("The CFT service is currently down, please refresh "
                          +  "your browser or try again later", expectedException.getMessage());
     }
