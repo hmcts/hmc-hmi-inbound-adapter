@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import javax.validation.Valid;
-
-
 
 @Data
 @NoArgsConstructor
@@ -17,9 +14,6 @@ public class HearingSession {
     private String hearingCaseHQ;
 
     private JsonNode hearingType;
-
-    @Valid
-    private HearingStatus hearingStatus;
 
     private LocalDateTime hearingStartTime;
 
@@ -41,7 +35,7 @@ public class HearingSession {
 
     private String hearingVhId;
 
-    private ArrayList<HearingAttendee> hearingAttendees;
+    private ArrayList<HearingAttendee> hearingAttendee;
 
-    private ArrayList<HearingJoh> hearingJohs;
+    private ArrayList<HearingJoh> hearingJoh;
 }

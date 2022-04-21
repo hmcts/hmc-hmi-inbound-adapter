@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import uk.gov.hmcts.reform.hmc.exceptions.ValidationError;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 @Data
 @NoArgsConstructor
@@ -30,18 +32,43 @@ public class Hearing {
     @Valid
     private HearingCaseStatus hearingCaseStatus;
 
+    @Valid
+    private HearingStatus hearingStatus;
+
     private String hearingIdCaseHQ;
+
+    private JsonNode hearingType;
 
     @Size(max = 70, message = ValidationError.HEARING_CANCELLATION_REASON_LENGTH)
     private String hearingCancellationReason;
 
+    private LocalDateTime hearingStartTime;
+
+    private LocalDateTime hearingEndTime;
+
     private Boolean hearingPrivate;
+
+    private Boolean hearingRisk;
+
+    private Boolean hearingTranslatorRequired;
 
     private LocalDateTime hearingCreatedDate;
 
     private String hearingCreatedBy;
 
+    private HearingVenue hearingVenue;
+
+    private HearingRoom hearingRoom;
+
+    private String hearingVhStatus;
+
+    private String hearingVhId;
+
     private String hearingVhGroupId;
+
+    private ArrayList<HearingAttendee> hearingAttendees;
+
+    private ArrayList<HearingJoh> hearingJohs;
 
     private List<HearingSession> hearingSessions;
 }
