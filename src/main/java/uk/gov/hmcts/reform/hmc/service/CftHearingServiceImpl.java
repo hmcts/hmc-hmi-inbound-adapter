@@ -7,7 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -30,7 +29,7 @@ public class CftHearingServiceImpl implements CftHearingService {
 
     private final ApplicationParams applicationParams;
     private final SecurityUtils securityUtils;
-    private static final String LatestRequestVersion = "latestHearingRequestVersion";
+    private static final String LATEST_HEARING_REQUEST_VERSION = "latestHearingRequestVersion";
 
     public CftHearingServiceImpl(RestTemplate restTemplate,
                                  ApplicationParams applicationParams,
@@ -42,28 +41,26 @@ public class CftHearingServiceImpl implements CftHearingService {
 
     @Override
     public Integer getLatestVersion(String caseId) {
-        ResponseEntity responseEntity = validateCaseId(caseId);
+        HttpHeaders headers = validateCaseId(caseId);
         Integer latestVersion = 0;
-        if (responseEntity.getHeaders().containsKey(LatestRequestVersion)) {
-            HttpHeaders headers = responseEntity.getHeaders();
-            if (headers.containsKey(LatestRequestVersion)) {
-                List<String> values = headers.get(LatestRequestVersion);
-                String value = (String) values.get(0);
-                latestVersion = Integer.parseInt(value);
+        if (headers.containsKey(LATEST_HEARING_REQUEST_VERSION)) {
+            List<String> values = headers.get(LATEST_HEARING_REQUEST_VERSION);
+            if (null != values && !values.isEmpty()) {
+                latestVersion = Integer.parseInt(values.get(0));
             }
         }
         return latestVersion;
     }
 
     @Override
-    public ResponseEntity validateCaseId(String caseId) {
+    public HttpHeaders validateCaseId(String caseId) {
         try {
             var httpHeaders = securityUtils.authorizationHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);
             return restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
-                    HttpMethod.GET, requestEntity, HttpStatus.class);
+                    HttpMethod.GET, requestEntity, HttpStatus.class).getHeaders();
         } catch (HttpClientErrorException e) {
             log.warn("Error while validating case Id:{}", caseId, e);
             throw new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_MSG, caseId));
