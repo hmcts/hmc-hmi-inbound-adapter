@@ -55,18 +55,40 @@ class CftHearingServiceImplTest {
     }
 
     @Test
-    void shouldSuccessfullyValidateCaseId() {
-        final String latestHearingRequestVersion = "latestHearingRequestVersion";
+    void shouldFailToGetLatestVersionFromHeader() {
+        ResponseEntity responseEntity = ResponseEntity.status(204).build();
+        doReturn(responseEntity).when(restTemplate).exchange(anyString(),
+                eq(HttpMethod.GET),
+                any(HttpEntity.class),
+                eq(HttpStatus.class));
+        assertEquals(0, cftHearingService.getLatestVersion(inValidCaseId));
+    }
+
+    @Test
+    void shouldSucceedToGetLatestVersionFromHeader() {
         final String versionValue = "170";
         ResponseEntity responseEntity = ResponseEntity.status(204)
-                .header(latestHearingRequestVersion, versionValue).build();
+                .header(cftHearingService.LATEST_HEARING_REQUEST_VERSION, versionValue).build();
+        doReturn(responseEntity).when(restTemplate).exchange(anyString(),
+                eq(HttpMethod.GET),
+                any(HttpEntity.class),
+                eq(HttpStatus.class));
+        assertEquals(170, cftHearingService.getLatestVersion(validCaseId));
+    }
+
+    @Test
+    void shouldSuccessfullyValidateCaseId() {
+        final String versionValue = "170";
+        ResponseEntity responseEntity = ResponseEntity.status(204)
+                .header(cftHearingService.LATEST_HEARING_REQUEST_VERSION, versionValue).build();
 
         doReturn(responseEntity).when(restTemplate).exchange(anyString(),
                                                                                  eq(HttpMethod.GET),
                                                                                  any(HttpEntity.class),
                                                                                  eq(HttpStatus.class));
-        assertTrue(responseEntity.getHeaders().containsKey(latestHearingRequestVersion));
-        assertEquals(responseEntity.getHeaders().get(latestHearingRequestVersion).get(0), versionValue);
+        assertTrue(responseEntity.getHeaders().containsKey(cftHearingService.LATEST_HEARING_REQUEST_VERSION));
+        assertEquals(responseEntity.getHeaders().get(cftHearingService.LATEST_HEARING_REQUEST_VERSION)
+                        .get(0), versionValue);
     }
 
     @Test

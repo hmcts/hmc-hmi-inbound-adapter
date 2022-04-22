@@ -29,7 +29,8 @@ public class CftHearingServiceImpl implements CftHearingService {
 
     private final ApplicationParams applicationParams;
     private final SecurityUtils securityUtils;
-    private static final String LATEST_HEARING_REQUEST_VERSION = "latestHearingRequestVersion";
+
+    public static final String LATEST_HEARING_REQUEST_VERSION = "latestHearingRequestVersion";
 
     public CftHearingServiceImpl(RestTemplate restTemplate,
                                  ApplicationParams applicationParams,
