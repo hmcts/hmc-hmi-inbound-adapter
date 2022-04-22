@@ -15,6 +15,8 @@ public class HearingSession {
 
     private JsonNode hearingType;
 
+    private HearingStatus hearingStatus;
+
     private LocalDateTime hearingStartTime;
 
     private LocalDateTime hearingEndTime;
