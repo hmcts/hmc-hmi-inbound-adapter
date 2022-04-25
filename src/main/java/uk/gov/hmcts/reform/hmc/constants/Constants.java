@@ -11,4 +11,5 @@ public final class Constants {
     public static final String INVALID_ERROR_CODE_ERR_MESSAGE = "Error code is invalid";
     public static final String INVALID_HEARING_PAYLOAD = "Invalid json request";
     public static final String INVALID_VERSION = "Invalid version";
+    public static final String VERSION_NOT_SUPPLIED = "Version not supplied for hearing case id: '%s'";
 }

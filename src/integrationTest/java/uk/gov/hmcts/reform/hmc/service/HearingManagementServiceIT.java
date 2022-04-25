@@ -20,9 +20,9 @@ class HearingManagementServiceIT extends BaseTest {
 
     @Test
     void testProcessRequest() {
-        stubSuccessfullyGetResponseFromCft(caseListingId);
+        stubSuccessfullyGetResponseFromCft(caseListingId, "170");
         HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
-        hearingRequest.getHearingResponse().getHearing().setHearingCaseVersionId(0);
+        hearingRequest.getHearingResponse().getHearing().setHearingCaseVersionId(170);
         hearingManagementService.processRequest(caseListingId, hearingRequest);
     }
 

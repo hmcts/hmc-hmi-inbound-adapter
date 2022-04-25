@@ -39,8 +39,8 @@ public class HearingManagementServiceImpl implements HearingManagementService {
         validateHmiHearingRequest(hearingDetailsRequest, caseId, latestVersion);
     }
 
-    public boolean isValidRequestVersion(HearingDetailsRequest hearingDetailsRequest,
-                                         Integer latestHearingRequestVersion) {
+    public void validateRequestVersion(HearingDetailsRequest hearingDetailsRequest,
+                                       Integer latestHearingRequestVersion) {
         Integer hearingCaseVersionId = 0;
         if (null != hearingDetailsRequest.getHearingResponse()
             && null != hearingDetailsRequest.getHearingResponse().getHearing()
@@ -52,7 +52,6 @@ public class HearingManagementServiceImpl implements HearingManagementService {
                     hearingCaseVersionId, latestHearingRequestVersion);
             throw new BadRequestException(INVALID_VERSION);
         }
-        return true;
     }
 
     private void isValidRequest(HearingDetailsRequest hearingDetailsRequest) {
@@ -67,7 +66,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
         if (null != hearingDetailsRequest.getErrorDetails()) {
             isValidErrorDetails(hearingDetailsRequest, caseId);
         } else {
-            isValidRequestVersion(hearingDetailsRequest, latestVersion);
+            validateRequestVersion(hearingDetailsRequest, latestVersion);
         }
         if (null != hearingDetailsRequest.getHearingResponse()) {
             sendHearingRspToQueue(hearingDetailsRequest.getHearingResponse(), MessageType.HEARING_RESPONSE, caseId);

@@ -116,7 +116,7 @@ class HearingManagementServiceImplTest {
     void shouldFailAsHearingRequestVersionDiffersFromLatestVersion() {
         HearingDetailsRequest request = TestingUtil.getHearingRequest();
         try {
-            hearingManagementService.isValidRequestVersion(request, 29);
+            hearingManagementService.validateRequestVersion(request, 29);
             Assertions.fail("Expected an BadRequestException to be thrown");
         } catch (Exception exception) {
             assertEquals(INVALID_VERSION, exception.getMessage());
