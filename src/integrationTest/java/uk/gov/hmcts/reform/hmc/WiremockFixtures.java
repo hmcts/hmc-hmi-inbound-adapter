@@ -14,11 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.net.HttpURLConnection.HTTP_ACCEPTED;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -60,11 +56,19 @@ public class WiremockFixtures {
                     .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
     }
 
+    public static void stubSuccessfullyGetResponseFromCft(String caseListingId, String version) {
+        stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid=true"))
+                .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
+                .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                .willReturn(aResponse().withHeader("Latest-Hearing-Request-Version", version)
+                        .withStatus(HTTP_ACCEPTED)));
+    }
+
     public static void stubSuccessfullyGetResponseFromCft(String caseListingId) {
         stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid=true"))
-                    .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
-                    .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
-                    .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
+                .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
+                .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
     }
 
     public static void stubReturn404FromCft(String caseListingId) {

@@ -27,6 +27,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.VERSION_NOT_SUPPLIED;
 
 class CftHearingServiceImplTest {
 
@@ -61,7 +62,10 @@ class CftHearingServiceImplTest {
                 eq(HttpMethod.GET),
                 any(HttpEntity.class),
                 eq(HttpStatus.class));
-        assertEquals(0, cftHearingService.getLatestVersion(inValidCaseId));
+
+        final ResourceNotFoundException expectedException =
+                assertThrows(ResourceNotFoundException.class, () -> cftHearingService.getLatestVersion(validCaseId));
+        assertEquals(VERSION_NOT_SUPPLIED.replace("%s", validCaseId), expectedException.getMessage());
     }
 
     @Test
