@@ -7,10 +7,13 @@ import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingStatus;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingVenue;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.ListingStatus;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public  class TestingUtil {
 
@@ -92,6 +95,7 @@ public  class TestingUtil {
         hearing.setHearingTranslatorRequired(false);
         hearing.setHearingCreatedDate(LocalDateTime.now());
         hearing.setHearingCreatedBy("sysadm");
+        hearing.setHearingVenue(getHearingVenue("EPIMS"));
         hearingResponse.setHearing(hearing);
 
         HearingDetailsRequest request = new HearingDetailsRequest();
@@ -128,6 +132,28 @@ public  class TestingUtil {
         HearingDetailsRequest request = new HearingDetailsRequest();
         request.setHearingResponse(hearingResponse);
         return request;
+    }
+
+    public static HearingDetailsRequest getHearingVenueLocationReferencesKeyDoesNotEqualsEpims() {
+        final HearingDetailsRequest hearingDetailsRequest = getHearingRequest();
+        final HearingResponse hearingResponse = hearingDetailsRequest.getHearingResponse();
+        final Hearing hearing = hearingResponse.getHearing();
+        hearing.setHearingVenue(getHearingVenue("notEPIMSKey"));
+
+        hearingResponse.setHearing(hearing);
+        hearingDetailsRequest.setHearingResponse(hearingResponse);
+
+        return hearingDetailsRequest;
+
+    }
+
+    private static HearingVenue getHearingVenue(String key) {
+        VenueLocationReference venueLocationReference = new VenueLocationReference();
+        venueLocationReference.setKey(key);
+
+        HearingVenue hearingVenue = new HearingVenue();
+        hearingVenue.setLocationReferences(List.of(venueLocationReference));
+        return hearingVenue;
     }
 
     public static HearingDetailsRequest getMetaRequestMandatoryFieldMissing() {
