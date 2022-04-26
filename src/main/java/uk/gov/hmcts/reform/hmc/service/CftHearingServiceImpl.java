@@ -61,7 +61,7 @@ public class CftHearingServiceImpl implements CftHearingService {
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);
-            log.info("url: {}", applicationParams.cftHearingValidateCaseIdUrl(caseId));
+            log.debug("url: {}", applicationParams.cftHearingValidateCaseIdUrl(caseId));
             return restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
                     HttpMethod.GET, requestEntity, HttpStatus.class).getHeaders();
         } catch (HttpClientErrorException e) {
