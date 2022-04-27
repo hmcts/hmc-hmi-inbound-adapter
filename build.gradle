@@ -353,9 +353,6 @@ dependencies {
   implementation group: 'io.netty', name: 'netty-transport-native-kqueue', version: versions.netty
   implementation group: 'io.netty', name: 'netty-transport-native-unix-common', version: versions.netty
 
-
-
-
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
     exclude group: 'junit', module: 'junit'
