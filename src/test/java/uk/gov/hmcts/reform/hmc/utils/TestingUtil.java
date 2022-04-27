@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.hmc.utils;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.ErrorDetails;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.Hearing;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCaseStatus;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingStatus;
@@ -49,7 +50,7 @@ public  class TestingUtil {
         Hearing hearing = new Hearing();
         hearing.setHearingCaseVersionId(123);
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
-        hearingCaseStatus.setCode("100");
+        hearingCaseStatus.setCode(String.valueOf(HearingCode.getNumber(HearingCode.LISTED)));
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
         hearing.setHearingIdCaseHQ("47743382");
@@ -77,7 +78,7 @@ public  class TestingUtil {
         Hearing hearing = new Hearing();
         hearing.setHearingCaseVersionId(123);
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
-        hearingCaseStatus.setCode("100");
+        hearingCaseStatus.setCode(String.valueOf(HearingCode.getNumber(HearingCode.LISTED)));
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
         HearingStatus hearingStatus = new HearingStatus();
@@ -147,7 +148,7 @@ public  class TestingUtil {
         Hearing hearing = new Hearing();
         hearing.setHearingCaseVersionId(123);
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
-        hearingCaseStatus.setCode("100");
+        hearingCaseStatus.setCode(String.valueOf(HearingCode.getNumber(HearingCode.LISTED)));
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
         hearing.setHearingCaseIdHmcts("SW710014");

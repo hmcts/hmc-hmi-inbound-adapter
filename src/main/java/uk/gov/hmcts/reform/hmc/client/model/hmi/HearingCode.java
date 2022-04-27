@@ -20,4 +20,8 @@ public enum HearingCode {
     public static boolean isValidNumber(int number) {
         return Arrays.stream(values()).anyMatch(eachType -> (eachType.number == number));
     }
+
+    public static int getNumber(HearingCode code) {
+        return code.number;
+    }
 }
