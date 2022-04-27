@@ -20,18 +20,4 @@ public enum HearingCode {
     public static boolean isValidNumber(int number) {
         return Arrays.stream(values()).anyMatch(eachType -> (eachType.number == number));
     }
-
-    public static HearingCode getByLabel(String name) {
-        return Arrays.stream(HearingCode.values())
-            .filter(eachLinkType -> eachLinkType.label == name).findAny().orElse(null);
-    }
-
-    public static HearingCode getByNumber(String number) {
-        return Arrays.stream(HearingCode.values())
-            .filter(eachLinkType -> eachLinkType.number == Integer.valueOf(number)).findAny().orElse(null);
-    }
-
-    public static int getNumber(HearingCode code) {
-        return code.number;
-    }
 }
