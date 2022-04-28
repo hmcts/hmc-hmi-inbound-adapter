@@ -210,6 +210,7 @@ def versions = [
 ext['spring-framework.version'] = '5.3.18'
 ext['spring-security.version'] = '5.6.2'
 ext['log4j2.version'] = '2.17.1'
+ext['jackson.version'] = '2.13.2'
 
 // before committing a change, make sure task still works
 dependencyUpdates {
@@ -278,6 +279,7 @@ ext.libraries = [
 ]
 
 dependencies {
+  compile "com.fasterxml.jackson.core:jackson-databind:2.13.2.2"
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
@@ -304,6 +306,8 @@ dependencies {
 
   // Explicitly specify version of jakarta.el to be used to resolve CVE-2021-28170
   implementation group: 'org.glassfish', name: 'jakarta.el', version: '4.0.1'
+  compile "org.glassfish:javax.el:3.0.0"
+
   // CVE-2021-42550
   implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
   implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
