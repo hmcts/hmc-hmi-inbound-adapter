@@ -3,7 +3,10 @@ package uk.gov.hmcts.reform.hmc.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingVenue;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
 import uk.gov.hmcts.reform.hmc.config.MessageSenderConfiguration;
 import uk.gov.hmcts.reform.hmc.config.MessageType;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
@@ -11,10 +14,13 @@ import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_LOCATION_REFERENCES;
 
 @Service
 @Slf4j
 public class HearingManagementServiceImpl implements HearingManagementService {
+
+    private static final String EPIMS = "EPIMS";
 
     private final MessageSenderConfiguration messageSenderConfiguration;
 
@@ -42,6 +48,18 @@ public class HearingManagementServiceImpl implements HearingManagementService {
         log.info("Validating hearing response");
         if (hearingDetailsRequest.getHearingResponse() != null && hearingDetailsRequest.getErrorDetails() != null) {
             throw new BadRequestException(INVALID_HEARING_PAYLOAD);
+        }
+
+        if (hearingDetailsRequest.getHearingResponse() != null
+                && hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue() != null) {
+            final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue();
+            if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
+                hearingVenue.getLocationReferences().stream()
+                        .map(VenueLocationReference::getKey)
+                        .filter(key -> key.equalsIgnoreCase(EPIMS))
+                        .findFirst()
+                        .orElseThrow(() -> new BadRequestException(INVALID_LOCATION_REFERENCES));
+            }
         }
     }
 

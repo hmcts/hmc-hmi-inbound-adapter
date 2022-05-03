@@ -88,4 +88,12 @@ class HmcInboundControllerTest {
         verify(hearingManagementService, times(1)).processRequest(any(), any());
     }
 
+    @Test
+    void shouldReturn400_when_HearingVenueLocationReferencesKeyEqualsEpims_NotPresent() {
+        doNothing().when(hearingManagementService).processRequest(Mockito.anyString(),Mockito.any());
+        HmcInboundController controller = new HmcInboundController(hearingManagementService);
+        controller.getResponseFromHmi("123", TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims());
+        verify(hearingManagementService, times(1)).processRequest(any(), any());
+
+    }
 }

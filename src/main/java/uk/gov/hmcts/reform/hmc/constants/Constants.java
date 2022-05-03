@@ -10,4 +10,5 @@ public final class Constants {
         + "your browser or try again later";
     public static final String INVALID_ERROR_CODE_ERR_MESSAGE = "Error code is invalid";
     public static final String INVALID_HEARING_PAYLOAD = "Invalid json request";
+    public static final String INVALID_LOCATION_REFERENCES = "At least one EPIMS location reference must be supplied";
 }

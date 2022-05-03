@@ -39,7 +39,6 @@ class HmcInboundControllerIT extends BaseTest {
                .content(objectMapper.writeValueAsString(TestingUtil.getHearingRequestMandatoryFieldMissing())))
             .andExpect(status().is(400))
             .andReturn();
-
     }
 
     @Test
@@ -71,7 +70,17 @@ class HmcInboundControllerIT extends BaseTest {
                 .content(objectMapper.writeValueAsString(TestingUtil.getMetaRequestMandatoryFieldMissing())))
                 .andExpect(status().is(400))
                 .andReturn();
+    }
 
+    @Test
+    void shouldReturn400_when_HearingVenueLocationReferencesKeyEqualsEpims_NotPresent() throws Exception {
+        stubSuccessfullyGetResponseFromCft(listingId);
+        mockMvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(
+                        TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims())))
+                .andExpect(status().is(400))
+                .andReturn();
     }
 
     @Test
