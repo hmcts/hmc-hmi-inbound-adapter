@@ -12,10 +12,12 @@ import uk.gov.hmcts.reform.hmc.config.MessageType;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
+import java.util.List;
+
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
-import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_VERSION;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_LOCATION_REFERENCES;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_VERSION;
 
 @Service
 @Slf4j
@@ -70,14 +72,19 @@ public class HearingManagementServiceImpl implements HearingManagementService {
                 && hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue() != null) {
             final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue();
             if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
-                hearingVenue.getLocationReferences().stream()
-                        .map(VenueLocationReference::getKey)
-                        .filter(key -> key.equalsIgnoreCase(EPIMS))
-                        .findFirst()
-                        .orElseThrow(() -> new BadRequestException(INVALID_LOCATION_REFERENCES));
+                getLocationReference(hearingVenue.getLocationReferences());
             }
         }
     }
+
+    private String getLocationReference(List<VenueLocationReference> locationReferences) {
+        return locationReferences.stream()
+                .map(VenueLocationReference::getKey)
+                .filter(key -> key.equalsIgnoreCase(EPIMS))
+                .findFirst()
+                .orElseThrow(() -> new BadRequestException(INVALID_LOCATION_REFERENCES));
+    }
+
 
     private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId,
                                            Integer latestVersion) {

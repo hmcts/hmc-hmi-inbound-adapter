@@ -43,7 +43,7 @@ class HearingManagementServiceImplTest {
     @Mock
     private MessageSenderConfiguration messageSenderConfiguration;
 
-    private String validCaseId = "Case1234";
+    private final String validCaseId = "Case1234";
 
     JsonNode jsonNode = mock(JsonNode.class);
 
@@ -129,11 +129,10 @@ class HearingManagementServiceImplTest {
     @Test
     void shouldFailAsHearingVenueLocationReferencesKeyEqualsEpimsMissing() {
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
-        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> hearingManagementService.processRequest(validCaseId, request));
         assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
-        verify(cftHearingService, times(1)).isValidCaseId(any());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
     }
 }
