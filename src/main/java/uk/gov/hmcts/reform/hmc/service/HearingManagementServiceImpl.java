@@ -85,7 +85,6 @@ public class HearingManagementServiceImpl implements HearingManagementService {
                 .orElseThrow(() -> new BadRequestException(INVALID_LOCATION_REFERENCES));
     }
 
-
     private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId,
                                            Integer latestVersion) {
         if (null != hearingDetailsRequest.getErrorDetails()) {
