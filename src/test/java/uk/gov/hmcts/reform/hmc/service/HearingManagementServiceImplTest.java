@@ -9,12 +9,14 @@ import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.config.MessageSenderConfiguration;
+import uk.gov.hmcts.reform.hmc.constants.Constants;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -124,4 +126,14 @@ class HearingManagementServiceImplTest {
         }
     }
 
+    @Test
+    void shouldFailAsHearingVenueLocationReferencesKeyEqualsEpimsMissing() {
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        given(cftHearingService.isValidCaseId(validCaseId)).willReturn(true);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        final BadRequestException badRequestException = assertThrows(BadRequestException.class,
+                () -> hearingManagementService.processRequest(validCaseId, request));
+        assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
+        verify(cftHearingService, times(1)).isValidCaseId(any());
+    }
 }
