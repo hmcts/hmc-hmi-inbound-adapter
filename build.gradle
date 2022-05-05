@@ -207,7 +207,7 @@ def versions = [
   netty           : '4.1.74.Final'
 ]
 
-ext['spring-framework.version'] = '5.3.18'
+ext['spring-framework.version'] = '5.3.19'
 ext['spring-security.version'] = '5.6.2'
 ext['log4j2.version'] = '2.17.1'
 ext['jackson.version'] = '2.13.2'
