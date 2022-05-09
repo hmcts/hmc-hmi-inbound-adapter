@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -37,7 +37,7 @@ public class HearingSession {
 
     private String hearingVhId;
 
-    private ArrayList<HearingAttendee> hearingAttendee;
+    private List<HearingAttendee> hearingAttendee;
 
-    private ArrayList<HearingJoh> hearingJoh;
+    private List<HearingJoh> hearingJoh;
 }

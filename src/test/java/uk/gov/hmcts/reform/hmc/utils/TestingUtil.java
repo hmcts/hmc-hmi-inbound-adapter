@@ -85,7 +85,7 @@ public  class TestingUtil {
         hearingSession.setHearingPrivate(true);
         hearingSession.setHearingRisk(true);
         hearingSession.setHearingTranslatorRequired(false);
-        hearingSession.setHearingVenue(getHearingVenue());
+        hearingSession.setHearingVenue(getHearingVenue("EPIMS"));
         hearingSession.setHearingRoom(getHearingRoom());
         hearingSession.setHearingVhStatus("vh status");
         hearingSession.setHearingAttendee(getHearingAttendee());
@@ -100,30 +100,24 @@ public  class TestingUtil {
         return hearingStatus;
     }
 
-    public static HearingVenue getHearingVenue() {
-        HearingVenue hearingVenue = new HearingVenue();
-        hearingVenue.setLocationName("London");
-        return hearingVenue;
-    }
-
     public static HearingRoom getHearingRoom() {
         HearingRoom hearingRoom = new HearingRoom();
         hearingRoom.setLocationName("room1");
         return hearingRoom;
     }
 
-    public static ArrayList<HearingAttendee> getHearingAttendee() {
+    public static List<HearingAttendee> getHearingAttendee() {
         HearingAttendee hearingAttendee = new HearingAttendee();
         hearingAttendee.setEntityId("attendeeId");
-        ArrayList<HearingAttendee> hearingAttendees = new ArrayList<>();
+        List<HearingAttendee> hearingAttendees = new ArrayList<>();
         hearingAttendees.add(hearingAttendee);
         return hearingAttendees;
     }
 
-    public static ArrayList<HearingJoh> getHearingJohs() {
+    public static List<HearingJoh> getHearingJohs() {
         HearingJoh hearingJoh = new HearingJoh();
         hearingJoh.setJohId("johId");
-        ArrayList<HearingJoh> hearingJohs = new ArrayList<>();
+        List<HearingJoh> hearingJohs = new ArrayList<>();
         hearingJohs.add(hearingJoh);
         return hearingJohs;
     }
