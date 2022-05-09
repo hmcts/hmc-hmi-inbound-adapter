@@ -3,10 +3,12 @@ package uk.gov.hmcts.reform.hmc.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
@@ -14,9 +16,11 @@ import uk.gov.hmcts.reform.hmc.exceptions.ResourceNotFoundException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
 
 import java.util.Collections;
+import java.util.List;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.CFT_SERVICE_DOWN_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.RESOURCE_NOT_FOUND_MSG;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.VERSION_NOT_SUPPLIED;
 
 @Service
 @Slf4j
@@ -28,6 +32,8 @@ public class CftHearingServiceImpl implements CftHearingService {
     private final ApplicationParams applicationParams;
     private final SecurityUtils securityUtils;
 
+    public static final String LATEST_HEARING_REQUEST_VERSION = "Latest-Hearing-Request-Version";
+
     public CftHearingServiceImpl(RestTemplate restTemplate,
                                  ApplicationParams applicationParams,
                                  SecurityUtils securityUtils) {
@@ -37,17 +43,29 @@ public class CftHearingServiceImpl implements CftHearingService {
     }
 
     @Override
-    public boolean isValidCaseId(String caseId) {
+    public Integer getLatestVersion(String caseId) {
+        HttpHeaders headers = getHearingVersionHeaders(caseId);
+        if (headers.containsKey(LATEST_HEARING_REQUEST_VERSION)) {
+            List<String> values = headers.get(LATEST_HEARING_REQUEST_VERSION);
+            if (!CollectionUtils.isEmpty(values)) {
+                return Integer.parseInt(values.get(0));
+            }
+        }
+        log.warn("Error while get latest version for case Id:{}", caseId);
+        throw new ResourceNotFoundException(String.format(VERSION_NOT_SUPPLIED, caseId));
+    }
+
+    private HttpHeaders getHearingVersionHeaders(String caseId) {
         try {
             var httpHeaders = securityUtils.authorizationHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             httpHeaders.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<String> requestEntity = new HttpEntity<>(caseId, httpHeaders);
-            restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
-                                  HttpMethod.GET, requestEntity, HttpStatus.class);
-            return true;
+            log.debug("url: {}", applicationParams.cftHearingValidateCaseIdUrl(caseId));
+            return restTemplate.exchange(applicationParams.cftHearingValidateCaseIdUrl(caseId),
+                    HttpMethod.GET, requestEntity, HttpStatus.class).getHeaders();
         } catch (HttpClientErrorException e) {
-            log.warn("Error while validating case Id:{}", caseId, e);
+            log.warn("Error while get hearing version headers for case Id:{}", caseId, e);
             throw new ResourceNotFoundException(String.format(RESOURCE_NOT_FOUND_MSG, caseId));
         } catch (Exception e) {
             log.warn("Error while validating case Id:{}", caseId, e);

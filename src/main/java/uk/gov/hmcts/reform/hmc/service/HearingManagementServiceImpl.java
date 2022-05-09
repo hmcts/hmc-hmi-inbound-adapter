@@ -3,18 +3,27 @@ package uk.gov.hmcts.reform.hmc.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingVenue;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
 import uk.gov.hmcts.reform.hmc.config.MessageSenderConfiguration;
 import uk.gov.hmcts.reform.hmc.config.MessageType;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
+import java.util.List;
+
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_LOCATION_REFERENCES;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_VERSION;
 
 @Service
 @Slf4j
 public class HearingManagementServiceImpl implements HearingManagementService {
+
+    private static final String EPIMS = "EPIMS";
 
     private final MessageSenderConfiguration messageSenderConfiguration;
 
@@ -33,9 +42,24 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     @Override
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
-        cftHearingService.isValidCaseId(caseId);
+        Integer latestVersion = cftHearingService.getLatestVersion(caseId);
         isValidRequest(hearingDetailsRequest);
-        validateHmiHearingRequest(hearingDetailsRequest, caseId);
+        validateHmiHearingRequest(hearingDetailsRequest, caseId, latestVersion);
+    }
+
+    public void validateRequestVersion(HearingDetailsRequest hearingDetailsRequest,
+                                       Integer latestHearingRequestVersion) {
+        Integer hearingCaseVersionId = 0;
+        if (null != hearingDetailsRequest.getHearingResponse()
+            && null != hearingDetailsRequest.getHearingResponse().getHearing()
+            && null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseVersionId()) {
+            hearingCaseVersionId = hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseVersionId();
+        }
+        if (latestHearingRequestVersion.intValue() != hearingCaseVersionId) {
+            log.warn("Error while validating case version against latest request version: {}, {}",
+                    hearingCaseVersionId, latestHearingRequestVersion);
+            throw new BadRequestException(INVALID_VERSION);
+        }
     }
 
     private void isValidRequest(HearingDetailsRequest hearingDetailsRequest) {
@@ -43,11 +67,30 @@ public class HearingManagementServiceImpl implements HearingManagementService {
         if (hearingDetailsRequest.getHearingResponse() != null && hearingDetailsRequest.getErrorDetails() != null) {
             throw new BadRequestException(INVALID_HEARING_PAYLOAD);
         }
+
+        if (hearingDetailsRequest.getHearingResponse() != null
+                && hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue() != null) {
+            final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue();
+            if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
+                getLocationReference(hearingVenue.getLocationReferences());
+            }
+        }
     }
 
-    private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId) {
+    private String getLocationReference(List<VenueLocationReference> locationReferences) {
+        return locationReferences.stream()
+                .map(VenueLocationReference::getKey)
+                .filter(key -> key.equalsIgnoreCase(EPIMS))
+                .findFirst()
+                .orElseThrow(() -> new BadRequestException(INVALID_LOCATION_REFERENCES));
+    }
+
+    private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId,
+                                           Integer latestVersion) {
         if (null != hearingDetailsRequest.getErrorDetails()) {
             isValidErrorDetails(hearingDetailsRequest, caseId);
+        } else {
+            validateRequestVersion(hearingDetailsRequest, latestVersion);
         }
         if (null != hearingDetailsRequest.getHearingResponse()) {
             sendHearingRspToQueue(hearingDetailsRequest.getHearingResponse(), MessageType.HEARING_RESPONSE, caseId);
