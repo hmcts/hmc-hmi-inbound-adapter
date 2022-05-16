@@ -297,7 +297,7 @@ dependencies {
   implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: versions.serviceAuth
   implementation group: 'com.github.hmcts', name: 'idam-java-client', version: '2.0.1'
 
-  implementation group: 'com.github.tomakehurst', name: 'wiremock', version: '2.33.2'
+ //group: 'com.github.tomakehurst', name: 'wiremock', version: '2.33.2'
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.0.2'
   implementation group: 'com.azure', name: 'azure-core', version: '1.13.0'
   implementation group: "com.github.ben-manes.caffeine", name: "caffeine", version: "3.0.6"
@@ -363,6 +363,8 @@ dependencies {
 
   testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.11.1'
   testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.9'
+
+  testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:2.33.2"
 
   testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-contract-stub-runner'
   integrationTestImplementation sourceSets.main.runtimeClasspath
