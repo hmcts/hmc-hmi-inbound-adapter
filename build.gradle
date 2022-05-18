@@ -204,7 +204,7 @@ def versions = [
   springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
   jetty           : '9.4.43.v20210629',
-  netty           : '4.1.77'
+  netty           : '4.1.77.Final'
 ]
 
 ext['spring-framework.version'] = '5.3.19'
