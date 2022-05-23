@@ -16,6 +16,7 @@
         <cve>CVE-2013-7315</cve>
         <cve>CVE-2020-11022</cve>
         <cve>CVE-2020-11023</cve>
+        <cve>CVE-2022-29885</cve>
     </suppress>
 
   <suppress until="2022-05-25">
