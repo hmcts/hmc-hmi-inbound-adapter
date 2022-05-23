@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 @Data
 @NoArgsConstructor
 public class Hearing {
@@ -68,5 +69,5 @@ public class Hearing {
 
     private List<HearingJoh> hearingJohs;
 
-    private JsonNode hearingSessions;
+    private List<HearingSession> hearingSessions;
 }

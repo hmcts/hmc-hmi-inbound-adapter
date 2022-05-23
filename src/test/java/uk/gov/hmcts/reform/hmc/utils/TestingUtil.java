@@ -2,10 +2,14 @@ package uk.gov.hmcts.reform.hmc.utils;
 
 import uk.gov.hmcts.reform.hmc.client.model.hmi.ErrorDetails;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.Hearing;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingAttendee;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCaseStatus;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingJoh;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingRoom;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingSession;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingStatus;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingVenue;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.ListingStatus;
@@ -13,6 +17,7 @@ import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public  class TestingUtil {
@@ -63,11 +68,58 @@ public  class TestingUtil {
         hearing.setHearingTranslatorRequired(false);
         hearing.setHearingCreatedDate(LocalDateTime.now());
         hearing.setHearingCreatedBy("sysadm");
+        hearing.setHearingSessions(List.of(getHearingSession()));
         hearingResponse.setHearing(hearing);
 
         HearingDetailsRequest request = new HearingDetailsRequest();
         request.setHearingResponse(hearingResponse);
         return request;
+    }
+
+    public static HearingSession getHearingSession() {
+        HearingSession hearingSession = new HearingSession();
+        hearingSession.setHearingCaseHQ("21333");
+        hearingSession.setHearingStartTime(LocalDateTime.now());
+        hearingSession.setHearingEndTime(LocalDateTime.now().plusHours(4));
+        hearingSession.setHearingSequence(1);
+        hearingSession.setHearingPrivate(true);
+        hearingSession.setHearingRisk(true);
+        hearingSession.setHearingTranslatorRequired(false);
+        hearingSession.setHearingVenue(getHearingVenue("EPIMS"));
+        hearingSession.setHearingRoom(getHearingRoom());
+        hearingSession.setHearingVhStatus("vh status");
+        hearingSession.setHearingAttendee(getHearingAttendee());
+        hearingSession.setHearingJoh(getHearingJohs());
+        return hearingSession;
+    }
+
+    public static HearingStatus getHearingStatus(ListingStatus listingStatus) {
+        HearingStatus hearingStatus = new HearingStatus();
+        hearingStatus.setDescription("status desc");
+        hearingStatus.setCode(listingStatus);
+        return hearingStatus;
+    }
+
+    public static HearingRoom getHearingRoom() {
+        HearingRoom hearingRoom = new HearingRoom();
+        hearingRoom.setLocationName("room1");
+        return hearingRoom;
+    }
+
+    public static List<HearingAttendee> getHearingAttendee() {
+        HearingAttendee hearingAttendee = new HearingAttendee();
+        hearingAttendee.setEntityId("attendeeId");
+        List<HearingAttendee> hearingAttendees = new ArrayList<>();
+        hearingAttendees.add(hearingAttendee);
+        return hearingAttendees;
+    }
+
+    public static List<HearingJoh> getHearingJohs() {
+        HearingJoh hearingJoh = new HearingJoh();
+        hearingJoh.setJohId("johId");
+        List<HearingJoh> hearingJohs = new ArrayList<>();
+        hearingJohs.add(hearingJoh);
+        return hearingJohs;
     }
 
     public static HearingDetailsRequest getHearingWithCodesRequest() {
@@ -116,10 +168,7 @@ public  class TestingUtil {
         hearingCaseStatus.setCode("1");
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
-        HearingStatus hearingStatus = new HearingStatus();
-        hearingStatus.setDescription("vale");
-        hearingStatus.setCode(ListingStatus.DRAFT);
-        hearing.setHearingStatus(hearingStatus);
+        hearing.setHearingStatus(getHearingStatus(ListingStatus.DRAFT));
         hearing.setHearingIdCaseHQ("47743382");
         hearing.setHearingStartTime(LocalDateTime.now());
         hearing.setHearingEndTime(LocalDateTime.now());
