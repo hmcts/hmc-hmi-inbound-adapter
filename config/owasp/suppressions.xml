@@ -10,7 +10,6 @@
     <suppress until="2022-06-25">
         <cve>CVE-2022-22968</cve>
         <cve>CVE-2022-22965</cve>
-        <cve>CVE-2016-1000027</cve>
         <cve>CVE-2014-0054</cve>
         <cve>CVE-2013-4152</cve>
         <cve>CVE-2013-7315</cve>
@@ -24,23 +23,7 @@
    file name: spring-plugin-core-2.0.0.RELEASE.jar
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.springframework\.plugin/spring\-plugin\-core@.*$</packageUrl>
-    <cve>CVE-2016-1000027</cve>
-  </suppress>
-
-  <suppress until="2022-06-25">
-    <notes><![CDATA[
-   file name: spring-plugin-core-2.0.0.RELEASE.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.springframework\.plugin/spring\-plugin\-core@.*$</packageUrl>
     <cve>CVE-2022-22965</cve>
-  </suppress>
-
-  <suppress until="2022-06-25">
-    <notes><![CDATA[
-   file name: spring-plugin-metadata-2.0.0.RELEASE.jar
-   ]]></notes>
-    <packageUrl regex="true">^pkg:maven/org\.springframework\.plugin/spring\-plugin\-metadata@.*$</packageUrl>
-    <cve>CVE-2016-1000027</cve>
   </suppress>
 
   <suppress until="2022-06-25">
@@ -64,6 +47,11 @@
    ]]></notes>
     <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat\.embed/tomcat\-embed\-websocket@.*$</packageUrl>
     <cve>CVE-2022-29885</cve>
+  </suppress>
+
+  <suppress until="2022-06-25">
+    <notes>False-positive. See CCD-3023</notes>
+    <cve>CVE-2016-1000027</cve>
   </suppress>
 
 </suppressions>
