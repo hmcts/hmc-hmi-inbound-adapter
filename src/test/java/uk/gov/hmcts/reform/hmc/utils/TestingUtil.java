@@ -88,8 +88,8 @@ public  class TestingUtil {
         hearingSession.setHearingVenue(getHearingVenue("EPIMS"));
         hearingSession.setHearingRoom(getHearingRoom());
         hearingSession.setHearingVhStatus("vh status");
-        hearingSession.setHearingAttendee(getHearingAttendee());
-        hearingSession.setHearingJoh(getHearingJohs());
+        hearingSession.setHearingAttendees(getHearingAttendees());
+        hearingSession.setHearingJohs(getHearingJohs());
         return hearingSession;
     }
 
@@ -106,7 +106,7 @@ public  class TestingUtil {
         return hearingRoom;
     }
 
-    public static List<HearingAttendee> getHearingAttendee() {
+    public static List<HearingAttendee> getHearingAttendees() {
         HearingAttendee hearingAttendee = new HearingAttendee();
         hearingAttendee.setEntityId("attendeeId");
         List<HearingAttendee> hearingAttendees = new ArrayList<>();
