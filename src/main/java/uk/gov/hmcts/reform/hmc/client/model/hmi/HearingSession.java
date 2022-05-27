@@ -37,7 +37,7 @@ public class HearingSession {
 
     private String hearingVhId;
 
-    private List<HearingAttendee> hearingAttendee;
+    private List<HearingAttendee> hearingAttendees;
 
-    private List<HearingJoh> hearingJoh;
+    private List<HearingJoh> hearingJohs;
 }
