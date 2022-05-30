@@ -8,11 +8,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
 import uk.gov.hmcts.reform.hmc.config.MessageSenderConfiguration;
 import uk.gov.hmcts.reform.hmc.constants.Constants;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -117,6 +121,61 @@ class HearingManagementServiceImplTest {
     @Test
     void shouldFailAsHearingRequestVersionDiffersFromLatestVersion() {
         HearingDetailsRequest request = TestingUtil.getHearingRequest();
+        try {
+            hearingManagementService.validateRequestVersion(request, 29);
+            Assertions.fail("Expected an BadRequestException to be thrown");
+        } catch (Exception exception) {
+            assertEquals(INVALID_VERSION, exception.getMessage());
+            assertThat(exception).isInstanceOf(BadRequestException.class);
+        }
+    }
+
+    @Test
+        void shouldFailAsMissingHearingResponse() {
+        HearingDetailsRequest request = new HearingDetailsRequest();
+
+        try {
+            hearingManagementService.validateRequestVersion(request, 29);
+            Assertions.fail("Expected an BadRequestException to be thrown");
+        } catch (Exception exception) {
+            assertEquals(INVALID_VERSION, exception.getMessage());
+            assertThat(exception).isInstanceOf(BadRequestException.class);
+        }
+    }
+
+    @Test
+    void shouldFailAsMissingHearing() {
+        HearingResponse hearingResponse = new HearingResponse();
+
+        MetaResponse metaResponse = new MetaResponse();
+        metaResponse.setTransactionIdCaseHQ("123");
+        metaResponse.setTimestamp(LocalDateTime.now());
+        hearingResponse.setMeta(metaResponse);
+
+        HearingDetailsRequest request = new HearingDetailsRequest();
+        request.setHearingResponse(hearingResponse);
+
+        try {
+            hearingManagementService.validateRequestVersion(request, 29);
+            Assertions.fail("Expected an BadRequestException to be thrown");
+        } catch (Exception exception) {
+            assertEquals(INVALID_VERSION, exception.getMessage());
+            assertThat(exception).isInstanceOf(BadRequestException.class);
+        }
+    }
+
+    @Test
+    void shouldFailAsMissingHearingCaseVersionId() {
+        HearingResponse hearingResponse = new HearingResponse();
+
+        MetaResponse metaResponse = new MetaResponse();
+        metaResponse.setTransactionIdCaseHQ("123");
+        metaResponse.setTimestamp(LocalDateTime.now());
+        hearingResponse.setMeta(metaResponse);
+
+        HearingDetailsRequest request = new HearingDetailsRequest();
+        request.setHearingResponse(hearingResponse);
+
         try {
             hearingManagementService.validateRequestVersion(request, 29);
             Assertions.fail("Expected an BadRequestException to be thrown");

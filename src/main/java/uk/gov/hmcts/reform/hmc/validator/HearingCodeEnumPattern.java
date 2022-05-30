@@ -1,5 +1,7 @@
 package uk.gov.hmcts.reform.hmc.validator;
 
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -14,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = HearingCodeEnumPatternValidator.class)
 public @interface HearingCodeEnumPattern {
-    Class<? extends Enum<?>> enumClass();
+    Class<? extends Enum<HearingCode>> enumClass();
     String fieldName();
     String message() default "Unsupported type or value for {fieldName}";
     Class<?>[] groups() default {};
