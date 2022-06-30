@@ -85,4 +85,9 @@
     <cve>CVE-2022-22950</cve>
   </suppress>
 
+  <suppress>
+    <notes>https://tools.hmcts.net/jira/browse/HMAN-329</notes>
+    <cve>CVE-2022-34305</cve>
+  </suppress>
+
 </suppressions>
