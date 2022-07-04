@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
+import java.util.List;
 import javax.validation.Valid;
 
 @Data
@@ -15,5 +15,5 @@ public class HearingVenue {
     private JsonNode locationRegion;
     private JsonNode locationCluster;
     @Valid
-    private ArrayList<VenueLocationReference> locationReferences;
+    private List<VenueLocationReference> locationReferences;
 }

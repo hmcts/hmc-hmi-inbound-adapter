@@ -39,12 +39,11 @@ class HmcInboundControllerIT extends BaseTest {
                .content(objectMapper.writeValueAsString(TestingUtil.getHearingRequestMandatoryFieldMissing())))
             .andExpect(status().is(400))
             .andReturn();
-
     }
 
     @Test
     void shouldReturn202_whenRequest_has_only_ErrorDetails() throws Exception {
-        stubSuccessfullyGetResponseFromCft(listingId);
+        stubSuccessfullyGetResponseFromCft(listingId, "170");
         mockMvc.perform(put(url)
                .contentType(MediaType.APPLICATION_JSON_VALUE)
                .content(objectMapper.writeValueAsString(TestingUtil.getErrorRequest(2000))))
@@ -54,7 +53,7 @@ class HmcInboundControllerIT extends BaseTest {
 
     @Test
     void shouldReturn400_whenRequest_has_only_InvalidErrorCode() throws Exception {
-        stubSuccessfullyGetResponseFromCft(listingId);
+        stubSuccessfullyGetResponseFromCft(listingId, "170");
         mockMvc.perform(put(url)
                .contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON)
@@ -71,7 +70,17 @@ class HmcInboundControllerIT extends BaseTest {
                 .content(objectMapper.writeValueAsString(TestingUtil.getMetaRequestMandatoryFieldMissing())))
                 .andExpect(status().is(400))
                 .andReturn();
+    }
 
+    @Test
+    void shouldReturn400_when_HearingVenueLocationReferencesKeyEqualsEpims_NotPresent() throws Exception {
+        stubSuccessfullyGetResponseFromCft(listingId);
+        mockMvc.perform(put(url)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(
+                        TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims())))
+                .andExpect(status().is(400))
+                .andReturn();
     }
 
     @Test
