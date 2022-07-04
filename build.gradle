@@ -188,7 +188,7 @@ sonarqube {
     property "sonar.projectKey", "uk.gov.hmcts.reform:hmc-hmi-inbound-adapter"
     property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
     property "sonar.exclusions", "src/main/java/uk/gov/hmcts/reform/hmc/Application.java," +
-      "src/main/java/uk/gov/hmcts/reform/hmc/config/MessageReceiverConfiguration.java,**/config/SecurityConfiguration.java"
+    "src/main/java/uk/gov/hmcts/reform/hmc/config/MessageReceiverConfiguration.java,**/config/SecurityConfiguration.java"
   }
 }
 
@@ -204,12 +204,13 @@ def versions = [
   springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
   jetty           : '9.4.43.v20210629',
-  netty           : '4.1.74.Final'
+  netty           : '4.1.77.Final'
 ]
 
-ext['spring-framework.version'] = '5.3.18'
+ext['spring-framework.version'] = '5.3.19'
 ext['spring-security.version'] = '5.6.2'
 ext['log4j2.version'] = '2.17.1'
+ext['jackson.version'] = '2.13.2'
 
 // before committing a change, make sure task still works
 dependencyUpdates {
@@ -278,6 +279,7 @@ ext.libraries = [
 ]
 
 dependencies {
+  compile "com.fasterxml.jackson.core:jackson-databind:2.13.2.2"
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
@@ -295,15 +297,16 @@ dependencies {
   implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: versions.serviceAuth
   implementation group: 'com.github.hmcts', name: 'idam-java-client', version: '2.0.1'
 
-  implementation group: 'com.github.tomakehurst', name: 'wiremock', version: '2.27.2'
-  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.0.2'
-  implementation group: 'com.azure', name: 'azure-core', version: '1.13.0'
+  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.8.0'
+  implementation group: 'com.azure', name: 'azure-core', version: '1.28.0'
   implementation group: "com.github.ben-manes.caffeine", name: "caffeine", version: "3.0.6"
 
   implementation group: 'net.minidev', name: 'json-smart', version: '2.4.7'
 
   // Explicitly specify version of jakarta.el to be used to resolve CVE-2021-28170
   implementation group: 'org.glassfish', name: 'jakarta.el', version: '4.0.1'
+  compile "org.glassfish:javax.el:3.0.0"
+
   // CVE-2021-42550
   implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
   implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
@@ -359,6 +362,8 @@ dependencies {
 
   testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.11.1'
   testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.9'
+
+  testImplementation group: 'com.github.tomakehurst', name: 'wiremock', version: '2.27.2'
 
   testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-contract-stub-runner'
   integrationTestImplementation sourceSets.main.runtimeClasspath

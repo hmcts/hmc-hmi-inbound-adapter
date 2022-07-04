@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import uk.gov.hmcts.reform.hmc.exceptions.ValidationError;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 @Data
 @NoArgsConstructor
@@ -64,9 +65,9 @@ public class Hearing {
 
     private String hearingVhGroupId;
 
-    private ArrayList<HearingAttendee> hearingAttendees;
+    private List<HearingAttendee> hearingAttendees;
 
-    private ArrayList<HearingJoh> hearingJohs;
+    private List<HearingJoh> hearingJohs;
 
-    private JsonNode hearingSessions;
+    private List<HearingSession> hearingSessions;
 }

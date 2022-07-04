@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.hmc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.common.FileSource;
@@ -26,9 +27,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class WiremockFixtures {
 
+    public static final String LATEST_HEARING_REQUEST_VERSION = "Latest-Hearing-Request-Version";
+
     private static final ObjectMapper OBJECT_MAPPER = new Jackson2ObjectMapperBuilder()
         .modules(new Jdk8Module())
-        .build();
+        .build().registerModule(new JavaTimeModule());
 
     private WiremockFixtures() {
     }
@@ -60,11 +63,16 @@ public class WiremockFixtures {
                     .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
     }
 
-    public static void stubSuccessfullyGetResponseFromCft(String caseListingId) {
+    public static void stubSuccessfullyGetResponseFromCft(String caseListingId, String version) {
         stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid=true"))
-                    .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
-                    .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
-                    .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
+                .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
+                .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                .willReturn(aResponse().withHeader(LATEST_HEARING_REQUEST_VERSION, version)
+                        .withStatus(HTTP_ACCEPTED)));
+    }
+
+    public static void stubSuccessfullyGetResponseFromCft(String caseListingId) {
+        stubSuccessfullyGetResponseFromCft(caseListingId,"1");
     }
 
     public static void stubReturn404FromCft(String caseListingId) {

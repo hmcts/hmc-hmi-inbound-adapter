@@ -18,7 +18,7 @@ spring:
     name: HMC HMI Inbound Adapter
   jackson:
     deserialization:
-      fail-on-unknown-properties: true
+      fail-on-unknown-properties: false
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
   main:
@@ -38,7 +38,7 @@ idam:
   client:
     id: hmc_hmi_inbound_adapter
     secret: ${IDAM_CLIENT_SECRET:hmc_hmi_inbound_adapter_secret}
-    scope: openid roles profile manage-user
+    scope: openid roles profile
     # same for all environments - not used in hmc but configured as idam mandates for token generation
     redirect_uri: https://hmi-inbound-adapter/oauth2redirect
   s2s-auth:
