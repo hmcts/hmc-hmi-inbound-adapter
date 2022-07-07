@@ -51,11 +51,6 @@
   </suppress>
 
   <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-265</notes>
-    <cve>CVE-2022-22978</cve>
-  </suppress>
-
-  <suppress>
     <notes></notes>
     <cve>CVE-2018-11039</cve>
   </suppress>
