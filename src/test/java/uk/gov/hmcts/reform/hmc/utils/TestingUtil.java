@@ -12,7 +12,6 @@ import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingRoom;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingSession;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingStatus;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingVenue;
-import uk.gov.hmcts.reform.hmc.client.model.hmi.ListingStatus;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
 
@@ -93,7 +92,7 @@ public  class TestingUtil {
         return hearingSession;
     }
 
-    public static HearingStatus getHearingStatus(ListingStatus listingStatus) {
+    public static HearingStatus getHearingStatus(String listingStatus) {
         HearingStatus hearingStatus = new HearingStatus();
         hearingStatus.setDescription("status desc");
         hearingStatus.setCode(listingStatus);
@@ -138,7 +137,7 @@ public  class TestingUtil {
         hearing.setHearingCaseStatus(hearingCaseStatus);
         HearingStatus hearingStatus = new HearingStatus();
         hearingStatus.setDescription("vale");
-        hearingStatus.setCode(ListingStatus.DRAFT);
+        hearingStatus.setCode("draft");
         hearing.setHearingStatus(hearingStatus);
         hearing.setHearingIdCaseHQ("47743382");
         hearing.setHearingStartTime(LocalDateTime.now());
@@ -168,7 +167,7 @@ public  class TestingUtil {
         hearingCaseStatus.setCode("1");
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
-        hearing.setHearingStatus(getHearingStatus(ListingStatus.DRAFT));
+        hearing.setHearingStatus(getHearingStatus("draft"));
         hearing.setHearingIdCaseHQ("47743382");
         hearing.setHearingStartTime(LocalDateTime.now());
         hearing.setHearingEndTime(LocalDateTime.now());

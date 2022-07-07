@@ -15,6 +15,7 @@ public final class ValidationError {
     public static final String HEARING_JOH_CODE_LENGTH = "Hearing joh code must not be more than 30 "
         + CHARACTERS_LONG;
     public static final String HEARING_CODE_NULL = "Hearing code can not be null or empty";
+    public static final String HEARING_CODE_LENGTH = "Hearing code must not be more than 30 " + CHARACTERS_LONG;
     public static final String HEARING_ATTENDEE_ENTITY_ID_LENGTH =
         "Hearing attendee entity id must not be more than 40 " + CHARACTERS_LONG;
     public static final String HEARING_CASE_VERSION_ID_NULL = "Hearing case version id can not be null or empty";
