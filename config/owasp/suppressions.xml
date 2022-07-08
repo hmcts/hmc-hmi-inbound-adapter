@@ -8,6 +8,40 @@
     </notes>
     <cve>CVE-2016-1000027</cve>
   </suppress>
+
+  <!--Please add all the false positives under the below section-->
+  <suppress>
+    <notes>False Positives
+      List of False Positives: https://github.com/jeremylong/DependencyCheck/issues?q=label%3A%22FP+Report%22
+      Things to note:
+      Update org.owasp.dependency check to v7.x.x or remove org.owasp.dependencycheck then
+      update uk.gov.hmcts.java version which introduces dependency check v7.x.x
+      Note that updating the uk.gov.hmcts.java pulls in other dependency versions which may have cves assigned
+      CVE-2016-1000027 refer https://tools.hmcts.net/jira/browse/HMAN-249
+      CVE-2013-4152 refer https://tools.hmcts.net/jira/browse/HMAN-241
+      CVE-2014-0054 refer https://tools.hmcts.net/jira/browse/HMAN-250
+      CVE-2013-7315 refer https://tools.hmcts.net/jira/browse/HMAN-240
+    </notes>
+    <cve>CVE-2016-1000027</cve>
+    <cve>CVE-2013-4152</cve>
+    <cve>CVE-2014-0054</cve>
+    <cve>CVE-2013-7315</cve>
+  </suppress>
+
+  <suppress>
+    <notes>
+      <![CDATA[
+        file name: spring-plugin-core-2.0.0.RELEASE.jar
+        file name: spring-plugin-metadata-2.0.0.RELEASE.jar
+      ]]>
+      https://tools.hmcts.net/jira/browse/HMAN-315
+      CVEs are on transitive dependencies of springfox-swagger2 which hasn't been updated in about 2 years
+      CVE-2022-22970 refer https://tools.hmcts.net/jira/browse/HMAN-246
+      CVE-2022-22950 refer https://tools.hmcts.net/jira/browse/HMAN-315
+    </notes>
+    <cve>CVE-2022-22970</cve>
+    <cve>CVE-2022-22950</cve>
+  </suppress>
   <!--End of false positives section -->
 
   <suppress>
@@ -36,11 +70,6 @@
   </suppress>
 
   <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-239</notes>
-    <cve>CVE-2022-29885</cve>
-  </suppress>
-
-  <suppress>
     <notes>https://tools.hmcts.net/jira/browse/HMAN-246</notes>
     <cve>CVE-2022-22970</cve>
   </suppress>
@@ -48,6 +77,11 @@
   <suppress>
     <notes>https://tools.hmcts.net/jira/browse/HMAN-263</notes>
     <cve>CVE-2022-22976</cve>
+  </suppress>
+
+  <suppress>
+    <notes>https://tools.hmcts.net/jira/browse/HMAN-265</notes>
+    <cve>CVE-2022-22978</cve>
   </suppress>
 
   <suppress>
