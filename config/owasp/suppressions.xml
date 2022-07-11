@@ -20,31 +20,8 @@
     <cve>CVE-2013-7315</cve>
   </suppress>
 
-  <suppress>
-    <notes>
-      <![CDATA[
-        file name: spring-plugin-core-2.0.0.RELEASE.jar
-        file name: spring-plugin-metadata-2.0.0.RELEASE.jar
-      ]]>
-      https://tools.hmcts.net/jira/browse/HMAN-315
-      CVEs are on transitive dependencies of springfox-swagger2 which hasn't been updated in about 2 years
-      CVE-2022-22970 refer https://tools.hmcts.net/jira/browse/HMAN-246
-      CVE-2022-22950 refer https://tools.hmcts.net/jira/browse/HMAN-315
-    </notes>
-    <cve>CVE-2022-22970</cve>
-    <cve>CVE-2022-22950</cve>
-  </suppress>
+
   <!--End of false positives section -->
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/CCD-3121</notes>
-    <cve>CVE-2022-22968</cve>
-  </suppress>
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/CCD-2925</notes>
-    <cve>CVE-2022-22965</cve>
-  </suppress>
 
   <suppress>
     <notes>https://tools.hmcts.net/jira/browse/HMAN-263</notes>
