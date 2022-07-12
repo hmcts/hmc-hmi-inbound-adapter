@@ -11,6 +11,9 @@ management:
       exposure:
         include: health, info, prometheus
 
+springdoc:
+  packagesToScan: uk.gov.hmcts.reform.hmc.controllers
+
 spring:
   config:
     import: "optional:configtree:/mnt/secrets/hmc/"

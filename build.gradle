@@ -201,7 +201,6 @@ def versions = [
   serviceAuth     : '4.0.3',
   springBoot      : springBoot.class.package.implementationVersion,
   springCloud     : '2020.0.1',
-  springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
   jetty           : '9.4.43.v20210629',
   netty           : '4.1.77.Final'
@@ -292,7 +291,7 @@ dependencies {
     {
       exclude group: "org.springframework.security", module: "spring-security-crypto"
     }
-  implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
 
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.reformLogging
