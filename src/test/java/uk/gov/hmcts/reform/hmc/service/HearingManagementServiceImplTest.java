@@ -189,12 +189,36 @@ class HearingManagementServiceImplTest {
     }
 
     @Test
+    void shouldPassAsHearingVenueLocationReferencesContainsOneEpimsKey() {
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
+        locationReferences.add(reference1);
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
     void shouldFailAsHearingVenueLocationReferencesKeyEqualsEpimsMissing() {
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> hearingManagementService.processRequest(validCaseId, request));
         assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
+    void shouldPassAsHearingVenueLocationReferencesIsEmpty() {
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        hearingManagementService.processRequest(validCaseId, request);
         verify(cftHearingService, times(1)).getLatestVersion(any());
     }
 
