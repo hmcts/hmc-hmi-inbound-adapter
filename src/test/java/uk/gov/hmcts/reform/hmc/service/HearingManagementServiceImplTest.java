@@ -10,6 +10,7 @@ import uk.gov.hmcts.reform.hmc.ApplicationParams;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
 import uk.gov.hmcts.reform.hmc.config.MessageSenderConfiguration;
 import uk.gov.hmcts.reform.hmc.constants.Constants;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
@@ -17,6 +18,8 @@ import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -193,5 +196,48 @@ class HearingManagementServiceImplTest {
                 () -> hearingManagementService.processRequest(validCaseId, request));
         assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
         verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
+    void shouldFailAsHearingVenueLocationReferencesKeyEqualsMultipleEpims() {
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
+        VenueLocationReference reference2 = createVenueLocationReference("EPIMS", "Jamestown");
+        locationReferences.add(reference1);
+        locationReferences.add(reference2);
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        final BadRequestException badRequestException = assertThrows(BadRequestException.class,
+                () -> hearingManagementService.processRequest(validCaseId, request));
+        assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
+    void shouldFailAsHearingVenueLocationReferencesKeyMoreThanMultipleEpims() {
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
+        VenueLocationReference reference2 = createVenueLocationReference("EPIMS", "Jamestown");
+        VenueLocationReference reference3 = createVenueLocationReference("XXXXX", "Edwardtown");
+        VenueLocationReference reference4 = createVenueLocationReference("VVVVV", "Richardtown");
+        locationReferences.add(reference1);
+        locationReferences.add(reference2);
+        locationReferences.add(reference3);
+        locationReferences.add(reference4);
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        final BadRequestException badRequestException = assertThrows(BadRequestException.class,
+                () -> hearingManagementService.processRequest(validCaseId, request));
+        assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    private VenueLocationReference createVenueLocationReference(String key, String value) {
+        VenueLocationReference reference = new VenueLocationReference();
+        reference.setKey(key);
+        reference.setValue(value);
+        return reference;
     }
 }

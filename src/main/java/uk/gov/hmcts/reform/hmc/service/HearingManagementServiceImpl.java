@@ -13,6 +13,7 @@ import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
@@ -78,11 +79,15 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     }
 
     private String getLocationReference(List<VenueLocationReference> locationReferences) {
-        return locationReferences.stream()
+        List<String> references = locationReferences.stream()
                 .map(VenueLocationReference::getKey)
                 .filter(key -> key.equalsIgnoreCase(EPIMS))
-                .findFirst()
-                .orElseThrow(() -> new BadRequestException(INVALID_LOCATION_REFERENCES));
+                .collect(Collectors.toUnmodifiableList());
+        if (references.size() == 1) {
+            return references.get(0);
+        } else {
+            throw new BadRequestException(INVALID_LOCATION_REFERENCES);
+        }
     }
 
     private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId,
