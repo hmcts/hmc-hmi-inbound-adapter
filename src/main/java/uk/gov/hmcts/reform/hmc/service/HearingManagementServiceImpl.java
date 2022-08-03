@@ -4,6 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCaseStatus;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingVenue;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
@@ -89,12 +91,21 @@ public class HearingManagementServiceImpl implements HearingManagementService {
                                            Integer latestVersion) {
         if (null != hearingDetailsRequest.getErrorDetails()) {
             isValidErrorDetails(hearingDetailsRequest, caseId);
-        } else {
+        } else if (!hearingIsClosed(hearingDetailsRequest)) {
             validateRequestVersion(hearingDetailsRequest, latestVersion);
         }
         if (null != hearingDetailsRequest.getHearingResponse()) {
             sendHearingRspToQueue(hearingDetailsRequest.getHearingResponse(), MessageType.HEARING_RESPONSE, caseId);
         }
+    }
+
+    private boolean hearingIsClosed(HearingDetailsRequest hearingDetailsRequest) {
+        return null != hearingDetailsRequest
+            && null != hearingDetailsRequest.getHearingResponse()
+            && null != hearingDetailsRequest.getHearingResponse().getHearing()
+            && null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseStatus()
+            && HearingCode.CLOSED.getNumber()
+                .equals(hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseStatus().getCode());
     }
 
     private void isValidErrorDetails(HearingDetailsRequest hearingDetailsRequest, String caseId) {
