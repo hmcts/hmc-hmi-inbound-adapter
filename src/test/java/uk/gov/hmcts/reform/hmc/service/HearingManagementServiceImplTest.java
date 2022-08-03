@@ -281,6 +281,7 @@ class HearingManagementServiceImplTest {
         VenueLocationReference reference4 = createVenueLocationReference("VVVVV", "Richardtown");
         locationReferences.addAll(List.of(reference1, reference2, reference3, reference4));
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> hearingManagementService.processRequest(validCaseId, request));
