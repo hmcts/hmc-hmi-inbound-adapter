@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import uk.gov.hmcts.reform.hmc.ApplicationParams;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
@@ -40,9 +39,6 @@ class HearingManagementServiceImplTest {
     private CftHearingServiceImpl cftHearingService;
 
     @Mock
-    private ApplicationParams applicationParams;
-
-    @Mock
     private ObjectMapperService objectMapperService;
 
     private HearingManagementServiceImpl hearingManagementService;
@@ -50,7 +46,7 @@ class HearingManagementServiceImplTest {
     @Mock
     private MessageSenderConfiguration messageSenderConfiguration;
 
-    private final String validCaseId = "Case1234";
+    private static final String validCaseId = "Case1234";
 
     JsonNode jsonNode = mock(JsonNode.class);
 
@@ -190,11 +186,49 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldPassAsHearingVenueLocationReferencesContainsOneEpimsKey() {
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         List<VenueLocationReference> locationReferences = new ArrayList<>();
         VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
         locationReferences.add(reference1);
+        request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
+    void shouldPassAsSessionHearingVenueLocationReferencesContainsOneEpimsKey() {
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        request.getHearingResponse().getHearing().setHearingVenue(null);
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
+        VenueLocationReference reference2 = createVenueLocationReference("notEPIMS", "Jamestown");
+        locationReferences.addAll(List.of(reference1,reference2));
+        request.getHearingResponse().getHearing().getHearingSessions().get(0)
+                .getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
+    void shouldPassAsMultipleHearingVenuesEachHaveAtMostLocationReferencesOfOneEpimsKey() {
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
+        VenueLocationReference reference2 = createVenueLocationReference("XXXXX", "Edwardtown");
+        VenueLocationReference reference3 = createVenueLocationReference("VVVVV", "Richardtown");
+        locationReferences.addAll(List.of(reference1, reference2, reference3));
+        List<VenueLocationReference> locationReferences2 = new ArrayList<>();
+        VenueLocationReference referenceA = createVenueLocationReference("EPIMS", "Smithtown");
+        VenueLocationReference referenceB = createVenueLocationReference("XXXXX", "Jonestown");
+        VenueLocationReference referenceC = createVenueLocationReference("VVVVV", "Murphytown");
+        locationReferences2.addAll(List.of(referenceA, referenceB, referenceC));
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        request.getHearingResponse().getHearing().getHearingSessions().get(0)
+                .getHearingVenue().setLocationReferences(locationReferences2);
         given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -213,8 +247,8 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldPassAsHearingVenueLocationReferencesIsEmpty() {
-        List<VenueLocationReference> locationReferences = new ArrayList<>();
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
         given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
@@ -224,12 +258,11 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldFailAsHearingVenueLocationReferencesKeyEqualsMultipleEpims() {
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         List<VenueLocationReference> locationReferences = new ArrayList<>();
         VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
         VenueLocationReference reference2 = createVenueLocationReference("EPIMS", "Jamestown");
-        locationReferences.add(reference1);
-        locationReferences.add(reference2);
-        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        locationReferences.addAll(List.of(reference1, reference2));
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
@@ -240,16 +273,13 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldFailAsHearingVenueLocationReferencesKeyMoreThanMultipleEpims() {
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         List<VenueLocationReference> locationReferences = new ArrayList<>();
         VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
         VenueLocationReference reference2 = createVenueLocationReference("EPIMS", "Jamestown");
         VenueLocationReference reference3 = createVenueLocationReference("XXXXX", "Edwardtown");
         VenueLocationReference reference4 = createVenueLocationReference("VVVVV", "Richardtown");
-        locationReferences.add(reference1);
-        locationReferences.add(reference2);
-        locationReferences.add(reference3);
-        locationReferences.add(reference4);
-        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        locationReferences.addAll(List.of(reference1, reference2, reference3, reference4));
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,

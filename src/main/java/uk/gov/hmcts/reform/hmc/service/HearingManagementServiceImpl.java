@@ -12,6 +12,7 @@ import uk.gov.hmcts.reform.hmc.config.MessageType;
 import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,11 +72,41 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
         if (hearingDetailsRequest.getHearingResponse() != null
                 && hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue() != null) {
-            final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue();
-            if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
-                getLocationReference(hearingVenue.getLocationReferences());
+
+            getAllHearingVenues(hearingDetailsRequest).forEach(hearingVenue -> {
+                if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
+                    getLocationReference(hearingVenue.getLocationReferences());
+                }
+            });
+        }
+    }
+
+    private List<HearingVenue> getAllHearingVenues(HearingDetailsRequest hearingDetailsRequest) {
+        List<HearingVenue> allHearingVenues = new ArrayList<>();
+
+
+        if (null != hearingDetailsRequest.getHearingResponse()
+                && null != hearingDetailsRequest.getHearingResponse().getHearing()) {
+            if (null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue()) {
+                addVenueToAllVenues(allHearingVenues, hearingDetailsRequest.getHearingResponse()
+                        .getHearing().getHearingVenue());
+            }
+            if (null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions()) {
+                hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions().forEach(e -> {
+                    if (null != e.getHearingVenue()) {
+                        addVenueToAllVenues(allHearingVenues, e.getHearingVenue());
+                    }
+                });
             }
         }
+        return allHearingVenues;
+    }
+
+    private void addVenueToAllVenues(List<HearingVenue> listVenues, HearingVenue hearingVenue) {
+        if (log.isDebugEnabled()) {
+            log.debug("addingHearingVenue {}", hearingVenue.getLocationName());
+        }
+        listVenues.add(hearingVenue);
     }
 
     private String getLocationReference(List<VenueLocationReference> locationReferences) {
