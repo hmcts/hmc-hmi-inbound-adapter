@@ -57,7 +57,7 @@ public  class TestingUtil {
         Hearing hearing = new Hearing();
         hearing.setHearingCaseVersionId(123);
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
-        hearingCaseStatus.setCode(String.valueOf(HearingCode.getNumber(HearingCode.LISTED)));
+        hearingCaseStatus.setCode(HearingCode.LISTED.getNumber());
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
         hearing.setHearingIdCaseHQ("47743382");
@@ -132,7 +132,7 @@ public  class TestingUtil {
         Hearing hearing = new Hearing();
         hearing.setHearingCaseVersionId(123);
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
-        hearingCaseStatus.setCode(String.valueOf(HearingCode.getNumber(HearingCode.LISTED)));
+        hearingCaseStatus.setCode(HearingCode.LISTED.getNumber());
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
         HearingStatus hearingStatus = new HearingStatus();
@@ -200,7 +200,7 @@ public  class TestingUtil {
         Hearing hearing = new Hearing();
         hearing.setHearingCaseVersionId(123);
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
-        hearingCaseStatus.setCode(String.valueOf(HearingCode.getNumber(HearingCode.LISTED)));
+        hearingCaseStatus.setCode(HearingCode.LISTED.getNumber());
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
         hearing.setHearingCaseIdHmcts("SW710014");

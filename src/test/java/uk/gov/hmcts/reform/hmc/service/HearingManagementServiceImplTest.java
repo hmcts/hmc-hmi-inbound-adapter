@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
@@ -103,6 +104,17 @@ class HearingManagementServiceImplTest {
     @Test
      void shouldPassWithOptionalHearingDetails() {
         HearingDetailsRequest request = TestingUtil.getHearingOptionalFields();
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+    }
+
+    @Test
+    void shouldSkipVersionCheckWhenHearingCaseStatusIsClosed() {
+        HearingDetailsRequest request = TestingUtil.getHearingRequest();
+        request.getHearingResponse().getHearing().getHearingCaseStatus().setCode(HearingCode.CLOSED.getNumber());
+        request.getHearingResponse().getHearing().setHearingCaseVersionId(999);
         given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
