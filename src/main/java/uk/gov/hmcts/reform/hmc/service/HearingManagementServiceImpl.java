@@ -69,20 +69,25 @@ public class HearingManagementServiceImpl implements HearingManagementService {
             throw new BadRequestException(INVALID_HEARING_PAYLOAD);
         }
 
-        if (hearingDetailsRequest.getHearingResponse() != null
-                && hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue() != null) {
+        if (hearingDetailsRequest.getHearingResponse() != null) {
 
-            final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue();
-            if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
-                getLocationReference(hearingVenue.getLocationReferences());
+            if (null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue()) {
+                final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse()
+                        .getHearing().getHearingVenue();
+                if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
+                    getLocationReference(hearingVenue.getLocationReferences());
+                }
             }
 
-            hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions().forEach(session -> {
-                if (null != session.getHearingVenue()
-                        && !CollectionUtils.isEmpty(session.getHearingVenue().getLocationReferences())) {
-                    getLocationReference(session.getHearingVenue().getLocationReferences());
-                }
-            });
+            if (null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions()) {
+                hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions().forEach(session -> {
+                    if (null != session && null != session.getHearingVenue()
+                            && !CollectionUtils.isEmpty(session.getHearingVenue().getLocationReferences())) {
+                        getLocationReference(session.getHearingVenue().getLocationReferences());
+                    }
+                });
+            }
+
         }
     }
 
