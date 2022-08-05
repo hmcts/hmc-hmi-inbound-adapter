@@ -20,7 +20,7 @@ public enum HearingCode {
         return Arrays.stream(values()).anyMatch(eachType -> (eachType.number == number));
     }
 
-    public static int getNumber(HearingCode code) {
-        return code.number;
+    public String getNumber() {
+        return Integer.toString(number);
     }
 }
