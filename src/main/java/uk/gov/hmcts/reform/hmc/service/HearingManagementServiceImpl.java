@@ -14,6 +14,7 @@ import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.service.common.ObjectMapperService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
@@ -64,26 +65,43 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     }
 
     private void isValidRequest(HearingDetailsRequest hearingDetailsRequest) {
-        log.info("Validating hearing response");
+        log.debug("Validating hearing response");
         if (hearingDetailsRequest.getHearingResponse() != null && hearingDetailsRequest.getErrorDetails() != null) {
             throw new BadRequestException(INVALID_HEARING_PAYLOAD);
         }
 
-        if (hearingDetailsRequest.getHearingResponse() != null
-                && hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue() != null) {
-            final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue();
-            if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
-                getLocationReference(hearingVenue.getLocationReferences());
+        if (hearingDetailsRequest.getHearingResponse() != null) {
+
+            if (null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingVenue()) {
+                final HearingVenue hearingVenue = hearingDetailsRequest.getHearingResponse()
+                        .getHearing().getHearingVenue();
+                if (!CollectionUtils.isEmpty(hearingVenue.getLocationReferences())) {
+                    getLocationReference(hearingVenue.getLocationReferences());
+                }
             }
+
+            if (null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions()) {
+                hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions().forEach(session -> {
+                    if (null != session && null != session.getHearingVenue()
+                            && !CollectionUtils.isEmpty(session.getHearingVenue().getLocationReferences())) {
+                        getLocationReference(session.getHearingVenue().getLocationReferences());
+                    }
+                });
+            }
+
         }
     }
 
     private String getLocationReference(List<VenueLocationReference> locationReferences) {
-        return locationReferences.stream()
+        List<String> references = locationReferences.stream()
                 .map(VenueLocationReference::getKey)
                 .filter(key -> key.equalsIgnoreCase(EPIMS))
-                .findFirst()
-                .orElseThrow(() -> new BadRequestException(INVALID_LOCATION_REFERENCES));
+                .collect(Collectors.toUnmodifiableList());
+        if (references.size() == 1) {
+            return references.get(0);
+        } else {
+            throw new BadRequestException(INVALID_LOCATION_REFERENCES);
+        }
     }
 
     private void validateHmiHearingRequest(HearingDetailsRequest hearingDetailsRequest, String caseId,
@@ -108,7 +126,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     }
 
     private void isValidErrorDetails(HearingDetailsRequest hearingDetailsRequest, String caseId) {
-        log.info("Validating hearing response error details");
+        log.debug("Validating hearing response error details");
         if (null == hearingDetailsRequest.getErrorDetails().getErrorCode()) {
             throw new BadRequestException(INVALID_ERROR_CODE_ERR_MESSAGE);
         } else {
