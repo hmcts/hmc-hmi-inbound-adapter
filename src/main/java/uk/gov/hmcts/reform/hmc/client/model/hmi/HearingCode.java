@@ -5,7 +5,8 @@ import java.util.Arrays;
 public enum HearingCode {
     LISTED(100, "LISTED"),
     PENDING_RELISTING(6, "PENDING_RELISTING"),
-    CLOSED(8, "CLOSED")
+    CLOSED(8, "CLOSED"),
+    AWAITING_TO_BE_LISTED(5, "AWAITING_TO_BE_LISTED")
     ;
 
     private int number;
