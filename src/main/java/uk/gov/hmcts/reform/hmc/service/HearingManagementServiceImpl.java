@@ -46,22 +46,23 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     @Override
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
 
-        val latestVersion = cftHearingService.getLatestVersion(caseId);
-        if (isAwaitingStatus(hearingDetailsRequest)) {
-            log.warn("Hearing response received for hearing ID {} with hearingCaseStatus 5 (Awaiting Listing)",
-                     latestVersion);
+        val hearingId = cftHearingService.getLatestVersion(caseId);
+        if (isAwaitingListingStatus(hearingDetailsRequest)) {
+            log.info("Hearing response received for hearing ID {} with hearingCaseStatus {} (Awaiting Listing)",
+                     caseId, HearingCode.AWAITING_LISTING.getNumber()
+            );
             return;
         }
         isValidRequest(hearingDetailsRequest);
-        validateHmiHearingRequest(hearingDetailsRequest, caseId, latestVersion);
+        validateHmiHearingRequest(hearingDetailsRequest, caseId, hearingId);
     }
 
-    private boolean isAwaitingStatus(HearingDetailsRequest hearingDetailsRequest) {
+    private boolean isAwaitingListingStatus(HearingDetailsRequest hearingDetailsRequest) {
 
         return hearingDetailsRequest != null
             && hearingDetailsRequest.getHearingResponse() != null
             && hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseStatus()
-            .getCode().equals(HearingCode.AWAITING_TO_BE_LISTED.getNumber());
+            .getCode().equals(HearingCode.AWAITING_LISTING.getNumber());
     }
 
     public void validateRequestVersion(HearingDetailsRequest hearingDetailsRequest,
