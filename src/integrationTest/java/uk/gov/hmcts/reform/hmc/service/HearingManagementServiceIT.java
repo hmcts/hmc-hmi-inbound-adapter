@@ -32,7 +32,8 @@ class HearingManagementServiceIT extends BaseTest {
     void testProcessRequestAwaiting_listing() {
         stubSuccessfullyGetResponseFromCft(caseListingId, "170");
         HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
-        hearingRequest.getHearingResponse().getHearing().getHearingCaseStatus().setCode(HearingCode.AWAITING_LISTING.getNumber());
+        hearingRequest.getHearingResponse().getHearing().getHearingCaseStatus()
+            .setCode(HearingCode.AWAITING_LISTING.getNumber());
         hearingRequest.getHearingResponse().getHearing().setHearingCaseVersionId(170);
         hearingManagementService.processRequest(caseListingId, hearingRequest);
     }

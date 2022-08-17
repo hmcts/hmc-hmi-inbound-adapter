@@ -305,7 +305,8 @@ class HearingManagementServiceImplTest {
     @Test
     void shouldPassAsHearingForAwaitingListing() {
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
-        request.getHearingResponse().getHearing().getHearingCaseStatus().setCode(HearingCode.AWAITING_LISTING.getNumber());
+        request.getHearingResponse().getHearing().getHearingCaseStatus()
+            .setCode(HearingCode.AWAITING_LISTING.getNumber());
         given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
