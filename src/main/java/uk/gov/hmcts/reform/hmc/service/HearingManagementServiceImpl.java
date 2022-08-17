@@ -59,8 +59,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     private boolean isAwaitingListingStatus(HearingDetailsRequest hearingDetailsRequest) {
 
-        return hearingDetailsRequest != null
-            && hearingDetailsRequest.getHearingResponse() != null
+        return hearingDetailsRequest.getHearingResponse() != null
             && hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseStatus()
             .getCode().equals(HearingCode.AWAITING_LISTING.getNumber());
     }
