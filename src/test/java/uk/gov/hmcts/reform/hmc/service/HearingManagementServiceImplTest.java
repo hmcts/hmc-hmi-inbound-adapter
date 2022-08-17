@@ -301,6 +301,20 @@ class HearingManagementServiceImplTest {
         verify(cftHearingService, times(1)).getLatestVersion(any());
     }
 
+
+    @Test
+    void shouldPassAsHearingForAwaitingListing() {
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        request.getHearingResponse().getHearing().getHearingCaseStatus().setCode(HearingCode.AWAITING_LISTING.getNumber());
+        given(cftHearingService.getLatestVersion(validCaseId)).willReturn(123);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        hearingManagementService.processRequest(validCaseId, request);
+        verify(cftHearingService, times(1)).getLatestVersion(any());
+        //VERY THAT NO MESSAGE WAS SENT.
+        verify(objectMapperService, times(0)).convertObjectToJsonNode(any());
+    }
+
+
     private VenueLocationReference createVenueLocationReference(String key, String value) {
         VenueLocationReference reference = new VenueLocationReference();
         reference.setKey(key);
