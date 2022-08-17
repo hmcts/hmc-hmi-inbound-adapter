@@ -46,7 +46,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     @Override
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
 
-        val hearingId = cftHearingService.getLatestVersion(caseId);
+        val latestVersion = cftHearingService.getLatestVersion(caseId);
         if (isAwaitingListingStatus(hearingDetailsRequest)) {
             log.info("Hearing response received for hearing ID {} with hearingCaseStatus {} (Awaiting Listing)",
                      caseId, HearingCode.AWAITING_LISTING.getNumber()
@@ -54,7 +54,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
             return;
         }
         isValidRequest(hearingDetailsRequest);
-        validateHmiHearingRequest(hearingDetailsRequest, caseId, hearingId);
+        validateHmiHearingRequest(hearingDetailsRequest, caseId, latestVersion);
     }
 
     private boolean isAwaitingListingStatus(HearingDetailsRequest hearingDetailsRequest) {
