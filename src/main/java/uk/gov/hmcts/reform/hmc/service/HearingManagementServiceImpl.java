@@ -48,8 +48,11 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
         val latestVersion = cftHearingService.getLatestVersion(caseId);
         if (isAwaitingListingStatus(hearingDetailsRequest)) {
-            log.info("Hearing response received for hearing ID {} with hearingCaseStatus {} (Awaiting Listing)",
-                     caseId, HearingCode.AWAITING_LISTING.getNumber()
+            log.info(
+                "Hearing response received for hearing ID {}, version {} with hearingCaseStatus {} (Awaiting Listing)",
+                caseId,
+                latestVersion,
+                HearingCode.AWAITING_LISTING.getNumber()
             );
             return;
         }
