@@ -1,6 +1,7 @@
 package uk.gov.hmcts.reform.hmc.service;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -44,9 +45,26 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     @Override
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
-        Integer latestVersion = cftHearingService.getLatestVersion(caseId);
+
+        val latestVersion = cftHearingService.getLatestVersion(caseId);
+        if (isAwaitingListingStatus(hearingDetailsRequest)) {
+            log.info(
+                "Hearing response received for hearing ID {}, version {} with hearingCaseStatus {} (Awaiting Listing)",
+                caseId,
+                latestVersion,
+                HearingCode.AWAITING_LISTING.getNumber()
+            );
+            return;
+        }
         isValidRequest(hearingDetailsRequest);
         validateHmiHearingRequest(hearingDetailsRequest, caseId, latestVersion);
+    }
+
+    private boolean isAwaitingListingStatus(HearingDetailsRequest hearingDetailsRequest) {
+
+        return hearingDetailsRequest.getHearingResponse() != null
+            && hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseStatus()
+            .getCode().equals(HearingCode.AWAITING_LISTING.getNumber());
     }
 
     public void validateRequestVersion(HearingDetailsRequest hearingDetailsRequest,
