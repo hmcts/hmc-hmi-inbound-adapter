@@ -90,5 +90,10 @@
     <cve>CVE-2022-2047</cve>
     <cve>CVE-2022-2048</cve>
   </suppress>
+  
+  <suppress>
+    <notes>https://tools.hmcts.net/jira/browse/HMAN-416</notes>
+    <cve>CVE-2022-25857</cve>
+  </suppress>
 
 </suppressions>
