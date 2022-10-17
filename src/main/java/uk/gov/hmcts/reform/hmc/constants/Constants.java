@@ -13,4 +13,8 @@ public final class Constants {
     public static final String INVALID_VERSION = "Invalid version";
     public static final String VERSION_NOT_SUPPLIED = "Version not supplied for hearing case id: '%s'";
     public static final String INVALID_LOCATION_REFERENCES = "Only one EPIMS location reference must be supplied";
+
+    public static final String  HMC_HMI_INBOUND_ADAPTER  = "<Hmc hmi inbound adapter >";
+    public static final String WRITE = "<WRITE>";
+    public static final String TYPE_INBOUND = "Inbound Queue";
 }

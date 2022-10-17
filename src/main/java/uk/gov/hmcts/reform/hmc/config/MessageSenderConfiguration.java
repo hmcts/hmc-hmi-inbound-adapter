@@ -8,6 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
 
+import static uk.gov.hmcts.reform.hmc.constants.Constants.HMC_HMI_INBOUND_ADAPTER;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.TYPE_INBOUND;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.WRITE;
+
 @Slf4j
 @Component
 public class MessageSenderConfiguration {
@@ -21,11 +25,11 @@ public class MessageSenderConfiguration {
         this.applicationParams = applicationParams;
     }
 
-    public void sendMessage(String message, MessageType messageType, String caseId) {
+    public void sendMessage(String message, MessageType messageType, String hearingId) {
         try {
             ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
             serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType.name());
-            serviceBusMessage.getApplicationProperties().put(HEARING_ID, caseId);
+            serviceBusMessage.getApplicationProperties().put(HEARING_ID, hearingId);
             ServiceBusSenderClient senderClient = new ServiceBusClientBuilder()
                 .connectionString(applicationParams.getConnectionString())
                 .sender()
@@ -36,6 +40,13 @@ public class MessageSenderConfiguration {
             log.debug("Message has been sent to the Queue {}", applicationParams.getQueueName());
         } catch (Exception e) {
             log.error("Error while sending the message to queue:{}", e.getMessage());
+            log.error(
+                "Error occurred during service bus processing. Service:{} . Type: {}. Method: {}. Hearing ID: {}.",
+                HMC_HMI_INBOUND_ADAPTER,
+                TYPE_INBOUND,
+                WRITE,
+                hearingId
+            );
         }
     }
 }
