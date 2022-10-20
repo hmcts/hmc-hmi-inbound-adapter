@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.HMC_HMI_INBOUND_ADAPTER;
-import static uk.gov.hmcts.reform.hmc.constants.Constants.TYPE_INBOUND;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.TYPE_OUTBOUND;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.WRITE;
 
 @Slf4j
@@ -43,7 +43,7 @@ public class MessageSenderConfiguration {
             log.error(
                 "Error occurred during service bus processing. Service:{} . Type: {}. Method: {}. Hearing ID: {}.",
                 HMC_HMI_INBOUND_ADAPTER,
-                TYPE_INBOUND,
+                TYPE_OUTBOUND,
                 WRITE,
                 hearingId
             );

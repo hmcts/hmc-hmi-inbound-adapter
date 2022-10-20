@@ -16,5 +16,5 @@ public final class Constants {
 
     public static final String  HMC_HMI_INBOUND_ADAPTER  = "<Hmc hmi inbound adapter >";
     public static final String WRITE = "<WRITE>";
-    public static final String TYPE_INBOUND = "Inbound Queue";
+    public static final String TYPE_OUTBOUND = "Outbound Queue";
 }
