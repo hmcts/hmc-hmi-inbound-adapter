@@ -16,5 +16,10 @@ public final class Constants {
 
     public static final String  HMC_HMI_INBOUND_ADAPTER  = "<Hmc hmi inbound adapter >";
     public static final String WRITE = "<WRITE>";
-    public static final String TYPE_OUTBOUND = "hmc-from-hmi";
+    public static final String HMC_FROM_HMI = "hmc-from-hmi";
+
+    public static final String ERROR_PROCESSING_MESSAGE = "Error occurred during service bus processing. "
+        + "Service:{} . Entity: {}. Method: {}. Hearing ID: {}.";
+
+
 }

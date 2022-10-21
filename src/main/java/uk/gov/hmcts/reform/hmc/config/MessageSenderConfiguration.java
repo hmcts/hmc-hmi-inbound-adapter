@@ -8,8 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
 
+import static uk.gov.hmcts.reform.hmc.constants.Constants.ERROR_PROCESSING_MESSAGE;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.HMC_FROM_HMI;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.HMC_HMI_INBOUND_ADAPTER;
-import static uk.gov.hmcts.reform.hmc.constants.Constants.TYPE_OUTBOUND;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.WRITE;
 
 @Slf4j
@@ -41,9 +42,9 @@ public class MessageSenderConfiguration {
         } catch (Exception e) {
             log.error("Error while sending the message to queue:{}", e.getMessage());
             log.error(
-                "Error occurred during service bus processing. Service:{} . Type: {}. Method: {}. Hearing ID: {}.",
+                ERROR_PROCESSING_MESSAGE,
                 HMC_HMI_INBOUND_ADAPTER,
-                TYPE_OUTBOUND,
+                HMC_FROM_HMI,
                 WRITE,
                 hearingId
             );
