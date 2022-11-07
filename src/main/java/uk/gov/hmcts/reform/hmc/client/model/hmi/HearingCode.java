@@ -5,7 +5,8 @@ import java.util.Arrays;
 public enum HearingCode {
     LISTED(100, "LISTED"),
     PENDING_RELISTING(6, "PENDING_RELISTING"),
-    CLOSED(8, "CLOSED")
+    CLOSED(8, "CLOSED"),
+    AWAITING_LISTING(5, "AWAITING_LISTING")
     ;
 
     private int number;
@@ -20,7 +21,7 @@ public enum HearingCode {
         return Arrays.stream(values()).anyMatch(eachType -> (eachType.number == number));
     }
 
-    public static int getNumber(HearingCode code) {
-        return code.number;
+    public String getNumber() {
+        return Integer.toString(number);
     }
 }

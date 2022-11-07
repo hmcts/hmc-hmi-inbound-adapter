@@ -4,9 +4,35 @@
   <!--Please add all the false positives under the below section-->
   <suppress>
     <notes>False Positives
+      List of False Positives: https://github.com/jeremylong/DependencyCheck/issues?q=label%3A%22FP+Report%22
+      Things to note:
+      Update org.owasp.dependency check to v7.x.x or remove org.owasp.dependency check then
+      update uk.gov.hmcts.java version which introduces dependency check v7.x.x
+      Note that updating the uk.gov.hmcts.java pulls in other dependency versions which may have cves assigned
       CVE-2016-1000027 refer https://tools.hmcts.net/jira/browse/HMAN-249
+      CVE-2013-4152 refer https://tools.hmcts.net/jira/browse/HMAN-241
+      CVE-2014-0054 refer https://tools.hmcts.net/jira/browse/HMAN-250
+      CVE-2013-7315 refer https://tools.hmcts.net/jira/browse/HMAN-240
     </notes>
     <cve>CVE-2016-1000027</cve>
+    <cve>CVE-2013-4152</cve>
+    <cve>CVE-2014-0054</cve>
+    <cve>CVE-2013-7315</cve>
+  </suppress>
+
+  <suppress>
+    <notes>
+      <![CDATA[
+        file name: spring-plugin-core-2.0.0.RELEASE.jar
+        file name: spring-plugin-metadata-2.0.0.RELEASE.jar
+      ]]>
+      https://tools.hmcts.net/jira/browse/HMAN-315
+      CVEs are on transitive dependencies of springfox-swagger2 which hasn't been updated in about 2 years
+      CVE-2022-22970 refer https://tools.hmcts.net/jira/browse/HMAN-246
+      CVE-2022-22950 refer https://tools.hmcts.net/jira/browse/HMAN-315
+    </notes>
+    <cve>CVE-2022-22970</cve>
+    <cve>CVE-2022-22950</cve>
   </suppress>
   <!--End of false positives section -->
 
@@ -18,36 +44,6 @@
   <suppress>
     <notes>https://tools.hmcts.net/jira/browse/CCD-2925</notes>
     <cve>CVE-2022-22965</cve>
-  </suppress>
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-250</notes>
-    <cve>CVE-2014-0054</cve>
-  </suppress>
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-241</notes>
-    <cve>CVE-2013-4152</cve>
-  </suppress>
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-240</notes>
-    <cve>CVE-2013-7315</cve>
-  </suppress>
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-239</notes>
-    <cve>CVE-2022-29885</cve>
-  </suppress>
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-246</notes>
-    <cve>CVE-2022-22971</cve>
-  </suppress>
-
-  <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-246</notes>
-    <cve>CVE-2022-22970</cve>
   </suppress>
 
   <suppress>
@@ -81,18 +77,52 @@
   </suppress>
 
   <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-315</notes>
-    <cve>CVE-2022-22950</cve>
-  </suppress>
-
-  <suppress>
     <notes>https://tools.hmcts.net/jira/browse/HMAN-327</notes>
     <cve>CVE-2022-34305</cve>
   </suppress>
-  
+
   <suppress>
     <notes></notes>
     <cve>CVE-2022-33915</cve>
   </suppress>
 
+  <suppress>
+    <cve>CVE-2022-2047</cve>
+    <cve>CVE-2022-2048</cve>
+  </suppress>
+
+  <suppress>
+    <notes>https://tools.hmcts.net/jira/browse/HMAN-416</notes>
+    <cve>CVE-2022-25857</cve>
+  </suppress>
+
+  <suppress>
+    <notes></notes>
+    <cve>CVE-2022-38752</cve>
+    <cve>CVE-2022-38751</cve>
+    <cve>CVE-2022-38750</cve>
+    <cve>CVE-2022-38749</cve>
+  </suppress>
+  <suppress>
+    <notes>Temporary Suppression
+      CVE-2022-38751 refer https://tools.hmcts.net/jira/browse/HMAN-423
+      CVE-2022-38750 refer https://tools.hmcts.net/jira/browse/HMAN-423
+      CVE-2022-38749 refer https://tools.hmcts.net/jira/browse/HMAN-423
+      CVE-2022-38752 refer https://tools.hmcts.net/jira/browse/HMAN-433
+      CVE-2022-42003 refer https://tools.hmcts.net/jira/browse/HMAN-439
+      CVE-2022-42004 refer https://tools.hmcts.net/jira/browse/HMAN-439
+      CVE-2022-31690 refer https://tools.hmcts.net/jira/browse/HMAN-454
+      CVE-2022-31692 refer https://tools.hmcts.net/jira/browse/HMAN-454
+      CVE-2022-42252 refer https://tools.hmcts.net/jira/browse/HMAN-455
+    </notes>
+    <cve>CVE-2022-38751</cve>
+    <cve>CVE-2022-38750</cve>
+    <cve>CVE-2022-38749</cve>
+    <cve>CVE-2022-38752</cve>
+    <cve>CVE-2022-42003</cve>
+    <cve>CVE-2022-42004</cve>
+    <cve>CVE-2022-31690</cve>
+    <cve>CVE-2022-31692</cve>
+    <cve>CVE-2022-42252</cve>
+  </suppress>
 </suppressions>

@@ -207,8 +207,8 @@ def versions = [
   netty           : '4.1.77.Final'
 ]
 
-ext['spring-framework.version'] = '5.3.19'
-ext['spring-security.version'] = '5.6.2'
+ext['spring-framework.version'] = '5.3.21'
+ext['spring-security.version'] = '5.7.2'
 ext['log4j2.version'] = '2.17.1'
 ext['jackson.version'] = '2.13.2'
 
@@ -240,7 +240,7 @@ dependencyManagement {
       entry 'json-path'
       entry 'xml-path'
     }
-    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.58') {
+    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.63') {
       entry 'tomcat-embed-core'
       entry 'tomcat-embed-el'
       entry 'tomcat-embed-websocket'
@@ -287,8 +287,11 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache'
-  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
-  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
+  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security' , version: '2.6.4'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign' ,
+    {
+      exclude group: "org.springframework.security", module: "spring-security-crypto"
+    }
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
 
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
@@ -374,6 +377,10 @@ dependencies {
   functionalTestImplementation libraries.junit5
 
   testCompile 'com.github.hmcts:fortify-client:1.2.0:all'
+}
+
+configurations.implementation {
+  exclude group: "org.springframework.security", module: "spring-security-rsa"
 }
 
 mainClassName = 'uk.gov.hmcts.reform.hmc.Application'
