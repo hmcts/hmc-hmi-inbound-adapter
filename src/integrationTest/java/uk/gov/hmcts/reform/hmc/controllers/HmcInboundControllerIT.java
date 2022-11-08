@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import uk.gov.hmcts.reform.hmc.BaseTest;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -92,5 +93,17 @@ class HmcInboundControllerIT extends BaseTest {
                .andExpect(status().is(404))
                .andReturn();
 
+    }
+
+    @Test
+    void shouldReturn400_whenHearingStatusCodeIsInvalid() throws Exception {
+        stubSuccessfullyGetResponseFromCft(listingId, "170");
+        HearingDetailsRequest hearingDetailsRequest = TestingUtil.getHearingWithCodesRequest();
+        hearingDetailsRequest.getHearingResponse().getHearing().getHearingStatus().setCode("INVALID");
+        mockMvc.perform(put(url)
+                            .contentType(MediaType.APPLICATION_JSON_VALUE)
+                            .content(objectMapper.writeValueAsString(hearingDetailsRequest)))
+            .andExpect(status().is(400))
+            .andReturn();
     }
 }

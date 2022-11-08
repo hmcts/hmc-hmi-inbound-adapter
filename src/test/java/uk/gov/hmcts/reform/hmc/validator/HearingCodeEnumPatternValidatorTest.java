@@ -26,7 +26,8 @@ class HearingCodeEnumPatternValidatorTest {
 
     static Validator validator;
 
-    private static final Logger logger = LoggerFactory.getLogger(HearingCodeEnumPatternValidatorTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(
+        HearingCodeEnumPatternValidatorTest.class);
 
     @Mock
     private ConstraintValidatorContext constraintValidatorContext;
