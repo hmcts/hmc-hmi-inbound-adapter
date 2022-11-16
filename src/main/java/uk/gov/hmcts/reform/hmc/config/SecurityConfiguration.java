@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import uk.gov.hmcts.reform.authorisation.filters.ServiceAuthFilter;
@@ -36,6 +37,10 @@ public class SecurityConfiguration {
         this.serviceAuthFilter = serviceAuthFilter;
     }
 
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().antMatchers(AUTH_ALLOWED_LIST);
+    }
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
