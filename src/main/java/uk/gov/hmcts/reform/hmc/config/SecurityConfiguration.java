@@ -51,9 +51,7 @@ public class SecurityConfiguration {
             .httpBasic().disable()
             .formLogin().disable()
             .logout().disable()
-            .csrf().disable()
-            .authorizeRequests()
-            .antMatchers(AUTH_ALLOWED_LIST).permitAll();
+            .csrf().disable();
         return http.build();
     }
 }
