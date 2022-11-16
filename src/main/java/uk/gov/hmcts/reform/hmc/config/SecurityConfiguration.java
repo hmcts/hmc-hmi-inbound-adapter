@@ -3,9 +3,9 @@ package uk.gov.hmcts.reform.hmc.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import uk.gov.hmcts.reform.authorisation.filters.ServiceAuthFilter;
@@ -38,11 +38,6 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().antMatchers(AUTH_ALLOWED_LIST);
-    }
-
-    @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .addFilterBefore(serviceAuthFilter, AbstractPreAuthenticatedProcessingFilter.class)
@@ -52,6 +47,20 @@ public class SecurityConfiguration {
             .formLogin().disable()
             .logout().disable()
             .csrf().disable();
+        return http.build();
+    }
+
+    @Bean
+    @Order(0)
+    protected SecurityFilterChain allowedList(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(authorize -> authorize
+                .antMatchers(AUTH_ALLOWED_LIST).permitAll()
+                .anyRequest().permitAll()
+            )
+            .requestCache().disable()
+            .securityContext().disable()
+            .sessionManagement().disable();
         return http.build();
     }
 }
