@@ -3,8 +3,6 @@ package uk.gov.hmcts.reform.hmc.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -39,24 +37,27 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    protected SecurityFilterChain allowedList(HttpSecurity http) throws Exception {
+        return http
+            .requestMatchers().antMatchers(AUTH_ALLOWED_LIST)
+            .and()
+            .sessionManagement().sessionCreationPolicy(STATELESS)
+            .and()
+            .authorizeRequests().anyRequest().permitAll()
+            .and()
+            .build();
+    }
+
+    @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        return http
             .addFilterBefore(serviceAuthFilter, AbstractPreAuthenticatedProcessingFilter.class)
             .sessionManagement().sessionCreationPolicy(STATELESS)
             .and()
             .httpBasic().disable()
             .formLogin().disable()
             .logout().disable()
-            .csrf().disable();
-        return http.build();
-    }
-
-    @Bean
-    @Order(0)
-    protected SecurityFilterChain allowedList(HttpSecurity http) throws Exception {
-        http
-            .authorizeHttpRequests(authorize -> authorize
-                .antMatchers(HttpMethod.GET, AUTH_ALLOWED_LIST).permitAll());
-        return http.build();
+            .csrf().disable()
+            .build();
     }
 }
