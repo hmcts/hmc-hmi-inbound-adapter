@@ -58,3 +58,12 @@ jms:
   servicebus:
     connection-string: ${HMC_SERVICE_BUS_CONNECTION_STRING}
     queue-name: ${HMC_SERVICE_BUS_QUEUE}
+
+LOGGING:
+  LEVEL:
+    uk:
+      gov:
+        hmcts:
+          reform:
+            hmc:
+              config: INFO
