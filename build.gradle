@@ -204,13 +204,14 @@ def versions = [
   springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
   jetty           : '9.4.43.v20210629',
-  netty           : '4.1.77.Final'
+  netty           : '4.1.77.Final' ,
+  snakeyaml       : '1.32'
 ]
 
 ext['spring-framework.version'] = '5.3.21'
 ext['spring-security.version'] = '5.7.5'
 ext['log4j2.version'] = '2.17.1'
-ext['jackson.version'] = '2.13.2'
+ext['jackson.version'] = '2.13.4'
 ext['snakeyaml.version'] = '1.33'
 
 // before committing a change, make sure task still works
@@ -280,7 +281,7 @@ ext.libraries = [
 ]
 
 dependencies {
-  compile "com.fasterxml.jackson.core:jackson-databind:2.13.2.2"
+  compile "com.fasterxml.jackson.core:jackson-databind:2.13.4.2"
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
@@ -357,6 +358,7 @@ dependencies {
   implementation group: 'io.netty', name: 'netty-transport-native-epoll', version: versions.netty
   implementation group: 'io.netty', name: 'netty-transport-native-kqueue', version: versions.netty
   implementation group: 'io.netty', name: 'netty-transport-native-unix-common', version: versions.netty
+  implementation group: 'org.yaml', name: 'snakeyaml', version: versions.snakeyaml
 
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', {
