@@ -209,9 +209,10 @@ def versions = [
 ]
 
 ext['spring-framework.version'] = '5.3.21'
-ext['spring-security.version'] = '5.7.2'
+ext['spring-security.version'] = '5.7.5'
 ext['log4j2.version'] = '2.17.1'
 ext['jackson.version'] = '2.13.4'
+ext['snakeyaml.version'] = '1.33'
 
 // before committing a change, make sure task still works
 dependencyUpdates {
@@ -241,7 +242,7 @@ dependencyManagement {
       entry 'json-path'
       entry 'xml-path'
     }
-    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.63') {
+    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.68') {
       entry 'tomcat-embed-core'
       entry 'tomcat-embed-el'
       entry 'tomcat-embed-websocket'
