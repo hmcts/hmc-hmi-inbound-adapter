@@ -11,7 +11,7 @@
       Note that updating the uk.gov.hmcts.java pulls in other dependency versions which may have cves assigned
       CVE-2016-1000027 refer https://tools.hmcts.net/jira/browse/HMAN-249
       CVE-2022-22976 refer https://tools.hmcts.net/jira/browse/HMAN-263
-      CVE-2022-22978 https://tools.hmcts.net/jira/browse/HMAN-265
+      CVE-2022-22978 refer https://tools.hmcts.net/jira/browse/HMAN-265
       CVE-2020-5408 refer https://tools.hmcts.net/jira/browse/HMAN-482
     </notes>
     <cve>CVE-2016-1000027</cve>
