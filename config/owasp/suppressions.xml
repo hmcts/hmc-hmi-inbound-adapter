@@ -52,34 +52,13 @@
   </suppress>
   <!--End of false positives section -->
 
+  <!--Please add all the temporary suppressions under the below section-->
   <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-416</notes>
-    <cve>CVE-2022-25857</cve>
-  </suppress>
-
-  <suppress>
-    <notes></notes>
-    <cve>CVE-2022-38752</cve>
-    <cve>CVE-2022-38751</cve>
-    <cve>CVE-2022-38750</cve>
-    <cve>CVE-2022-38749</cve>
-  </suppress>
-  <suppress>
-    <notes>Temporary Suppression
-      CVE-2022-38751 refer https://tools.hmcts.net/jira/browse/HMAN-423
-      CVE-2022-38750 refer https://tools.hmcts.net/jira/browse/HMAN-423
-      CVE-2022-38749 refer https://tools.hmcts.net/jira/browse/HMAN-423
-      CVE-2022-38752 refer https://tools.hmcts.net/jira/browse/HMAN-433
-      CVE-2022-42003 refer https://tools.hmcts.net/jira/browse/HMAN-439
-      CVE-2022-42004 refer https://tools.hmcts.net/jira/browse/HMAN-439
+    <notes>Temporary Suppressions
+      CVE-2020-5408 refer TBD
     </notes>
-    <cve>CVE-2022-38751</cve>
-    <cve>CVE-2022-38750</cve>
-    <cve>CVE-2022-38749</cve>
-    <cve>CVE-2022-38752</cve>
-    <cve>CVE-2022-42003</cve>
-    <cve>CVE-2022-42004</cve>
-    <cve>CVE-2022-31684</cve>
     <cve>CVE-2020-5408</cve>
   </suppress>
+  <!--End of temporary suppressions section -->
+
 </suppressions>
