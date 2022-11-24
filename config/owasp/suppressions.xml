@@ -53,21 +53,6 @@
   <!--End of false positives section -->
 
   <suppress>
-    <notes>https://tools.hmcts.net/jira/browse/HMAN-327</notes>
-    <cve>CVE-2022-34305</cve>
-  </suppress>
-
-  <suppress>
-    <notes></notes>
-    <cve>CVE-2022-33915</cve>
-  </suppress>
-
-  <suppress>
-    <cve>CVE-2022-2047</cve>
-    <cve>CVE-2022-2048</cve>
-  </suppress>
-
-  <suppress>
     <notes>https://tools.hmcts.net/jira/browse/HMAN-416</notes>
     <cve>CVE-2022-25857</cve>
   </suppress>
