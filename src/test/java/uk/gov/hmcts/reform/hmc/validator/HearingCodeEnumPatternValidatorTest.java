@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCaseStatus;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
 
@@ -25,8 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HearingCodeEnumPatternValidatorTest {
 
     static Validator validator;
-
-    private static final Logger logger = LoggerFactory.getLogger(HearingCodeEnumPatternValidatorTest.class);
 
     @Mock
     private ConstraintValidatorContext constraintValidatorContext;

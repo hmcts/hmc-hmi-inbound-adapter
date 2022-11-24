@@ -11,6 +11,7 @@ import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingRoom;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingSession;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingStatus;
+import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingStatusCode;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingVenue;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.MetaResponse;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.VenueLocationReference;
@@ -92,13 +93,6 @@ public  class TestingUtil {
         return hearingSession;
     }
 
-    public static HearingStatus getHearingStatus(String listingStatus) {
-        HearingStatus hearingStatus = new HearingStatus();
-        hearingStatus.setDescription("status desc");
-        hearingStatus.setCode(listingStatus);
-        return hearingStatus;
-    }
-
     public static HearingRoom getHearingRoom() {
         HearingRoom hearingRoom = new HearingRoom();
         hearingRoom.setLocationName("room1");
@@ -137,7 +131,7 @@ public  class TestingUtil {
         hearing.setHearingCaseStatus(hearingCaseStatus);
         HearingStatus hearingStatus = new HearingStatus();
         hearingStatus.setDescription("vale");
-        hearingStatus.setCode("draft");
+        hearingStatus.setCode(HearingStatusCode.PROV.label);
         hearing.setHearingStatus(hearingStatus);
         hearing.setHearingIdCaseHQ("47743382");
         hearing.setHearingStartTime(LocalDateTime.now());
@@ -146,36 +140,6 @@ public  class TestingUtil {
         hearing.setHearingTranslatorRequired(false);
         hearing.setHearingCreatedDate(LocalDateTime.now());
         hearing.setHearingCreatedBy("sysadm");
-        hearingResponse.setHearing(hearing);
-
-        HearingDetailsRequest request = new HearingDetailsRequest();
-        request.setHearingResponse(hearingResponse);
-        return request;
-    }
-
-    public static HearingDetailsRequest getHearingWithInvalidHearingStatusCode() {
-        HearingResponse hearingResponse = new HearingResponse();
-
-        MetaResponse metaResponse = new MetaResponse();
-        metaResponse.setTransactionIdCaseHQ("123");
-        metaResponse.setTimestamp(LocalDateTime.now());
-        hearingResponse.setMeta(metaResponse);
-
-        Hearing hearing = new Hearing();
-        hearing.setHearingCaseVersionId(123);
-        HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
-        hearingCaseStatus.setCode("1");
-        hearingCaseStatus.setDescription("value");
-        hearing.setHearingCaseStatus(hearingCaseStatus);
-        hearing.setHearingStatus(getHearingStatus("draft"));
-        hearing.setHearingIdCaseHQ("47743382");
-        hearing.setHearingStartTime(LocalDateTime.now());
-        hearing.setHearingEndTime(LocalDateTime.now());
-        hearing.setHearingCaseIdHmcts("SW710014");
-        hearing.setHearingTranslatorRequired(false);
-        hearing.setHearingCreatedDate(LocalDateTime.now());
-        hearing.setHearingCreatedBy("sysadm");
-        hearing.setHearingVenue(getHearingVenue("EPIMS"));
         hearingResponse.setHearing(hearing);
 
         HearingDetailsRequest request = new HearingDetailsRequest();
