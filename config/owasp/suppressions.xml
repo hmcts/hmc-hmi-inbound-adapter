@@ -10,18 +10,14 @@
       update uk.gov.hmcts.java version which introduces dependency check v7.x.x
       Note that updating the uk.gov.hmcts.java pulls in other dependency versions which may have cves assigned
       CVE-2016-1000027 refer https://tools.hmcts.net/jira/browse/HMAN-249
-      CVE-2013-4152 refer https://tools.hmcts.net/jira/browse/HMAN-241
-      CVE-2014-0054 refer https://tools.hmcts.net/jira/browse/HMAN-250
-      CVE-2013-7315 refer https://tools.hmcts.net/jira/browse/HMAN-240
       CVE-2022-22976 refer https://tools.hmcts.net/jira/browse/HMAN-263
       CVE-2022-22978 https://tools.hmcts.net/jira/browse/HMAN-265
+      CVE-2020-5408 refer https://tools.hmcts.net/jira/browse/HMAN-482
     </notes>
     <cve>CVE-2016-1000027</cve>
-    <cve>CVE-2013-4152</cve>
-    <cve>CVE-2014-0054</cve>
-    <cve>CVE-2013-7315</cve>
     <cve>CVE-2022-22976</cve>
     <cve>CVE-2022-22978</cve>
+    <cve>CVE-2020-5408</cve>
   </suppress>
 
   <suppress>
@@ -40,6 +36,9 @@
       CVE-2018-11040 refer https://tools.hmcts.net/jira/browse/CCD-3407
       CVE-2018-1257 refer https://tools.hmcts.net/jira/browse/CCD-3408
       CVE-2020-5421 refer https://tools.hmcts.net/jira/browse/CCD-3409
+      CVE-2013-4152 refer https://tools.hmcts.net/jira/browse/HMAN-241
+      CVE-2014-0054 refer https://tools.hmcts.net/jira/browse/HMAN-250
+      CVE-2013-7315 refer https://tools.hmcts.net/jira/browse/HMAN-240
     </notes>
     <cve>CVE-2022-22970</cve>
     <cve>CVE-2022-22950</cve>
@@ -49,16 +48,14 @@
     <cve>CVE-2018-11040</cve>
     <cve>CVE-2018-1257</cve>
     <cve>CVE-2020-5421</cve>
+    <cve>CVE-2013-4152</cve>
+    <cve>CVE-2014-0054</cve>
+    <cve>CVE-2013-7315</cve>
   </suppress>
   <!--End of false positives section -->
 
   <!--Please add all the temporary suppressions under the below section-->
-  <suppress>
-    <notes>Temporary Suppressions
-      CVE-2020-5408 refer TBD
-    </notes>
-    <cve>CVE-2020-5408</cve>
-  </suppress>
+
   <!--End of temporary suppressions section -->
 
 </suppressions>
