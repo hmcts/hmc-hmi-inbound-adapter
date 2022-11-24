@@ -38,6 +38,8 @@
       CVE-2022-22965 refer https://tools.hmcts.net/jira/browse/CCD-2925
       CVE-2018-11039 refer https://tools.hmcts.net/jira/browse/CCD-3405
       CVE-2018-11040 refer https://tools.hmcts.net/jira/browse/CCD-3407
+      CVE-2018-1257 refer https://tools.hmcts.net/jira/browse/CCD-3408
+      CVE-2020-5421 refer https://tools.hmcts.net/jira/browse/CCD-3409
     </notes>
     <cve>CVE-2022-22970</cve>
     <cve>CVE-2022-22950</cve>
@@ -45,18 +47,10 @@
     <cve>CVE-2022-22965</cve>
     <cve>CVE-2018-11039</cve>
     <cve>CVE-2018-11040</cve>
-  </suppress>
-  <!--End of false positives section -->
-
-  <suppress>
-    <notes></notes>
     <cve>CVE-2018-1257</cve>
-  </suppress>
-
-  <suppress>
-    <notes></notes>
     <cve>CVE-2020-5421</cve>
   </suppress>
+  <!--End of false positives section -->
 
   <suppress>
     <notes>https://tools.hmcts.net/jira/browse/HMAN-327</notes>
