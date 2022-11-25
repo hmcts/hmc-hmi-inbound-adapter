@@ -22,7 +22,6 @@
         file name: spring-plugin-core-2.0.0.RELEASE.jar
         file name: spring-plugin-metadata-2.0.0.RELEASE.jar
       ]]>
-      https://tools.hmcts.net/jira/browse/HMAN-315
       CVEs are on transitive dependencies of springfox-swagger2 which hasn't been updated in about 2 years
       CVE-2022-22970 refer https://tools.hmcts.net/jira/browse/HMAN-246
       CVE-2022-22950 refer https://tools.hmcts.net/jira/browse/HMAN-315
