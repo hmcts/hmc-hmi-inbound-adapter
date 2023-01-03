@@ -1,7 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?><suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+
+  <!--Please add all the false positives under the below section-->
   <suppress>
-    <notes>Temporary Suppression
-      CVE-2021-37533 refer https://tools.hmcts.net/jira/browse/HMAN-492</notes>
+    <notes>False Positives
+      List of False Positives: https://github.com/jeremylong/DependencyCheck/issues?q=label%3A%22FP+Report%22
+      CVE-2016-1000027 refer https://tools.hmcts.net/jira/browse/HMAN-249
+      CVE-2021-37533 refer https://tools.hmcts.net/jira/browse/HMAN-492
+      CVE-2022-41881 refer https://tools.hmcts.net/jira/browse/HMAN-497
+      CVE-2022-41915 refer https://tools.hmcts.net/jira/browse/HMAN-497
+    </notes>
+    <cve>CVE-2016-1000027</cve>
     <cve>CVE-2021-37533</cve>
+    <cve>CVE-2022-41881</cve>
+    <cve>CVE-2022-41915</cve>
   </suppress>
+  <!--End of false positives section -->
+
+  <!--Please add all the temporary suppressions under the below section-->
+
+  <!--End of temporary suppressions section -->
+
 </suppressions>
