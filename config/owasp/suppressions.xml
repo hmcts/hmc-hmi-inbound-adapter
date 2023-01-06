@@ -18,7 +18,11 @@
   <!--End of false positives section -->
 
   <!--Please add all the temporary suppressions under the below section-->
-
+  <suppress>
+    <notes>Temporary Suppression
+      CVE-2021-4277 refer https://tools.hmcts.net/jira/browse/HMAN-500</notes>
+    <cve>CVE-2021-4277</cve>
+  </suppress>
   <!--End of temporary suppressions section -->
 
 </suppressions>
