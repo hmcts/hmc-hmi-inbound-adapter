@@ -226,6 +226,7 @@ dependencyUpdates {
   }
 }
 
+apply from: './gradle/suppress.gradle'
 dependencyCheck {
   suppressionFile = 'config/owasp/suppressions.xml'
 }
