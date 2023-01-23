@@ -205,7 +205,8 @@ def versions = [
   testcontainers  : '1.15.2',
   jetty           : '9.4.49.v20220914',
   netty           : '4.1.77.Final' ,
-  snakeyaml       : '1.33'
+  snakeyaml       : '1.33' ,
+  tomcatEmbedded  : '9.0.69'
 ]
 
 ext['spring-framework.version'] = '5.3.24'
@@ -315,6 +316,11 @@ dependencies {
   // CVE-2021-42550
   implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
   implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
+
+  // CVE-2022-45143
+  implementation "org.apache.tomcat.embed:tomcat-embed-core:${versions.tomcatEmbedded}"
+  implementation "org.apache.tomcat.embed:tomcat-embed-el:${versions.tomcatEmbedded}"
+  implementation "org.apache.tomcat.embed:tomcat-embed-websocket:${versions.tomcatEmbedded}"
 
   implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
 
