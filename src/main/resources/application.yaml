@@ -27,6 +27,11 @@ spring:
     cache-names: hmcAccessTokenCache
     caffeine:
       spec: expireAfterWrite=1800s
+  cloud:
+    discovery:
+      client:
+        composite-indicator:
+          enabled: false
 
 hmc:
   cft-hearing-service:
