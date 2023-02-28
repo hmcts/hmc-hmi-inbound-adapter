@@ -6,7 +6,7 @@ plugins {
   id 'org.springframework.boot' version '2.4.5'
   id 'com.github.ben-manes.versions' version '0.38.0'
   id 'org.sonarqube' version '3.1.1'
-  id 'uk.gov.hmcts.java' version '0.12.40'
+  id 'uk.gov.hmcts.java' version '0.12.41'
   id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.23'
 }
 
@@ -203,7 +203,7 @@ def versions = [
   springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
   jetty           : '9.4.49.v20220914',
-  netty           : '4.1.77.Final' ,
+  netty           : '4.1.86.Final' ,
   snakeyaml       : '1.33' ,
   tomcatEmbedded  : '9.0.69'
 ]
