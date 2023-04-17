@@ -51,7 +51,7 @@ idam:
     totp_secret: ${IDAM_KEY_HMI_INBOUND_ADAPTER:AAAAAAAAAAAAAAAA}
     url: ${S2S_URL:http://localhost:4502}
   s2s-authorised:
-    services: ${HMI_INBOUND_ADAPTER_S2S_AUTHORISED_SERVICES:api_gw}
+    services: ${HMI_INBOUND_ADAPTER_S2S_AUTHORISED_SERVICES:api_gw,civil_service}
   system-user:
     id: ${HMC_SYSTEM_USER_ID:master.caseworker@gmail.com}
     password: ${HMC_SYSTEM_USER_PASSWORD:Pa55word11}
