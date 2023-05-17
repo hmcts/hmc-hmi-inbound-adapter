@@ -202,7 +202,7 @@ def versions = [
   springCloud     : '2020.0.1',
   springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
-  jetty           : '9.4.49.v20220914',
+  jetty           : '9.4.51.v20230217',
   netty           : '4.1.86.Final' ,
   snakeyaml       : '1.33' ,
   tomcatEmbedded  : '9.0.73'
