@@ -5,11 +5,11 @@ ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
-ARG APP_INSIGHTS_AGENT_VERSION=2.5.1
-FROM hmctspublic.azurecr.io/base/java${PLATFORM}:11-distroless
+ARG APP_INSIGHTS_AGENT_VERSION=3.2.6
+FROM hmctspublic.azurecr.io/base/java${PLATFORM}:17-distroless
 USER hmcts
 
-COPY lib/AI-Agent.xml /opt/app/
+COPY lib/applicationinsights.json /opt/app
 
 # The following layer ARGs are only needed to stop Fortify flagging an issue with the COPY instructions
 ARG DIR_LAYER_APPLICATION=application/
