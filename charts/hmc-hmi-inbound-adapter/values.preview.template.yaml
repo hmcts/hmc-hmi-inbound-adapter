@@ -28,8 +28,8 @@ java:
 servicebus:
   enabled: true
   teamName: CCD
-  resourceGroup: hmc-aks
-  serviceplan: standard
+  resourceGroup: hmc-aso-preview-rg
+  sbNamespace: hmc-sb-preview
   setup:
     queues:
       - name: hmc-from-hmi
