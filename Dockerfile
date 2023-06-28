@@ -1,5 +1,5 @@
 ARG PLATFORM=""
-FROM hmctspublic.azurecr.io/base/java:17-distroless
+FROM eclipse-temurin${PLATFORM}:17-alpine as builder
 
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} application.jar
