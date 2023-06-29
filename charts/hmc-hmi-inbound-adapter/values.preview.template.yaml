@@ -6,7 +6,7 @@ java:
     HMC_SERVICE_BUS_QUEUE: hmc-from-hmi
   secrets:
     HMC_SERVICE_BUS_CONNECTION_STRING:
-      secretRef: servicebus-secret-queue-{{ .Release.Name }}-servicebus-hmc-from-hmi
+      secretRef: hmc-sb-preview
       key: connectionString
   keyVaults:
     hmc:
