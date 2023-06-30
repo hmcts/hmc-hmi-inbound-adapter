@@ -205,7 +205,7 @@ def versions = [
   jetty           : '9.4.51.v20230217',
   netty           : '4.1.86.Final' ,
   snakeyaml       : '1.33' ,
-  tomcatEmbedded  : '9.0.73'
+  tomcatEmbedded  : '9.0.75'
 ]
 
 ext['spring-framework.version'] = '5.3.27'
