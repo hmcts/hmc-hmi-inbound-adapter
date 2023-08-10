@@ -1,5 +1,5 @@
 ARG PLATFORM=""
-FROM eclipse-temurin${PLATFORM}:latest
+FROM eclipse-temurin${PLATFORM}:17 as builder
 
 ARG JAR_FILE=build/libs/*.jar
 COPY ${JAR_FILE} application.jar
