@@ -79,8 +79,9 @@ public class CftHearingServiceImpl implements CftHearingService {
     public void isHearingInTerminalState(HttpHeaders headers, String caseId) {
         if (headers.containsKey(LATEST_HEARING_STATUS)) {
             List<String> values = headers.get(LATEST_HEARING_STATUS);
-            if (!CollectionUtils.isEmpty(values) && values.get(0).equals("COMPLETED")) {
-                log.warn("Error while get latest version for case Id:{}", caseId);
+            if (!CollectionUtils.isEmpty(values) && applicationParams.getHmcHearingTerminalStates().contains(
+                values.get(0))) {
+                log.warn("case Id:{} has hearing status: {}", caseId, values.get(0));
                 throw new BadRequestException(String.format(INVALID_HEARING_STATE));
             }
         }
