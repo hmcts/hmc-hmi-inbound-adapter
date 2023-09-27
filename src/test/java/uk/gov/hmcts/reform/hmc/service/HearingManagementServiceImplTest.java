@@ -60,8 +60,7 @@ class HearingManagementServiceImplTest {
         hearingManagementService = new HearingManagementServiceImpl(messageSenderConfiguration,
                                                                     objectMapperService,
                                                                     cftHearingService);
-        responseHeaders.set("Latest-Hearing-Request-Version", validCaseId);
-        responseHeaders.set("Latest-Hearing-Status", "ADJOURNED");
+        responseHeaders = buildHeaders("123","COMPLETED");
     }
 
     @Test
@@ -77,6 +76,7 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldFailAsErrorCodeIsInValid() {
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         try {
             hearingManagementService.processRequest(validCaseId, TestingUtil.getErrorRequest(null));
@@ -90,6 +90,7 @@ class HearingManagementServiceImplTest {
     @Test
     void shouldPassAsErrorCodeIsValid() {
         HearingDetailsRequest request = TestingUtil.getErrorRequest(2000);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getErrorDetails())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -100,6 +101,8 @@ class HearingManagementServiceImplTest {
     void shouldPassWithOptionalErrorDetails() {
         HearingDetailsRequest request = TestingUtil.getErrorRequestWithOptionalFields();
         when(objectMapperService.convertObjectToJsonNode(request.getErrorDetails())).thenReturn(jsonNode);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
+        given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         hearingManagementService.processRequest(validCaseId, request);
         verify(cftHearingService, times(1)).getHearingVersionHeaders(any());
     }
@@ -108,6 +111,7 @@ class HearingManagementServiceImplTest {
     @Test
      void shouldPassWithOptionalHearingDetails() {
         HearingDetailsRequest request = TestingUtil.getHearingOptionalFields();
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -119,6 +123,8 @@ class HearingManagementServiceImplTest {
         HearingDetailsRequest request = TestingUtil.getHearingRequest();
         request.getHearingResponse().getHearing().getHearingCaseStatus().setCode(HearingCode.CLOSED.getNumber());
         request.getHearingResponse().getHearing().setHearingCaseVersionId(999);
+        responseHeaders = buildHeaders("123","CLOSED");
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -128,6 +134,7 @@ class HearingManagementServiceImplTest {
     @Test
      void shouldFailAsHearingMandatoryFieldsMissing() {
         HearingDetailsRequest request = TestingUtil.getHearingRequestMandatoryFieldMissing();
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -182,6 +189,7 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldFailAsMissingHearingCaseVersionId() {
+        responseHeaders.set("Latest-Hearing-Request-Version", "29");
         HearingResponse hearingResponse = new HearingResponse();
 
         MetaResponse metaResponse = new MetaResponse();
@@ -208,6 +216,7 @@ class HearingManagementServiceImplTest {
         VenueLocationReference reference1 = createVenueLocationReference("EPIMS", "Charlestown");
         locationReferences.add(reference1);
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -224,6 +233,7 @@ class HearingManagementServiceImplTest {
         locationReferences.addAll(List.of(reference1,reference2));
         request.getHearingResponse().getHearing().getHearingSessions().get(0)
                 .getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -246,6 +256,7 @@ class HearingManagementServiceImplTest {
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
         request.getHearingResponse().getHearing().getHearingSessions().get(0)
                 .getHearingVenue().setLocationReferences(locationReferences2);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -256,6 +267,8 @@ class HearingManagementServiceImplTest {
     void shouldFailAsHearingVenueLocationReferencesKeyEqualsEpimsMissing() {
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
+        given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> hearingManagementService.processRequest(validCaseId, request));
         assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
@@ -267,6 +280,7 @@ class HearingManagementServiceImplTest {
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         List<VenueLocationReference> locationReferences = new ArrayList<>();
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -282,6 +296,8 @@ class HearingManagementServiceImplTest {
         locationReferences.addAll(List.of(reference1, reference2));
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
+        given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
                 () -> hearingManagementService.processRequest(validCaseId, request));
         assertEquals(Constants.INVALID_LOCATION_REFERENCES, badRequestException.getMessage());
@@ -298,6 +314,7 @@ class HearingManagementServiceImplTest {
         VenueLocationReference reference4 = createVenueLocationReference("VVVVV", "Richardtown");
         locationReferences.addAll(List.of(reference1, reference2, reference3, reference4));
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
@@ -312,6 +329,8 @@ class HearingManagementServiceImplTest {
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         request.getHearingResponse().getHearing().getHearingCaseStatus()
             .setCode(HearingCode.AWAITING_LISTING.getNumber());
+        responseHeaders.set("Latest-Hearing-Status","AWAITING_LISTING");
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         hearingManagementService.processRequest(validCaseId, request);
@@ -327,4 +346,11 @@ class HearingManagementServiceImplTest {
         reference.setValue(value);
         return reference;
     }
+
+    private HttpHeaders buildHeaders(String requestVersion, String hearingStatus) {
+        responseHeaders.set("Latest-Hearing-Request-Version", requestVersion);
+        responseHeaders.set("Latest-Hearing-Status", hearingStatus);
+        return responseHeaders;
+    }
+
 }
