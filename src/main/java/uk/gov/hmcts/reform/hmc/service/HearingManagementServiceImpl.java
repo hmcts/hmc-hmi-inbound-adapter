@@ -48,7 +48,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
         HttpHeaders headers = cftHearingService.getHearingVersionHeaders(caseId);
         val latestVersion = cftHearingService.getLatestVersion(headers, caseId);
-        cftHearingService.isHearingInTerminalState(headers, caseId);
+        cftHearingService.checkHearingInTerminalState(headers, caseId);
         if (isAwaitingListingStatus(hearingDetailsRequest)) {
             log.info(
                 "Hearing response received for hearing ID {}, version {} with hearingCaseStatus {} (Awaiting Listing)",

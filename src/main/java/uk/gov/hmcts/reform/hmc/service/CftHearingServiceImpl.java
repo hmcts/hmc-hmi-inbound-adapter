@@ -76,7 +76,7 @@ public class CftHearingServiceImpl implements CftHearingService {
     }
 
     @Override
-    public void isHearingInTerminalState(HttpHeaders headers, String caseId) {
+    public void checkHearingInTerminalState(HttpHeaders headers, String caseId) {
         if (headers.containsKey(LATEST_HEARING_STATUS)) {
             List<String> values = headers.get(LATEST_HEARING_STATUS);
             if (!CollectionUtils.isEmpty(values) && applicationParams.getHmcHearingTerminalStates().contains(

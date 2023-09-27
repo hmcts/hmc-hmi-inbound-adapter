@@ -8,5 +8,5 @@ public interface CftHearingService {
 
     HttpHeaders getHearingVersionHeaders(String caseId);
 
-    void isHearingInTerminalState(HttpHeaders headers, String caseId);
+    void checkHearingInTerminalState(HttpHeaders headers, String caseId);
 }
