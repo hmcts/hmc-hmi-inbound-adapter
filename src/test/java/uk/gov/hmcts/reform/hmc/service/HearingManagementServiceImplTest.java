@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpHeaders;
+import uk.gov.hmcts.reform.hmc.ApplicationParams;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingDetailsRequest;
 import uk.gov.hmcts.reform.hmc.client.model.hmi.HearingResponse;
@@ -48,6 +49,10 @@ class HearingManagementServiceImplTest {
     @Mock
     private MessageSenderConfiguration messageSenderConfiguration;
 
+    @Mock
+    private ApplicationParams applicationParams;
+
+
     private static final String validCaseId = "Case1234";
 
     JsonNode jsonNode = mock(JsonNode.class);
@@ -60,6 +65,7 @@ class HearingManagementServiceImplTest {
         hearingManagementService = new HearingManagementServiceImpl(messageSenderConfiguration,
                                                                     objectMapperService,
                                                                     cftHearingService);
+        given(applicationParams.getHmcHearingTerminalStates()).willReturn(List.of("COMPLETED","ADJOURNED","CANCELLED"));
         responseHeaders = buildHeaders("123","COMPLETED");
     }
 
@@ -352,6 +358,23 @@ class HearingManagementServiceImplTest {
         //VERY THAT NO MESSAGE WAS SENT.
         verify(objectMapperService, times(0)).convertObjectToJsonNode(any());
     }
+
+    /* @Test
+    void shouldFailAsHearingForCompletedStatus() {
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
+        given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
+        cftHearingService.checkHearingInTerminalState(responseHeaders, validCaseId);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        final BadRequestException badRequestException = assertThrows(BadRequestException.class,
+                   () -> hearingManagementService.processRequest(validCaseId, request));
+        assertEquals(Constants.INVALID_HEARING_STATE, badRequestException.getMessage());
+        verify(cftHearingService, times(1)).getHearingVersionHeaders(any());
+        verify(cftHearingService, times(1)).checkHearingInTerminalState(responseHeaders,
+                                                                        validCaseId);
+    }*/
 
 
     private VenueLocationReference createVenueLocationReference(String key, String value) {

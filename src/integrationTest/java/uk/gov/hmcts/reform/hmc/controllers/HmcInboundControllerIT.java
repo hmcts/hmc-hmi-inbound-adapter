@@ -44,7 +44,7 @@ class HmcInboundControllerIT extends BaseTest {
 
     @Test
     void shouldReturn202_whenRequest_has_only_ErrorDetails() throws Exception {
-        stubSuccessfullyGetResponseFromCft(listingId, "170");
+        stubSuccessfullyGetResponseFromCft(listingId, "170", "LISTED");
         mockMvc.perform(put(url)
                .contentType(MediaType.APPLICATION_JSON_VALUE)
                .content(objectMapper.writeValueAsString(TestingUtil.getErrorRequest(2000))))
@@ -54,7 +54,7 @@ class HmcInboundControllerIT extends BaseTest {
 
     @Test
     void shouldReturn400_whenRequest_has_only_InvalidErrorCode() throws Exception {
-        stubSuccessfullyGetResponseFromCft(listingId, "170");
+        stubSuccessfullyGetResponseFromCft(listingId, "170", "LISTED");
         mockMvc.perform(put(url)
                .contentType(MediaType.APPLICATION_JSON_VALUE)
                .accept(MediaType.APPLICATION_JSON)
@@ -97,7 +97,7 @@ class HmcInboundControllerIT extends BaseTest {
 
     @Test
     void shouldReturn400_whenHearingStatusCodeIsInvalid() throws Exception {
-        stubSuccessfullyGetResponseFromCft(listingId, "170");
+        stubSuccessfullyGetResponseFromCft(listingId, "170", "LISTED");
         HearingDetailsRequest hearingDetailsRequest = TestingUtil.getHearingWithCodesRequest();
         hearingDetailsRequest.getHearingResponse().getHearing().getHearingStatus().setCode("INVALID");
         mockMvc.perform(put(url)

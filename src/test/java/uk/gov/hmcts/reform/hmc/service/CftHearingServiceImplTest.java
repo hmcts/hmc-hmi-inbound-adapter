@@ -18,6 +18,8 @@ import uk.gov.hmcts.reform.hmc.ApplicationParams;
 import uk.gov.hmcts.reform.hmc.exceptions.ResourceNotFoundException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -55,8 +57,8 @@ class CftHearingServiceImplTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         given(applicationParams.cftHearingValidateCaseIdUrl(Mockito.anyString())).willReturn(cftBaseUrl);
+        given(applicationParams.getHmcHearingTerminalStates()).willReturn(List.of("COMPLETED","ADJOURNED","CANCELLED"));
         given(securityUtils.authorizationHeaders()).willReturn(new HttpHeaders());
-
         responseHeaders.set("Latest-Hearing-Request-Version", "1");
         responseHeaders.set("Latest-Hearing-Status", "ADJOURNED");
     }
@@ -64,12 +66,6 @@ class CftHearingServiceImplTest {
     @Test
     void shouldFailToGetLatestVersionFromHeader() {
         HttpHeaders responseHeaders = new HttpHeaders();
-        ResponseEntity responseEntity = ResponseEntity.status(204).build();
-        doReturn(responseEntity).when(restTemplate).exchange(anyString(),
-                eq(HttpMethod.GET),
-                any(HttpEntity.class),
-                eq(HttpStatus.class));
-
         final ResourceNotFoundException expectedException =
                 assertThrows(ResourceNotFoundException.class, () -> cftHearingService.getLatestVersion(responseHeaders,
                     validCaseId));
@@ -80,12 +76,6 @@ class CftHearingServiceImplTest {
     void shouldSucceedToGetLatestVersionFromHeader() {
         responseHeaders.set("Latest-Hearing-Request-Version", "170");
         final String versionValue = "170";
-        ResponseEntity responseEntity = ResponseEntity.status(204)
-                .header(LATEST_HEARING_REQUEST_VERSION, versionValue).build();
-        doReturn(responseEntity).when(restTemplate).exchange(anyString(),
-                eq(HttpMethod.GET),
-                any(HttpEntity.class),
-                eq(HttpStatus.class));
         assertEquals(170, cftHearingService.getLatestVersion(responseHeaders, validCaseId));
     }
 
@@ -152,4 +142,20 @@ class CftHearingServiceImplTest {
         assertEquals("The CFT service is currently down, please refresh "
                          +  "your browser or try again later", expectedException.getMessage());
     }
+
+    /*@Test
+    void shouldFailAsHearingInTerminalState() {
+        responseHeaders.set("Latest-Hearing-Status","AWAITING_LISTING");
+        final BadRequestException expectedException =
+            assertThrows(BadRequestException.class, () -> cftHearingService.checkHearingInTerminalState(responseHeaders,
+                                                                                                        validCaseId));
+        assertEquals(INVALID_HEARING_STATE, expectedException.getMessage());
+    }
+
+    @Test
+    void shouldPassAsHearingNotInTerminalState() {
+        cftHearingService.checkHearingInTerminalState(responseHeaders, validCaseId);
+        verify(cftHearingService, times(1)).checkHearingInTerminalState(responseHeaders,
+                                                                        validCaseId);
+    }*/
 }

@@ -3,7 +3,10 @@ package uk.gov.hmcts.reform.hmc;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ApplicationParamsTest {
 
@@ -43,4 +46,19 @@ class ApplicationParamsTest {
     void shouldTestEncode() {
         assertEquals(CASE_ID, ApplicationParams.encode(CASE_ID));
     }
+
+    @Test
+    void shouldGetHmcHearingTerminalStates_Completed() {
+        ReflectionTestUtils.setField(applicationParams, "hmcHearingTerminalStates",
+                                     List.of("COMPLETED", "ADJOURNED", "CANCELLED"));
+        assertTrue(applicationParams.getHmcHearingTerminalStates().contains("COMPLETED"));
+    }
+
+    @Test
+    void shouldGetHmcHearingTerminalStates_Adjourned() {
+        ReflectionTestUtils.setField(applicationParams, "hmcHearingTerminalStates",
+                                     List.of("COMPLETED", "ADJOURNED", "CANCELLED"));
+        assertTrue(applicationParams.getHmcHearingTerminalStates().contains("ADJOURNED"));
+    }
+
 }
