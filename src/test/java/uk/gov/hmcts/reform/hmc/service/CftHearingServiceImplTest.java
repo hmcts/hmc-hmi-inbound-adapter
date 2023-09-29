@@ -15,6 +15,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
+import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.exceptions.ResourceNotFoundException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
 
@@ -29,6 +30,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_STATE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.LATEST_HEARING_REQUEST_VERSION;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.VERSION_NOT_SUPPLIED;
 
@@ -60,7 +62,7 @@ class CftHearingServiceImplTest {
         given(applicationParams.getHmcHearingTerminalStates()).willReturn(List.of("COMPLETED","ADJOURNED","CANCELLED"));
         given(securityUtils.authorizationHeaders()).willReturn(new HttpHeaders());
         responseHeaders.set("Latest-Hearing-Request-Version", "1");
-        responseHeaders.set("Latest-Hearing-Status", "ADJOURNED");
+        responseHeaders.set("Latest-Hearing-Status", "LISTED");
     }
 
     @Test
@@ -143,9 +145,27 @@ class CftHearingServiceImplTest {
                          +  "your browser or try again later", expectedException.getMessage());
     }
 
-    /*@Test
-    void shouldFailAsHearingInTerminalState() {
-        responseHeaders.set("Latest-Hearing-Status","AWAITING_LISTING");
+    @Test
+    void shouldFailAsHearingInTerminalState_Completed() {
+        responseHeaders.set("Latest-Hearing-Status","COMPLETED");
+        final BadRequestException expectedException =
+            assertThrows(BadRequestException.class, () -> cftHearingService.checkHearingInTerminalState(responseHeaders,
+                                                                                                        validCaseId));
+        assertEquals(INVALID_HEARING_STATE, expectedException.getMessage());
+    }
+
+    @Test
+    void shouldFailAsHearingInTerminalState_Adjourned() {
+        responseHeaders.set("Latest-Hearing-Status","ADJOURNED");
+        final BadRequestException expectedException =
+            assertThrows(BadRequestException.class, () -> cftHearingService.checkHearingInTerminalState(responseHeaders,
+                                                                                                        validCaseId));
+        assertEquals(INVALID_HEARING_STATE, expectedException.getMessage());
+    }
+
+    @Test
+    void shouldFailAsHearingInTerminalState_Cancelled() {
+        responseHeaders.set("Latest-Hearing-Status","CANCELLED");
         final BadRequestException expectedException =
             assertThrows(BadRequestException.class, () -> cftHearingService.checkHearingInTerminalState(responseHeaders,
                                                                                                         validCaseId));
@@ -155,7 +175,5 @@ class CftHearingServiceImplTest {
     @Test
     void shouldPassAsHearingNotInTerminalState() {
         cftHearingService.checkHearingInTerminalState(responseHeaders, validCaseId);
-        verify(cftHearingService, times(1)).checkHearingInTerminalState(responseHeaders,
-                                                                        validCaseId);
-    }*/
+    }
 }

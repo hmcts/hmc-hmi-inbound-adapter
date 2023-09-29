@@ -28,12 +28,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_STATE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_VERSION;
 
 class HearingManagementServiceImplTest {
@@ -65,8 +67,7 @@ class HearingManagementServiceImplTest {
         hearingManagementService = new HearingManagementServiceImpl(messageSenderConfiguration,
                                                                     objectMapperService,
                                                                     cftHearingService);
-        given(applicationParams.getHmcHearingTerminalStates()).willReturn(List.of("COMPLETED","ADJOURNED","CANCELLED"));
-        responseHeaders = buildHeaders("123","COMPLETED");
+        responseHeaders = buildHeaders("123","LISTED");
     }
 
     @Test
@@ -359,22 +360,43 @@ class HearingManagementServiceImplTest {
         verify(objectMapperService, times(0)).convertObjectToJsonNode(any());
     }
 
-    /* @Test
+    @Test
     void shouldFailAsHearingForCompletedStatus() {
+        responseHeaders.set("Latest-Hearing-Status", "COMPLETED");
+        BadRequestException exception  = new BadRequestException(INVALID_HEARING_STATE);
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         List<VenueLocationReference> locationReferences = new ArrayList<>();
         request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
         given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
         given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
-        cftHearingService.checkHearingInTerminalState(responseHeaders, validCaseId);
+        doThrow(exception).when(cftHearingService).checkHearingInTerminalState(responseHeaders, validCaseId);
         when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
                    () -> hearingManagementService.processRequest(validCaseId, request));
-        assertEquals(Constants.INVALID_HEARING_STATE, badRequestException.getMessage());
+        assertEquals(INVALID_HEARING_STATE, badRequestException.getMessage());
         verify(cftHearingService, times(1)).getHearingVersionHeaders(any());
         verify(cftHearingService, times(1)).checkHearingInTerminalState(responseHeaders,
                                                                         validCaseId);
-    }*/
+    }
+
+    @Test
+    void shouldFailAsHearingForAdjournedStatus() {
+        responseHeaders.set("Latest-Hearing-Status", "ADJOURNED");
+        BadRequestException exception  = new BadRequestException(INVALID_HEARING_STATE);
+        HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
+        List<VenueLocationReference> locationReferences = new ArrayList<>();
+        request.getHearingResponse().getHearing().getHearingVenue().setLocationReferences(locationReferences);
+        given(cftHearingService.getHearingVersionHeaders(validCaseId)).willReturn(responseHeaders);
+        given(cftHearingService.getLatestVersion(responseHeaders, validCaseId)).willReturn(123);
+        doThrow(exception).when(cftHearingService).checkHearingInTerminalState(responseHeaders, validCaseId);
+        when(objectMapperService.convertObjectToJsonNode(request.getHearingResponse())).thenReturn(jsonNode);
+        final BadRequestException badRequestException = assertThrows(BadRequestException.class,
+                   () -> hearingManagementService.processRequest(validCaseId, request));
+        assertEquals(INVALID_HEARING_STATE, badRequestException.getMessage());
+        verify(cftHearingService, times(1)).getHearingVersionHeaders(any());
+        verify(cftHearingService, times(1)).checkHearingInTerminalState(responseHeaders,
+                                                                        validCaseId);
+    }
 
 
     private VenueLocationReference createVenueLocationReference(String key, String value) {
