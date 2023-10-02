@@ -33,6 +33,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.ADJOURNED;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.COMPLETED;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_STATE;
@@ -362,7 +364,7 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldFailAsHearingForCompletedStatus() {
-        responseHeaders.set("Latest-Hearing-Status", "COMPLETED");
+        responseHeaders.set("Latest-Hearing-Status", COMPLETED);
         BadRequestException exception  = new BadRequestException(INVALID_HEARING_STATE);
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         List<VenueLocationReference> locationReferences = new ArrayList<>();
@@ -381,7 +383,7 @@ class HearingManagementServiceImplTest {
 
     @Test
     void shouldFailAsHearingForAdjournedStatus() {
-        responseHeaders.set("Latest-Hearing-Status", "ADJOURNED");
+        responseHeaders.set("Latest-Hearing-Status", ADJOURNED);
         BadRequestException exception  = new BadRequestException(INVALID_HEARING_STATE);
         HearingDetailsRequest request = TestingUtil.getHearingVenueLocationReferencesKeyDoesNotEqualsEpims();
         List<VenueLocationReference> locationReferences = new ArrayList<>();

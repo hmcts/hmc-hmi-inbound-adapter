@@ -25,6 +25,9 @@ public final class Constants {
 
     public static final String LATEST_HEARING_STATUS = "Latest-Hearing-Status";
     public static final String INVALID_HEARING_STATE = "Hearing is in a terminal State";
+    public static final String COMPLETED = "COMPLETED";
+    public static final String ADJOURNED = "ADJOURNED";
+    public static final String CANCELLED = "CANCELLED";
 
 
 }

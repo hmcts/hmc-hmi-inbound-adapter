@@ -12,6 +12,9 @@ import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static uk.gov.hmcts.reform.hmc.WiremockFixtures.stubSuccessfullyGetResponseFromCft;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.ADJOURNED;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.CANCELLED;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.COMPLETED;
 
 class HearingManagementServiceIT extends BaseTest {
 
@@ -43,7 +46,7 @@ class HearingManagementServiceIT extends BaseTest {
 
     @Test
     void testProcessRequestForHearingStatusAdjourned() {
-        stubSuccessfullyGetResponseFromCft(caseListingId, "170", "ADJOURNED");
+        stubSuccessfullyGetResponseFromCft(caseListingId, "170", ADJOURNED);
         HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
         hearingRequest.getHearingResponse().getHearing().getHearingCaseStatus()
             .setCode(HearingCode.AWAITING_LISTING.getNumber());
@@ -55,7 +58,7 @@ class HearingManagementServiceIT extends BaseTest {
 
     @Test
     void testProcessRequestForHearingStatusCompleted() {
-        stubSuccessfullyGetResponseFromCft(caseListingId, "170", "COMPLETED");
+        stubSuccessfullyGetResponseFromCft(caseListingId, "170", COMPLETED);
         HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
         hearingRequest.getHearingResponse().getHearing().getHearingCaseStatus()
             .setCode(HearingCode.AWAITING_LISTING.getNumber());
@@ -67,7 +70,7 @@ class HearingManagementServiceIT extends BaseTest {
 
     @Test
     void testProcessRequestForHearingStatusCancelled() {
-        stubSuccessfullyGetResponseFromCft(caseListingId, "170", "CANCELLED");
+        stubSuccessfullyGetResponseFromCft(caseListingId, "170", CANCELLED);
         HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
         hearingRequest.getHearingResponse().getHearing().getHearingCaseStatus()
             .setCode(HearingCode.AWAITING_LISTING.getNumber());

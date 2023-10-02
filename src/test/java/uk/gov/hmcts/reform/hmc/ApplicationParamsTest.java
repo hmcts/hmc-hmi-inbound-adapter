@@ -7,6 +7,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.ADJOURNED;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.CANCELLED;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.COMPLETED;
 
 class ApplicationParamsTest {
 
@@ -50,15 +53,15 @@ class ApplicationParamsTest {
     @Test
     void shouldGetHmcHearingTerminalStates_Completed() {
         ReflectionTestUtils.setField(applicationParams, "hmcHearingTerminalStates",
-                                     List.of("COMPLETED", "ADJOURNED", "CANCELLED"));
-        assertTrue(applicationParams.getHmcHearingTerminalStates().contains("COMPLETED"));
+                                     List.of(COMPLETED, ADJOURNED, CANCELLED));
+        assertTrue(applicationParams.getHmcHearingTerminalStates().contains(COMPLETED));
     }
 
     @Test
     void shouldGetHmcHearingTerminalStates_Adjourned() {
         ReflectionTestUtils.setField(applicationParams, "hmcHearingTerminalStates",
-                                     List.of("COMPLETED", "ADJOURNED", "CANCELLED"));
-        assertTrue(applicationParams.getHmcHearingTerminalStates().contains("ADJOURNED"));
+                                     List.of(COMPLETED, ADJOURNED, CANCELLED));
+        assertTrue(applicationParams.getHmcHearingTerminalStates().contains(ADJOURNED));
     }
 
 }
