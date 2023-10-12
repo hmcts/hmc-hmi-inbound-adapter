@@ -23,6 +23,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static java.net.HttpURLConnection.HTTP_ACCEPTED;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.LATEST_HEARING_STATUS;
 
 
 public class WiremockFixtures {
@@ -63,16 +64,17 @@ public class WiremockFixtures {
                     .willReturn(aResponse().withStatus(HTTP_ACCEPTED)));
     }
 
-    public static void stubSuccessfullyGetResponseFromCft(String caseListingId, String version) {
+    public static void stubSuccessfullyGetResponseFromCft(String caseListingId, String version, String status) {
         stubFor(WireMock.get(urlEqualTo("/hearing/" + caseListingId + "?isValid=true"))
                 .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
                 .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
                 .willReturn(aResponse().withHeader(LATEST_HEARING_REQUEST_VERSION, version)
+                                .withHeader(LATEST_HEARING_STATUS, status)
                         .withStatus(HTTP_ACCEPTED)));
     }
 
     public static void stubSuccessfullyGetResponseFromCft(String caseListingId) {
-        stubSuccessfullyGetResponseFromCft(caseListingId,"1");
+        stubSuccessfullyGetResponseFromCft(caseListingId,"1", "LISTED");
     }
 
     public static void stubReturn404FromCft(String caseListingId) {
