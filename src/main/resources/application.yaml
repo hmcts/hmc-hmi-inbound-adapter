@@ -36,6 +36,8 @@ spring:
 hmc:
   cft-hearing-service:
     host: ${CFT_HEARING_SERVICE_URL:http://localhost:4561}
+  hearing:
+    terminalStates: ${HEARING_TERMINAL_STATES:COMPLETED,ADJOURNED,CANCELLED}
 
 idam:
   api:
