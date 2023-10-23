@@ -1,6 +1,8 @@
 hmc:
   cft-hearing-service:
     host: http://localhost:${wiremock.server.port:5000}
+  hearing:
+    terminalStates: ${HEARING_TERMINAL_STATES:COMPLETED,ADJOURNED,CANCELLED}
 
 jms:
   servicebus:

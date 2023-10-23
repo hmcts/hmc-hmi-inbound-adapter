@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
+import uk.gov.hmcts.reform.hmc.exceptions.BadRequestException;
 import uk.gov.hmcts.reform.hmc.exceptions.ResourceNotFoundException;
 import uk.gov.hmcts.reform.hmc.exceptions.ServiceException;
 
@@ -19,6 +20,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.CFT_SERVICE_DOWN_ERR_MESSAGE;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_STATE;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.LATEST_HEARING_REQUEST_VERSION;
+import static uk.gov.hmcts.reform.hmc.constants.Constants.LATEST_HEARING_STATUS;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.RESOURCE_NOT_FOUND_MSG;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.VERSION_NOT_SUPPLIED;
 
@@ -32,8 +36,6 @@ public class CftHearingServiceImpl implements CftHearingService {
     private final ApplicationParams applicationParams;
     private final SecurityUtils securityUtils;
 
-    public static final String LATEST_HEARING_REQUEST_VERSION = "Latest-Hearing-Request-Version";
-
     public CftHearingServiceImpl(RestTemplate restTemplate,
                                  ApplicationParams applicationParams,
                                  SecurityUtils securityUtils) {
@@ -43,8 +45,7 @@ public class CftHearingServiceImpl implements CftHearingService {
     }
 
     @Override
-    public Integer getLatestVersion(String caseId) {
-        HttpHeaders headers = getHearingVersionHeaders(caseId);
+    public Integer getLatestVersion(HttpHeaders headers, String caseId) {
         if (headers.containsKey(LATEST_HEARING_REQUEST_VERSION)) {
             List<String> values = headers.get(LATEST_HEARING_REQUEST_VERSION);
             if (!CollectionUtils.isEmpty(values)) {
@@ -55,7 +56,8 @@ public class CftHearingServiceImpl implements CftHearingService {
         throw new ResourceNotFoundException(String.format(VERSION_NOT_SUPPLIED, caseId));
     }
 
-    private HttpHeaders getHearingVersionHeaders(String caseId) {
+    @Override
+    public HttpHeaders getHearingVersionHeaders(String caseId) {
         try {
             var httpHeaders = securityUtils.authorizationHeaders();
             httpHeaders.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
@@ -73,4 +75,16 @@ public class CftHearingServiceImpl implements CftHearingService {
         }
     }
 
+    @Override
+    public void checkHearingInTerminalState(HttpHeaders headers, String caseId) {
+        if (headers.containsKey(LATEST_HEARING_STATUS)) {
+            List<String> values = headers.get(LATEST_HEARING_STATUS);
+            if (!CollectionUtils.isEmpty(values) && applicationParams.getHmcHearingTerminalStates().contains(
+                values.get(0))) {
+                log.warn("case Id:{} has hearing status: {}", caseId, values.get(0));
+                throw new BadRequestException(String.format(INVALID_HEARING_STATE));
+            }
+        }
+
+    }
 }
