@@ -312,7 +312,7 @@ dependencies {
     }
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
 
-  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version : versions.reformLogging
+  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
 
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
