@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Component
 @Getter
@@ -25,6 +26,9 @@ public class ApplicationParams {
 
     @Value("${idam.system-user.password}")
     private String hmcSystemUserPassword;
+
+    @Value("${hmc.hearing.terminalStates}")
+    private List<String> hmcHearingTerminalStates;
 
     public String cftHearingValidateCaseIdUrl(String caseId) {
         return cftHearingServiceHost + "/hearing/" + encode(caseId) + "?isValid=true";
