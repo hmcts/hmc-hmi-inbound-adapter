@@ -6,16 +6,18 @@ plugins {
   id 'org.springframework.boot' version '2.4.5'
   id 'com.github.ben-manes.versions' version '0.38.0'
   id 'org.sonarqube' version '3.1.1'
-  id 'uk.gov.hmcts.java' version '0.12.41'
+  id 'uk.gov.hmcts.java' version '0.12.43'
   id 'com.github.spacialcircumstances.gradle-cucumber-reporting' version '0.1.23'
 }
 
 group = 'uk.gov.hmcts.reform'
 version = '0.0.1'
 
-sourceCompatibility = 11
-targetCompatibility = 11
-
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
+}
 
 sourceSets {
   functionalTest {
@@ -194,7 +196,7 @@ sonarqube {
 def versions = [
   junit           : '5.7.1',
   junitPlatform   : '1.7.1',
-  lombok          : '1.18.8',
+  lombok          : '1.18.28',
   mapstruct       : '1.4.2.Final',
   reformLogging   : '6.0.1',
   serviceAuth     : '4.0.3',
@@ -213,6 +215,20 @@ ext['spring-security.version'] = '5.8.3'
 ext['log4j2.version'] = '2.17.1'
 ext['jackson.version'] = '2.14.1'
 ext['snakeyaml.version'] = '1.33'
+
+configurations.configureEach {
+  resolutionStrategy {
+    eachDependency { details ->
+      if (details.requested.group == 'org.projectlombok' && details.requested.name == 'lombok') {
+        details.useVersion '1.18.28'
+      }
+    }
+  }
+
+  tasks.withType(Copy).configureEach {
+    duplicatesStrategy 'exclude'
+  }
+}
 
 // before committing a change, make sure task still works
 dependencyUpdates {
@@ -310,7 +326,6 @@ dependencies {
 
   // Explicitly specify version of jakarta.el to be used to resolve CVE-2021-28170
   implementation group: 'org.glassfish', name: 'jakarta.el', version: '4.0.1'
-  compile "org.glassfish:javax.el:3.0.0"
 
   // CVE-2021-42550
   implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
@@ -387,7 +402,7 @@ dependencies {
   functionalTestImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '8.7.11'
   functionalTestImplementation libraries.junit5
 
-  testCompile 'com.github.hmcts:fortify-client:1.2.0:all'
+  testImplementation 'com.github.hmcts:fortify-client:1.2.0:all'
 }
 
 configurations.implementation {
