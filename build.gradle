@@ -189,7 +189,7 @@ sonarqube {
     property "sonar.projectKey", "uk.gov.hmcts.reform:hmc-hmi-inbound-adapter"
     property "sonar.coverage.jacoco.xmlReportPaths", "${jacocoTestReport.reports.xml.destination.path}"
     property "sonar.exclusions", "src/main/java/uk/gov/hmcts/reform/hmc/Application.java," +
-    "src/main/java/uk/gov/hmcts/reform/hmc/config/MessageReceiverConfiguration.java,**/config/SecurityConfiguration.java"
+      "src/main/java/uk/gov/hmcts/reform/hmc/config/MessageReceiverConfiguration.java,**/config/SecurityConfiguration.java"
   }
 }
 
@@ -198,7 +198,7 @@ def versions = [
   junitPlatform   : '1.7.1',
   lombok          : '1.18.28',
   mapstruct       : '1.4.2.Final',
-  reformLogging   : '5.1.9',
+  reformLogging   : '6.0.1',
   serviceAuth     : '4.0.3',
   springBoot      : springBoot.class.package.implementationVersion,
   springCloud     : '2020.0.1',
@@ -313,6 +313,12 @@ dependencies {
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
 
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
+
+  implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
+  implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
+  implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.32'
+  implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.6'
+
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.reformLogging
 
   implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: versions.serviceAuth
@@ -326,10 +332,6 @@ dependencies {
 
   // Explicitly specify version of jakarta.el to be used to resolve CVE-2021-28170
   implementation group: 'org.glassfish', name: 'jakarta.el', version: '4.0.1'
-
-  // CVE-2021-42550
-  implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
-  implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.10'
 
   // CVE-2022-45143
   implementation "org.apache.tomcat.embed:tomcat-embed-core:${versions.tomcatEmbedded}"
