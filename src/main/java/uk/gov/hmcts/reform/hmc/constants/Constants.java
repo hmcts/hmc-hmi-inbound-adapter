@@ -19,7 +19,7 @@ public final class Constants {
     public static final String HMC_FROM_HMI = "hmc-from-hmi";
 
     public static final String ERROR_PROCESSING_MESSAGE = "Error occurred during service bus processing. "
-        + "Service:{} . Entity: {}. Method: {}. Hearing ID: {}.";
+        + "Service:{}. Entity:{}. Method:{}. Hearing ID: {}.";
 
     public static final String LATEST_HEARING_REQUEST_VERSION = "Latest-Hearing-Request-Version";
 
