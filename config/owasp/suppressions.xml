@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?><suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
   <suppress>
     <notes>Temporary Suppression
-        CVE-2023-20873 refer [Ticket]
-        CVE-2023-28709 refer [Ticket]
-        CVE-2023-20883 refer [Ticket]
-        CVE-2023-34462 refer [Ticket]
-        CVE-2023-41080 refer [Ticket]
-        CVE-2023-36479 refer [Ticket]
-        CVE-2023-41900 refer [Ticket]
-        CVE-2023-40167 refer [Ticket]
-        CVE-2023-4586  refer [Ticket]
-        CVE-2023-42794 refer [Ticket]
-        CVE-2023-42795 refer [Ticket]
-        CVE-2023-45648 refer [Ticket]
-        CVE-2023-44487 refer [Ticket]
-        CVE-2021-42550 refer [Ticket]
-        CVE-2023-36478 refer [Ticket]
-        CVE-2023-45960 refer [Ticket]
+        CVE-2023-20873 refer https://tools.hmcts.net/jira/browse/CCD-4604
+        CVE-2023-28709 refer https://tools.hmcts.net/jira/browse/CCD-4737
+        CVE-2023-20883 refer https://tools.hmcts.net/jira/browse/HMAN-555
+        CVE-2023-34462 refer https://tools.hmcts.net/jira/browse/CCD-5020
+        CVE-2023-41080 refer https://tools.hmcts.net/jira/browse/CCD-4971
+        CVE-2023-4586  refer https://tools.hmcts.net/jira/browse/CCD-5021
+        CVE-2023-42794 refer https://tools.hmcts.net/jira/browse/CCD-4973
+        CVE-2023-42795 refer https://tools.hmcts.net/jira/browse/CCD-4973
+        CVE-2023-45648 refer https://tools.hmcts.net/jira/browse/CCD-4973
+        CVE-2023-44487 refer https://tools.hmcts.net/jira/browse/CCD-4974
+        CVE-2021-42550 refer https://tools.hmcts.net/jira/browse/CCD-5060
+        CVE-2023-36052 refer https://tools.hmcts.net/jira/browse/CCD-5059
     </notes>
     <cve>CVE-2023-20873</cve>
     <cve>CVE-2023-28709</cve>
     <cve>CVE-2023-20883</cve>
     <cve>CVE-2023-34462</cve>
     <cve>CVE-2023-41080</cve>
-    <cve>CVE-2023-36479</cve>
-    <cve>CVE-2023-41900</cve>
-    <cve>CVE-2023-40167</cve>
     <cve>CVE-2023-4586</cve>
     <cve>CVE-2023-42794</cve>
     <cve>CVE-2023-42795</cve>
     <cve>CVE-2023-45648</cve>
     <cve>CVE-2023-44487</cve>
     <cve>CVE-2021-42550</cve>
-    <cve>CVE-2023-36478</cve>
-    <cve>CVE-2023-45960</cve>
+    <cve>CVE-2023-36052</cve>
   </suppress>
 </suppressions>
