@@ -19,9 +19,9 @@
         CVE-2023-45648 refer [Ticket]
         CVE-2023-44487 refer [Ticket]
         CVE-2021-42550 refer [Ticket]
-        CVE-2023-45960 refer [Ticket]
-    
-        CVE-2023-36052 refer [Ticket]</notes>
+        CVE-2023-36052 refer [Ticket]
+        CVE-2023-45960 [this needs to be removed as its not a vulnerability in the central db]
+    </notes>
     <cve>CVE-2022-1471</cve>
     <cve>CVE-2023-20873</cve>
     <cve>CVE-2023-28709</cve>
@@ -36,5 +36,6 @@
     <cve>CVE-2021-42550</cve>
     <cve>CVE-2021-42550</cve>
     <cve>CVE-2023-36052</cve>
+    <cve>CVE-2023-45960</cve>
   </suppress>
 </suppressions>
