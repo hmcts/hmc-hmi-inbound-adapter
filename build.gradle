@@ -255,7 +255,7 @@ dependencyManagement {
       entry 'guava'
     }
     // Remove once BEFTA rest-assured is updated
-    dependencySet(group: 'io.rest-assured', version: '4.3.0') {
+    dependencySet(group: 'io.rest-assured', version: '4.3.3') {
       entry 'json-path'
       entry 'xml-path'
     }
@@ -305,7 +305,7 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache'
-  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security' , version: '2.7.5'
+  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign' ,
     {
       exclude group: "org.springframework.security", module: "spring-security-crypto"
