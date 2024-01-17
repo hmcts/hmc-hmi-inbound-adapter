@@ -194,25 +194,25 @@ sonarqube {
 }
 
 def versions = [
-  junit           : '5.7.1',
-  junitPlatform   : '1.7.1',
-  lombok          : '1.18.28',
+  junit           : '5.7.2',
+  junitPlatform   : '1.7.2',
+  lombok          : '1.18.30',
   mapstruct       : '1.4.2.Final',
   reformLogging   : '6.0.1',
   serviceAuth     : '4.0.3',
   springBoot      : springBoot.class.package.implementationVersion,
-  springCloud     : '2020.0.1',
+  springCloud     : '2020.0.6',
   springfoxSwagger: '3.0.0',
   testcontainers  : '1.15.2',
   jetty           : '9.4.53.v20231009',
-  netty           : '4.1.86.Final' ,
+  netty           : '4.1.104.Final' ,
   snakeyaml       : '1.33' ,
-  tomcatEmbedded  : '9.0.73'
+  tomcatEmbedded  : '9.0.84'
 ]
 
-ext['spring-framework.version'] = '5.3.27'
+ext['spring-framework.version'] = '5.3.31'
 ext['spring-security.version'] = '5.8.7'
-ext['log4j2.version'] = '2.17.1'
+ext['log4j2.version'] = '2.17.2'
 //ext['jackson.version'] = '2.15.3'
 ext['snakeyaml.version'] = '1.33'
 
@@ -259,7 +259,7 @@ dependencyManagement {
       entry 'json-path'
       entry 'xml-path'
     }
-    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.68') {
+    dependencySet(group: 'org.apache.tomcat.embed', version: '9.0.84') {
       entry 'tomcat-embed-core'
       entry 'tomcat-embed-el'
       entry 'tomcat-embed-websocket'
@@ -329,7 +329,7 @@ dependencies {
   implementation group: 'com.azure', name: 'azure-core', version: '1.28.0'
   implementation group: "com.github.ben-manes.caffeine", name: "caffeine", version: "3.0.6"
 
-  implementation group: 'net.minidev', name: 'json-smart', version: '2.4.7'
+  implementation group: 'net.minidev', name: 'json-smart', version: '2.4.9'
 
   // Explicitly specify version of jakarta.el to be used to resolve CVE-2021-28170
   implementation group: 'org.glassfish', name: 'jakarta.el', version: '4.0.1'
@@ -383,8 +383,8 @@ dependencies {
   implementation group: 'io.netty', name: 'netty-transport-native-kqueue', version: versions.netty
   implementation group: 'io.netty', name: 'netty-transport-native-unix-common', version: versions.netty
   implementation group: 'org.yaml', name: 'snakeyaml', version: versions.snakeyaml
-  implementation group: 'io.projectreactor.netty', name: 'reactor-netty-core', version: '1.1.0'
-  implementation group: 'io.projectreactor.netty', name: 'reactor-netty-http', version: '1.1.0'
+  implementation group: 'io.projectreactor.netty', name: 'reactor-netty-core', version: '1.1.14'
+  implementation group: 'io.projectreactor.netty', name: 'reactor-netty-http', version: '1.1.14'
 
   // https://mvnrepository.com/artifact/com.fasterxml.woodstox/woodstox-core
   implementation group: 'com.fasterxml.woodstox', name: 'woodstox-core', version: '6.4.0'
