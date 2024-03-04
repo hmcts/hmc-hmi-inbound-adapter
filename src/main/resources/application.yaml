@@ -72,4 +72,5 @@ LOGGING:
       gov:
         hmcts:
           reform:
-            hmc: DEBUG
+            hmc:
+              config: INFO
