@@ -28,6 +28,7 @@ public class MessageSenderConfiguration {
 
     public void sendMessage(String message, MessageType messageType, String hearingId) {
         try {
+            log.debug("setting up the connection details for hearingId {}", hearingId);
             ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
             serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType.name());
             serviceBusMessage.getApplicationProperties().put(HEARING_ID, hearingId);

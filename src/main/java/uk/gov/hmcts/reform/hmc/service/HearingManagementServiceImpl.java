@@ -46,6 +46,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     @Override
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
+        log.debug("Hearing response received for hearing ID {}, ", caseId);
         HttpHeaders headers = cftHearingService.getHearingVersionHeaders(caseId);
         val latestVersion = cftHearingService.getLatestVersion(headers, caseId);
         cftHearingService.checkHearingInTerminalState(headers, caseId);
@@ -132,6 +133,8 @@ public class HearingManagementServiceImpl implements HearingManagementService {
             validateRequestVersion(hearingDetailsRequest, latestVersion);
         }
         if (null != hearingDetailsRequest.getHearingResponse()) {
+            log.debug("caseId {} has hearingResponse {} ", caseId,
+                      hearingDetailsRequest.getHearingResponse().getHearing().getHearingCaseStatus().getDescription());
             sendHearingRspToQueue(hearingDetailsRequest.getHearingResponse(), MessageType.HEARING_RESPONSE, caseId);
         }
     }
@@ -150,11 +153,13 @@ public class HearingManagementServiceImpl implements HearingManagementService {
         if (null == hearingDetailsRequest.getErrorDetails().getErrorCode()) {
             throw new BadRequestException(INVALID_ERROR_CODE_ERR_MESSAGE);
         } else {
+            log.debug("hearing response has error code for caseId {}", caseId);
             sendHearingRspToQueue(hearingDetailsRequest.getErrorDetails(), MessageType.ERROR, caseId);
         }
     }
 
     private void sendHearingRspToQueue(Object response, MessageType messageType, String caseId) {
+        log.debug("Sending hearing response to Queue for caseId {}", caseId);
         var jsonNode  = objectMapperService.convertObjectToJsonNode(response);
         messageSenderConfiguration.sendMessage(jsonNode.toString(), messageType, caseId);
     }
