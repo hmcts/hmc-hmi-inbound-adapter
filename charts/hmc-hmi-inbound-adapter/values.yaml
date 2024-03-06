@@ -24,6 +24,7 @@ java:
     CFT_HEARING_SERVICE_URL: http://hmc-cft-hearing-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
     S2S_URL: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    APPLICATION_LOGGING_LEVEL: DEBUG
 
 servicebus:
   enabled: false
