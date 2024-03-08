@@ -46,7 +46,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
 
     @Override
     public void processRequest(String caseId, HearingDetailsRequest hearingDetailsRequest) {
-        log.debug("Hearing response received for hearing ID {}, ", caseId);
+        log.debug("Hearing response received for hearing ID {}, {} ", caseId, hearingDetailsRequest);
         HttpHeaders headers = cftHearingService.getHearingVersionHeaders(caseId);
         val latestVersion = cftHearingService.getLatestVersion(headers, caseId);
         cftHearingService.checkHearingInTerminalState(headers, caseId);
@@ -159,7 +159,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
     }
 
     private void sendHearingRspToQueue(Object response, MessageType messageType, String caseId) {
-        log.debug("Sending hearing response to Queue for caseId {}", caseId);
+        log.debug("Sending hearing response to Queue for caseId {}, {}", caseId, response.toString());
         var jsonNode  = objectMapperService.convertObjectToJsonNode(response);
         messageSenderConfiguration.sendMessage(jsonNode.toString(), messageType, caseId);
     }
