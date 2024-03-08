@@ -16,7 +16,7 @@ public class HearingStatus {
     @NotEmpty(message = ValidationError.HEARING_CODE_NULL)
     @Size(max = 30, message = ValidationError.HEARING_CODE_LENGTH)
     @HearingStatusCodeEnumPattern(enumClass = HearingStatusCode.class, fieldName = "hearing status code")
-    @ApiModelProperty(allowableValues = "DRAFT, FIXED, PROV, CNCL")
+    @ApiModelProperty(allowableValues = "DRAFT, FIXED, PROV, CNCL, AMEND")
     private String code;
 
     private String description;
