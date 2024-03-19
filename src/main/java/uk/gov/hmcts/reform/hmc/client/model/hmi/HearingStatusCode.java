@@ -5,7 +5,8 @@ public enum HearingStatusCode {
     DRAFT("DRAFT"),
     FIXED("FIXED"),
     PROV("PROV"),
-    CNCL("CNCL");
+    CNCL("CNCL"),
+    AMEND("AMEND");
 
     public final String label;
 

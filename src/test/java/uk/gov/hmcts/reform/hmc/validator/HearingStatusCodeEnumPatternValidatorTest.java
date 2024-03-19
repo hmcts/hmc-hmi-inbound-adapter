@@ -96,7 +96,7 @@ class HearingStatusCodeEnumPatternValidatorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"DRAFT", "FIXED", "PROV", "CNCL"})
+    @ValueSource(strings = {"DRAFT", "FIXED", "PROV", "CNCL", "AMEND"})
     void test_not_null(String code) {
         HearingStatus hearingStatus = new HearingStatus();
         hearingStatus.setCode(code);
