@@ -1,5 +1,9 @@
 {
   "role": {
     "name": "hmc-hmi-inbound-adapter"
+  },
+  "preview": {
+    "captureControllerSpans": true,
+    "captureLoggingLevelAsCustomDimension": true
   }
 }
