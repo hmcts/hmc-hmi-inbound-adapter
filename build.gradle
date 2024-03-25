@@ -198,7 +198,7 @@ def versions = [
   junitPlatform   : '1.7.2',
   lombok          : '1.18.30',
   mapstruct       : '1.4.2.Final',
-  reformLogging   : '6.0.1',
+  reformLogging   : '6.1.4',
   serviceAuth     : '4.0.3',
   springBoot      : springBoot.class.package.implementationVersion,
   springCloud     : '2020.0.6',
