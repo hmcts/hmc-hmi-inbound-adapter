@@ -213,7 +213,6 @@ def versions = [
 ext['spring-framework.version'] = '5.3.31'
 ext['spring-security.version'] = '5.8.7'
 ext['log4j2.version'] = '2.17.2'
-//ext['jackson.version'] = '2.15.3'
 ext['snakeyaml.version'] = '2.2'
 
 configurations.configureEach {
@@ -221,6 +220,9 @@ configurations.configureEach {
     eachDependency { details ->
       if (details.requested.group == 'org.projectlombok' && details.requested.name == 'lombok') {
         details.useVersion '1.18.30'
+      }
+      if (details.requested.group == 'com.fasterxml.jackson.core') {
+        details.useVersion '2.16.1'
       }
     }
   }
