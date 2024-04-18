@@ -1,4 +1,4 @@
-package uk.gov.hmcts.reform.hmc;
+package uk.gov.hmcts.reform;
 
 import com.microsoft.applicationinsights.TelemetryClient;
 import com.microsoft.applicationinsights.telemetry.TelemetryContext;
