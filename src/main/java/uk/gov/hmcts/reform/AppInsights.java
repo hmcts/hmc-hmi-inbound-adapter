@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AppInsights {
-    private static final String MODULE = "HMC";
+    private static final String MODULE = "INBOUND_ADAPTER";
     private final TelemetryClient telemetry;
 
     @Autowired
