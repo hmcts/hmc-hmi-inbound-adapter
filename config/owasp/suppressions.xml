@@ -2,7 +2,6 @@
   <suppress>
     <notes>Temporary Suppression
         CVE-2023-34462 refer [Ticket]
-        CVE-2023-44487 refer [Ticket]
         CVE-2021-42550 refer [Ticket]
         CVE-2023-36052 refer [Ticket]
         CVE-2023-6378 refer [Ticket]
@@ -11,7 +10,6 @@
         CVE-2023-6481 refer [Ticket]
     </notes>
     <cve>CVE-2023-34462</cve>
-    <cve>CVE-2023-44487</cve>
     <cve>CVE-2021-42550</cve>
     <cve>CVE-2023-36052</cve>
     <cve>CVE-2023-6378</cve>
