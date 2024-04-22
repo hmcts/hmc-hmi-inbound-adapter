@@ -198,7 +198,7 @@ def versions = [
   junitPlatform   : '1.7.2',
   lombok          : '1.18.30',
   mapstruct       : '1.4.2.Final',
-  reformLogging   : '6.0.1',
+  reformLogging   : '6.1.4',
   serviceAuth     : '4.0.3',
   springBoot      : springBoot.class.package.implementationVersion,
   springCloud     : '2020.0.6',
@@ -314,7 +314,6 @@ dependencies {
     }
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
 
-  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
 
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
