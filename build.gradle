@@ -196,6 +196,7 @@ sonarqube {
 def versions = [
   junit           : '5.7.2',
   junitPlatform   : '1.7.2',
+  logback         : '1.2.13',
   lombok          : '1.18.30',
   mapstruct       : '1.4.2.Final',
   reformLogging   : '6.1.4',
@@ -328,8 +329,8 @@ dependencies {
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
   implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '1.7.32'
-  implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.6'
-  implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.2.13'
+  implementation group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
+  implementation group: 'ch.qos.logback', name: 'logback-core', version: versions.logback
 
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: versions.reformLogging
 
