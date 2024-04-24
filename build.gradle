@@ -198,7 +198,7 @@ def versions = [
   junitPlatform   : '1.7.2',
   lombok          : '1.18.30',
   mapstruct       : '1.4.2.Final',
-  reformLogging   : '6.0.1',
+  reformLogging   : '6.1.4',
   serviceAuth     : '4.0.3',
   springBoot      : springBoot.class.package.implementationVersion,
   springCloud     : '2020.0.6',
@@ -213,7 +213,6 @@ def versions = [
 ext['spring-framework.version'] = '5.3.31'
 ext['spring-security.version'] = '5.8.7'
 ext['log4j2.version'] = '2.17.2'
-//ext['jackson.version'] = '2.15.3'
 ext['snakeyaml.version'] = '2.2'
 
 configurations.configureEach {
@@ -221,6 +220,12 @@ configurations.configureEach {
     eachDependency { details ->
       if (details.requested.group == 'org.projectlombok' && details.requested.name == 'lombok') {
         details.useVersion '1.18.30'
+      }
+      if (details.requested.group == 'com.fasterxml.jackson.core') {
+        details.useVersion '2.16.1'
+      }
+      if (details.requested.group == 'io.netty') {
+        details.useVersion '4.1.104.Final'
       }
     }
   }
@@ -319,7 +324,6 @@ dependencies {
     }
   implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
 
-  implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: versions.reformLogging
 
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
@@ -373,22 +377,6 @@ dependencies {
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: versions.jetty
 
   // CVE-2021-43797, CVE-2021-21290
-  implementation group: 'io.netty', name: 'netty-buffer', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-codec', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-codec-dns', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-codec-http', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-codec-http2', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-codec-socks', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-common', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-handler', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-handler-proxy', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-resolver', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-resolver-dns', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-transport', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-transport-native-epoll', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-transport-native-kqueue', version: versions.netty
-  implementation group: 'io.netty', name: 'netty-transport-native-unix-common', version: versions.netty
   implementation group: 'org.yaml', name: 'snakeyaml', version: versions.snakeyaml
   implementation group: 'io.projectreactor.netty', name: 'reactor-netty-core', version: '1.1.15'
   implementation group: 'io.projectreactor.netty', name: 'reactor-netty-http', version: '1.1.15'
