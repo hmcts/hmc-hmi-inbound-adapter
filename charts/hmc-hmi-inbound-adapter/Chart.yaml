@@ -3,12 +3,12 @@ appVersion: "1.0"
 description: A Helm chart for hmc-hmi-inbound-adapter App
 name: hmc-hmi-inbound-adapter
 home: https://github.com/hmcts/hmc-hmi-inbound-adapter
-version: 0.1.17
+version: 0.1.18
 maintainers:
   - name: HMCTS CCD Dev Team
 dependencies:
   - name: java
-    version: 5.0.0
+    version: 5.2.0
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
   - name: servicebus
     version: 1.0.4
