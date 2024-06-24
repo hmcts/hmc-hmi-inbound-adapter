@@ -12,7 +12,7 @@ def product = "hmc"
 def component = "spring-boot-template"
 
 withNightlyPipeline(type, product, component) {
-  enableFortifyScan('hmc-aat')
+  // enableFortifyScan('hmc-aat')
   afterAlways('fortify-scan') {
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
   }
