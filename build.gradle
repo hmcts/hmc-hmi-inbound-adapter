@@ -339,6 +339,7 @@ dependencies {
 
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.4'
   implementation group: 'com.azure', name: 'azure-core', version: '1.52.0'
+  implementation group: 'com.azure', name: 'azure-core-amqp', version: '2.9.9'
   implementation group: 'com.azure', name: 'azure-core-http-netty', version: '1.15.4'
   implementation group: "com.github.ben-manes.caffeine", name: "caffeine", version: "3.0.6"
 
