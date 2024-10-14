@@ -28,6 +28,8 @@ public final class Constants {
     public static final String COMPLETED = "COMPLETED";
     public static final String ADJOURNED = "ADJOURNED";
     public static final String CANCELLED = "CANCELLED";
+    public static final String AMQP_CACHE = "com.azure.core.amqp.cache";
+    public static final String AMQP_CACHE_VALUE = "true";
 
 
 }
