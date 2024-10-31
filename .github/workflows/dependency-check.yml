@@ -10,25 +10,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: tibdex/github-app-token@v2
+      - uses: tibdex/github-app-token@v1
         id: generate-token
         with:
           app_id: ${{ secrets.HMCTS_GITHUB_HMC_APP_ID }}
           private_key: ${{ secrets.HMCTS_GITHUB_HMC_PRIVATE_KEY }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
         with:
           token: ${{ steps.generate-token.outputs.token }}
           ref: master
       - name: Set up Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
-          java-version: 21
+          java-version: 17
           distribution: 'temurin'
       - name: Run dependencyCheck
         run: ./gradlew dependencyCheckAggregate
@@ -38,7 +38,7 @@ jobs:
       #- name: Run cleanSuppressions
       #  run: ./gradlew cleanSuppressions
       - name: Commit
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           skip_dirty_check: false
           commit_message: "Suppressing CVE - Actions"
