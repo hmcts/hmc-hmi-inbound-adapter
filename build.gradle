@@ -212,7 +212,6 @@ ext {
   mapstruct       = '1.4.2.Final'
   reformLogging   = '6.1.4'
   serviceAuth     = '5.2.0'
-  springfoxSwagger= '3.0.0'
   testcontainers  = '1.20.3'
   jetty           = '9.4.56.v20240826'
   snakeyaml       = '2.2' 
@@ -290,7 +289,7 @@ dependencies {
     {
       exclude group: "org.springframework.security", module: "spring-security-crypto"
     }
-  implementation group: 'io.springfox', name: 'springfox-swagger2', version: springfoxSwagger
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
 
   // HMCTS
   implementation group: 'com.github.hmcts.java-logging', name: 'logging-appinsights', version: reformLogging
