@@ -55,6 +55,7 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     useJUnitPlatform()
+    
     testLogging {
         exceptionFormat = 'full'
     }
