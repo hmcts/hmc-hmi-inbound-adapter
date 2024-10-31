@@ -201,7 +201,6 @@ def versions = [
   serviceAuth     : '4.0.3',
   springBoot      : springBoot.class.package.implementationVersion,
   springCloud     : '2021.0.8',
-  springfoxSwagger: '3.0.0',
   testcontainers  : '1.16.3',
   jetty           : '9.4.53.v20231009',
   netty           : '4.1.107.Final' ,
@@ -308,7 +307,7 @@ dependencies {
     {
       exclude group: "org.springframework.security", module: "spring-security-crypto"
     }
-  implementation group: 'io.springfox', name: 'springfox-swagger2', version: versions.springfoxSwagger
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.8.0'
 
 
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '6.6'
@@ -380,8 +379,6 @@ dependencies {
 
   testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.11.1'
   testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.9'
-
-  testImplementation group: 'org.wiremock', name: 'wiremock-standalone', version: '3.9.2'
 
   testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-contract-stub-runner'
   integrationTestImplementation sourceSets.main.runtimeClasspath
