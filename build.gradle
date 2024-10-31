@@ -173,8 +173,6 @@ tasks.clean.dependsOn(tasks.customCleanBeftaReports)
 jacocoTestReport {
   executionData(test, integration)
   reports {
-    xml.enabled = true
-    csv.enabled = false
     xml.destination file("${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
   }
 }
