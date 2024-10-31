@@ -9,8 +9,6 @@ import uk.gov.hmcts.reform.hmc.validator.HearingStatusCodeEnumPattern;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-
-
 @Data
 @NoArgsConstructor
 public class HearingStatus {
