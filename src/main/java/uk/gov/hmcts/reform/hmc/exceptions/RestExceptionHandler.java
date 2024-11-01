@@ -3,6 +3,7 @@ package uk.gov.hmcts.reform.hmc.exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -22,7 +23,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     public ResponseEntity<Object> handleHttpMessageNotReadable(
-        HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         log.debug("HttpMessageNotReadableException:{}", ex.getLocalizedMessage());
         return toResponseEntity(status, INVALID_HEARING_PAYLOAD);
     }
@@ -41,7 +42,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(
-        MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         String[] errors = ex.getBindingResult().getFieldErrors().stream()
             .map(FieldError:: getDefaultMessage)
             .toArray(String[]::new);
@@ -49,7 +50,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return toResponseEntity(status, errors);
     }
 
-    private ResponseEntity<Object> toResponseEntity(HttpStatus status, String... errors) {
+    private ResponseEntity<Object> toResponseEntity(HttpStatusCode status, String... errors) {
         var apiError = new ApiError(status, errors == null ? null : List.of(errors));
         return new ResponseEntity<>(apiError, new HttpHeaders(), apiError.getStatus());
     }
