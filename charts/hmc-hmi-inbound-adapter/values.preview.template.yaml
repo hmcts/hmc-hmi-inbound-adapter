@@ -3,7 +3,7 @@ java:
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
   environment:
-    HMC_SERVICE_BUS_QUEUE: hmc-from-hmi
+    HMC_SERVICE_BUS_QUEUE: hmc-cft-hearing-service-pr-271-servicebus-hmc-from-hmi
   secrets:
     HMC_SERVICE_BUS_CONNECTION_STRING:
       secretRef: hmc-sb-preview
@@ -34,4 +34,4 @@ servicebus:
   sbNamespace: hmc-sb-preview
   setup:
     queues:
-      - name: hmc-cft-hearing-service-pr-271-servicebus-hmc-from-hmi
+      - name: hmc-from-hmi
