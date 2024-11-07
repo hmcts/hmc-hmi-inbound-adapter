@@ -1,7 +1,6 @@
 package uk.gov.hmcts.reform.hmc.controllers;
 
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,11 +28,11 @@ public class HmcInboundController {
 
     @PutMapping(path = "/listings/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    @ApiResponses(value = {
-        @ApiResponse(code = 202, message = "Response is valid"),
-        @ApiResponse(code = 400, message = "Invalid case listing Id"),
-        @ApiResponse(code = 404, message = "Case listing Id could not be found"),
-        @ApiResponse(code = 500, message = "Error occurred on the server.")})
+    @ApiResponse(responseCode = "202", description = "Response is valid")
+    @ApiResponse(responseCode = "400", description = "Invalid case listing Id")
+    @ApiResponse(responseCode = "404", description = "Case listing Id could not be found")
+    @ApiResponse(responseCode = "500", description = "Error occurred on the server.")
+
     public void getResponseFromHmi(@PathVariable("id") String id,
                                    @Valid @RequestBody HearingDetailsRequest hearingDetailsRequest) {
         hearingManagementService.processRequest(id, hearingDetailsRequest);
