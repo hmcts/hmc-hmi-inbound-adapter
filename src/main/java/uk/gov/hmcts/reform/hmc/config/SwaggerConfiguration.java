@@ -1,6 +1,6 @@
 package uk.gov.hmcts.reform.hmc.config;
 
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.modedls.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
