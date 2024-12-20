@@ -17,7 +17,7 @@ version = '0.0.1'
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(17)
+    languageVersion = JavaLanguageVersion.of(21)
   }
 }
 
@@ -60,11 +60,11 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Test) {
-  useJUnitPlatform()
-
-  testLogging {
-    exceptionFormat = 'full'
-  }
+    useJUnitPlatform()
+    
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }
 
 test {
@@ -287,6 +287,7 @@ dependencies {
     {
       exclude group: "org.springframework.security", module: "spring-security-crypto"
     }
+
   implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
 
   // HMCTS
@@ -357,15 +358,15 @@ dependencies {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
 
-  testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.11.1'
   testImplementation group: 'org.powermock', name: 'powermock-module-junit4', version: '2.0.9'
+
 
   testImplementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-contract-stub-runner', version: '4.1.4'
   integrationTestImplementation sourceSets.main.runtimeClasspath
   integrationTestImplementation sourceSets.test.runtimeClasspath
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
-  functionalTestImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.1.0'
+  functionalTestImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.2.0'
   functionalTestImplementation libraries.junit5
 
   testImplementation group: 'com.github.hmcts', name: 'fortify-client', version: '1.4.5'
