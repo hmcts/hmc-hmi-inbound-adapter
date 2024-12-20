@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import uk.gov.hmcts.reform.authorisation.filters.ServiceAuthFilter;
@@ -19,6 +20,7 @@ public class SecurityConfiguration {
         "/swagger-resources/**",
         "/swagger-ui/**",
         "/webjars/**",
+        "/v3/api-docs",
         "/v3/api-docs/**",
         "/health",
         "/health/liveness",
@@ -37,27 +39,20 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    protected SecurityFilterChain allowedList(HttpSecurity http) throws Exception {
-        return http
-            .requestMatchers().antMatchers(AUTH_ALLOWED_LIST)
-            .and()
-            .sessionManagement().sessionCreationPolicy(STATELESS)
-            .and()
-            .authorizeRequests().anyRequest().permitAll()
-            .and()
-            .build();
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers(AUTH_ALLOWED_LIST);
     }
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
             .addFilterBefore(serviceAuthFilter, AbstractPreAuthenticatedProcessingFilter.class)
-            .sessionManagement().sessionCreationPolicy(STATELESS)
-            .and()
-            .httpBasic().disable()
-            .formLogin().disable()
-            .logout().disable()
-            .csrf().disable()
+            .authorizeHttpRequests(ar -> ar.anyRequest().permitAll())
+            .sessionManagement(sm -> sm.sessionCreationPolicy(STATELESS))
+            .httpBasic(hb -> hb.disable())
+            .formLogin(form -> form.disable())
+            .logout(logout -> logout.disable())
+            .csrf(csrf -> csrf.disable())
             .build();
     }
 }
