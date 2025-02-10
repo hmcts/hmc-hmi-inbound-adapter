@@ -258,6 +258,12 @@ ext.libraries = [
   ]
 ]
 
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+  }
+}
+
 dependencies {
 
   // start::CVE Vulnerability dependency overrides                                                          // MAIN PARENT DEPENDEDNCY
@@ -338,8 +344,8 @@ dependencies {
   integrationTestImplementation sourceSets.test.runtimeClasspath
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
+  functionalTestImplementation sourceSets.test.runtimeClasspath
   functionalTestImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.2.1'
-  functionalTestImplementation libraries.junit5
 }
 
 bootJar {
