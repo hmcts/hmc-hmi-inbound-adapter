@@ -2,6 +2,9 @@ server:
   port: 4559
 
 management:
+  health:
+    ssl:
+      enabled: false
   endpoint:
     health:
       show-details: "always"
