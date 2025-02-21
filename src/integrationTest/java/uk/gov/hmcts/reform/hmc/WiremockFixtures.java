@@ -22,6 +22,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static java.net.HttpURLConnection.HTTP_ACCEPTED;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+import static java.net.HttpURLConnection.HTTP_OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.LATEST_HEARING_STATUS;
 
@@ -84,6 +85,12 @@ public class WiremockFixtures {
                     .willReturn(aResponse().withStatus(HTTP_NOT_FOUND)));
     }
 
+    public static void stubSwagger200FailedToLoadRemoteConfig() {
+        stubFor(WireMock.get(urlEqualTo("/v3/api-docs/failedToLoadRemoteConfiguration"))
+                    .withHeader(HttpHeaders.CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE))
+                    .withHeader(HttpHeaders.ACCEPT, equalTo(APPLICATION_JSON_VALUE))
+                    .willReturn(aResponse().withStatus(HTTP_OK).withBody("Failed to load remote configuration")));
+    }
 
     @SuppressWarnings({"PMD.AvoidThrowingRawExceptionTypes", "squid:S112"})
     // Required as wiremock's Json.getObjectMapper().registerModule(..); not working
