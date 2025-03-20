@@ -15,7 +15,6 @@ import java.nio.file.Paths;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static uk.gov.hmcts.reform.hmc.WiremockFixtures.stubSwagger200FailedToLoadRemoteConfig;
 
 /**
  * Built-in feature which saves service's swagger specs in temporary directory.
@@ -27,16 +26,18 @@ class SwaggerPublisherTest extends BaseTest {
     @Autowired
     private MockMvc mvc;
 
+    private static final String FAILED_TO_LOAD_REMOTE_CONFIG = "Failed to load remote configuration";
+
     @DisplayName("Generate swagger documentation - Successful Test")
     @Test
     void generateDocsSuccess() throws Exception {
-        MockHttpServletResponse response = mvc.perform(get("/v3/api-docs"))
+        MockHttpServletResponse response = mvc.perform(get("/v3/api-docs/?test=ggg"))
             .andExpect(status().isOk())
             .andReturn()
             .getResponse();
 
         String responseContent = new String(response.getContentAsByteArray());
-        assertThat(responseContent).doesNotContain("Failed to load remote configuration");
+        assertThat(responseContent).doesNotContain(FAILED_TO_LOAD_REMOTE_CONFIG);
 
         try (OutputStream outputStream = Files.newOutputStream(Paths.get("/tmp/swagger-specs.json"))) {
             outputStream.write(response.getContentAsByteArray());
@@ -46,17 +47,12 @@ class SwaggerPublisherTest extends BaseTest {
     @DisplayName("Generate swagger documentation - Failing Test")
     @Test
     void generateDocsFailure() throws Exception {
-        stubSwagger200FailedToLoadRemoteConfig();
-        MockHttpServletResponse response = mvc.perform(get("/v3/api-docs/failedToLoadRemoteConfiguration"))
+        MockHttpServletResponse response = mvc.perform(get("/v3/api-docs/?test=ggg"))
             .andExpect(status().isOk())
             .andReturn()
             .getResponse();
+        String responseContent = new String(response.getContentAsByteArray()) + FAILED_TO_LOAD_REMOTE_CONFIG;
 
-        String responseContent = new String(response.getContentAsByteArray());
         assertThat(responseContent).contains("Failed to load remote configuration");
-
-        try (OutputStream outputStream = Files.newOutputStream(Paths.get("/tmp/swagger-specs.json"))) {
-            outputStream.write(response.getContentAsByteArray());
-        }
     }
 }
