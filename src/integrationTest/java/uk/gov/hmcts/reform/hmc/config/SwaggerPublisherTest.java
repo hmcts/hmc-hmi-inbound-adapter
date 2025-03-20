@@ -27,6 +27,9 @@ class SwaggerPublisherTest extends BaseTest {
     private MockMvc mvc;
 
     private static final String FAILED_TO_LOAD_REMOTE_CONFIG = "Failed to load remote configuration";
+    private static final String UNCAUGHT_SYNTAX_ERROR = "Uncaught SyntaxError";
+    private static final String UNCAUGHT_REFERENCE_ERROR = "Uncaught ReferenceError";
+    private static final String UNCAUGHT_TYPE_ERROR = "Uncaught TypeError";
 
     @DisplayName("Generate swagger documentation - Successful Test")
     @Test
@@ -37,7 +40,11 @@ class SwaggerPublisherTest extends BaseTest {
             .getResponse();
 
         String responseContent = new String(response.getContentAsByteArray());
-        assertThat(responseContent).doesNotContain(FAILED_TO_LOAD_REMOTE_CONFIG);
+
+        assertThat(responseContent).doesNotContain(FAILED_TO_LOAD_REMOTE_CONFIG)
+            .doesNotContain(UNCAUGHT_SYNTAX_ERROR)
+            .doesNotContain(UNCAUGHT_REFERENCE_ERROR)
+            .doesNotContain(UNCAUGHT_TYPE_ERROR);
 
         try (OutputStream outputStream = Files.newOutputStream(Paths.get("/tmp/swagger-specs.json"))) {
             outputStream.write(response.getContentAsByteArray());
@@ -51,8 +58,12 @@ class SwaggerPublisherTest extends BaseTest {
             .andExpect(status().isOk())
             .andReturn()
             .getResponse();
-        String responseContent = new String(response.getContentAsByteArray()) + FAILED_TO_LOAD_REMOTE_CONFIG;
+        String responseContent = new String(response.getContentAsByteArray())
+            + FAILED_TO_LOAD_REMOTE_CONFIG + UNCAUGHT_REFERENCE_ERROR + UNCAUGHT_TYPE_ERROR + UNCAUGHT_SYNTAX_ERROR;
 
-        assertThat(responseContent).contains("Failed to load remote configuration");
+        assertThat(responseContent).contains("Failed to load remote configuration")
+            .contains(UNCAUGHT_SYNTAX_ERROR)
+            .contains(UNCAUGHT_REFERENCE_ERROR)
+            .contains(UNCAUGHT_TYPE_ERROR);
     }
 }
