@@ -7,7 +7,7 @@ Please note that this microservice is also available within [ccd-docker](https:/
 
 ### Prerequisites
 
-- [JDK 17](https://java.com)
+- [JDK 21](https://java.com)
 - [Docker](https://www.docker.com)
 
 ## Building and deploying the application
@@ -56,7 +56,7 @@ In order to test if the application is up, you can call its health endpoint:
 You should get a response similar to this:
 
 ```
-  {"status":"UP","diskSpace":{"status":"UP","total":249644974080,"free":137188298752,"threshold":10485760}}
+  {"status":"UP","diskSpace":{"status":"UP","details":{...}}}
 ```
 
 ### Alternative script to run application
