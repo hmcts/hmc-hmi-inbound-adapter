@@ -1,12 +1,11 @@
 package uk.gov.hmcts.reform.hmc.client.model.hmi;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import uk.gov.hmcts.reform.hmc.exceptions.ValidationError;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
