@@ -10,7 +10,7 @@ Scenario: must show Swagger UI page APIs
     Given an appropriate test context as detailed in the test data source,
 
      When a request is prepared with appropriate values,
-      And it is submitted to call the [Get Swagger UI Page] operation of [CCD User Profile],
+      And it is submitted to call the [Get Swagger UI Page] operation of [HMC Hmi Inbound Adapter],
 
      Then a positive response is received,
       And the response has all the details as expected
