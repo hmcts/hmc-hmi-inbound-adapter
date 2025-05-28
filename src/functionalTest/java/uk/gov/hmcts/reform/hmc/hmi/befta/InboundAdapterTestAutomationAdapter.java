@@ -2,7 +2,6 @@ package uk.gov.hmcts.reform.hmc.hmi.befta;
 
 import uk.gov.hmcts.befta.BeftaTestDataLoader;
 import uk.gov.hmcts.befta.DefaultTestAutomationAdapter;
-import uk.gov.hmcts.befta.TestAutomationAdapter;
 import uk.gov.hmcts.befta.data.UserData;
 import uk.gov.hmcts.befta.exception.FunctionalTestException;
 import uk.gov.hmcts.befta.player.BackEndFunctionalTestScenarioContext;
@@ -45,7 +44,7 @@ public class InboundAdapterTestAutomationAdapter extends DefaultTestAutomationAd
         } else if (key.toString().startsWith("approximately ")) {
             try {
                 String actualSizeFromHeaderStr = (String) ReflectionUtils.deepGetFieldInObject(scenarioContext,
-                                                                                               "testData.actualResponse.headers.Content-Length");
+                    "testData.actualResponse.headers.Content-Length");
                 String expectedSizeStr = key.toString().replace("approximately ", "");
 
                 int actualSize =  Integer.parseInt(actualSizeFromHeaderStr);
@@ -61,7 +60,7 @@ public class InboundAdapterTestAutomationAdapter extends DefaultTestAutomationAd
         } else if (key.toString().startsWith("contains ")) {
             try {
                 String actualValueStr = (String) ReflectionUtils.deepGetFieldInObject(scenarioContext,
-                                                                                      "testData.actualResponse.body.__plainTextValue__");
+                "testData.actualResponse.body.__plainTextValue__");
                 String expectedValueStr = key.toString().replace("contains ", "");
 
                 if (actualValueStr.contains(expectedValueStr)) {
