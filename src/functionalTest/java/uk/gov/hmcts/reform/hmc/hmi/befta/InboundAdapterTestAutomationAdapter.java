@@ -60,7 +60,7 @@ public class InboundAdapterTestAutomationAdapter extends DefaultTestAutomationAd
         } else if (key.toString().startsWith("contains ")) {
             try {
                 String actualValueStr = (String) ReflectionUtils.deepGetFieldInObject(scenarioContext,
-                "testData.actualResponse.body.__plainTextValue__");
+                    "testData.actualResponse.body.__plainTextValue__");
                 String expectedValueStr = key.toString().replace("contains ", "");
 
                 if (actualValueStr.contains(expectedValueStr)) {
