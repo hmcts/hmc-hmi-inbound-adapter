@@ -9,7 +9,7 @@
 
   "request" :{
     "pathVariables" : {
-      "ccd-user-profile-api-version": "ccd-user-profile-api.json"
+      "hmc-hmi-inbound-adapter-version": "hmc-hmi-inbound-adapter.json"
     }
   },
 
@@ -23,7 +23,7 @@
       "paths": "[[ANYTHING_PRESENT]]",
       "info": {
         "description": "API to store and retrieve user profile data.",
-        "title": "User Profile API",
+        "title": "Hmc hmi inbound adapter",
         "version": "[[ANYTHING_PRESENT]]"
       }
     }
