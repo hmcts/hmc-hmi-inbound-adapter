@@ -76,7 +76,7 @@ public class InboundAdapterTestAutomationAdapter extends DefaultTestAutomationAd
                     "testData.actualResponse.body.__plainTextValue__");
                 String expectedValueStr = key.toString().replace("notContains ", "");
 
-                if (actualValueStr.contains(expectedValueStr)) {
+                if (!actualValueStr.contains(expectedValueStr)) {
                     return actualValueStr;
                 }
                 return "expectedValueStr " + expectedValueStr + " is present in response ";

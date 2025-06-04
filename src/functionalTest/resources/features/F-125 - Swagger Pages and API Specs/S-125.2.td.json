@@ -22,8 +22,7 @@
       "components" : "[[ANYTHING_PRESENT]]",
       "paths": "[[ANYTHING_PRESENT]]",
       "info": {
-        "description": "API to store and retrieve user profile data.",
-        "title": "Hmc hmi inbound adapter",
+        "title": "OpenAPI definition",
         "version": "[[ANYTHING_PRESENT]]"
       }
     }
