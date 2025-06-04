@@ -6,7 +6,7 @@
   "operationName": "Get Swagger Json API",
 
   "method": "GET",
-  "uri": "https://hmcts.github.io/cnp-api-docs/specs/{ccd-user-profile-api-version}",
+  "uri": "https://hmcts.github.io/cnp-api-docs/specs/{hmc-hmi-inbound-adapter-version}",
 
   "expectedResponse": {
     "headers" : {
