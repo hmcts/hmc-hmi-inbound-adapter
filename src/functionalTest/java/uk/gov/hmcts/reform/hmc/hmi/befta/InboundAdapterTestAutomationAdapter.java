@@ -73,7 +73,7 @@ public class InboundAdapterTestAutomationAdapter extends DefaultTestAutomationAd
         } else if (key.toString().startsWith("notContains ")) {
             try {
                 String actualValueStr = (String) ReflectionUtils.deepGetFieldInObject(scenarioContext,
-                                                                                      "testData.actualResponse.body.__plainTextValue__");
+                    "testData.actualResponse.body.__plainTextValue__");
                 String expectedValueStr = key.toString().replace("notContains ", "");
 
                 if (actualValueStr.contains(expectedValueStr)) {
