@@ -70,6 +70,19 @@ public class InboundAdapterTestAutomationAdapter extends DefaultTestAutomationAd
             } catch (Exception e) {
                 throw new FunctionalTestException("Problem checking acceptable response payload: ", e);
             }
+        } else if (key.toString().startsWith("notContains ")) {
+            try {
+                String actualValueStr = (String) ReflectionUtils.deepGetFieldInObject(scenarioContext,
+                                                                                      "testData.actualResponse.body.__plainTextValue__");
+                String expectedValueStr = key.toString().replace("notContains ", "");
+
+                if (actualValueStr.contains(expectedValueStr)) {
+                    return actualValueStr;
+                }
+                return "expectedValueStr " + expectedValueStr + " is present in response ";
+            } catch (Exception e) {
+                throw new FunctionalTestException("Problem checking acceptable response payload: ", e);
+            }
         }
         return super.calculateCustomValue(scenarioContext, key);
     }
