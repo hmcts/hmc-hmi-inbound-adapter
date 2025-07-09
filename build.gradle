@@ -60,7 +60,7 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     useJUnitPlatform()
-    
+
     testLogging {
         exceptionFormat = 'full'
     }
@@ -205,6 +205,18 @@ ext {
   // test versions
   junit           = '5.13.3'
   junitPlatform   = '1.13.3'
+
+  ext.libraries = [
+    junit5: [
+      "org.junit.jupiter:junit-jupiter-api:${junit}",
+      "org.junit.jupiter:junit-jupiter-engine:${junit}",
+      "org.junit.jupiter:junit-jupiter-params:${junit}",
+      "org.junit.platform:junit-platform-commons:${junitPlatform}",
+      "org.junit.platform:junit-platform-engine:${junitPlatform}",
+      "org.apiguardian:apiguardian-api:1.1.2"
+    ]
+  ]
+
   testcontainers  = '1.20.4'
 }
 
@@ -246,17 +258,6 @@ repositories {
    url = 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
   }
 }
-
-ext.libraries = [
-  junit5: [
-    "org.junit.jupiter:junit-jupiter-api:${junit}",
-    "org.junit.jupiter:junit-jupiter-engine:${junit}", 
-    "org.junit.jupiter:junit-jupiter-params:${junit}",
-    "org.junit.platform:junit-platform-commons:${junitPlatform}",
-    "org.junit.platform:junit-platform-engine:${junitPlatform}",
-    "org.apiguardian:apiguardian-api:1.1.2"
-  ]
-]
 
 dependencyManagement {
   imports {
@@ -333,7 +334,6 @@ dependencies {
   implementation group: 'net.minidev', name: 'json-smart', version: '2.5.2'
   implementation group: 'org.projectlombok', name: 'lombok', version: lombok
   annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombok
-
 
   testImplementation libraries.junit5
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
