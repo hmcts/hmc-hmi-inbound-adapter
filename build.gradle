@@ -203,20 +203,8 @@ ext {
   mapstruct       = '1.6.3'
   tomcatEmbedded  = '10.1.43'
   // test versions
-  junit           = '5.13.3'
-  junitPlatform   = '1.13.3'
-
-  ext.libraries = [
-    junit5: [
-      "org.junit.jupiter:junit-jupiter-api:${junit}",
-      "org.junit.jupiter:junit-jupiter-engine:${junit}",
-      "org.junit.jupiter:junit-jupiter-params:${junit}",
-      "org.junit.platform:junit-platform-commons:${junitPlatform}",
-      "org.junit.platform:junit-platform-engine:${junitPlatform}",
-      "org.apiguardian:apiguardian-api:1.1.2"
-    ]
-  ]
-
+  junit           = '5.11.4'
+  junitPlatform   = '1.11.4'
   testcontainers  = '1.20.4'
 }
 
@@ -258,6 +246,17 @@ repositories {
    url = 'https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1'
   }
 }
+
+ext.libraries = [
+  junit5: [
+    "org.junit.jupiter:junit-jupiter-api:${junit}",
+    "org.junit.jupiter:junit-jupiter-engine:${junit}",
+    "org.junit.jupiter:junit-jupiter-params:${junit}",
+    "org.junit.platform:junit-platform-commons:${junitPlatform}",
+    "org.junit.platform:junit-platform-engine:${junitPlatform}",
+    "org.apiguardian:apiguardian-api:1.1.2"
+  ]
+]
 
 dependencyManagement {
   imports {
