@@ -84,7 +84,6 @@ public class WiremockFixtures {
                     .willReturn(aResponse().withStatus(HTTP_NOT_FOUND)));
     }
 
-
     @SuppressWarnings({"PMD.AvoidThrowingRawExceptionTypes", "squid:S112"})
     // Required as wiremock's Json.getObjectMapper().registerModule(..); not working
     // see https://github.com/tomakehurst/wiremock/issues/1127
