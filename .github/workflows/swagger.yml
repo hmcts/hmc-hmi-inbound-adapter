@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - fix-swagger-ft-dp-1
 
 jobs:
   build:
