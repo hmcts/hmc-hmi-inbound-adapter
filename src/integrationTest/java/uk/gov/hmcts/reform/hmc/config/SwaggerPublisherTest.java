@@ -37,6 +37,5 @@ class SwaggerPublisherTest extends BaseTest {
         try (OutputStream outputStream = Files.newOutputStream(Paths.get("/tmp/swagger-specs.json"))) {
             outputStream.write(specs);
         }
-
     }
 }
