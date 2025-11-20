@@ -60,6 +60,7 @@ public  class TestingUtil {
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
         hearingCaseStatus.setCode(HearingCode.LISTED.getNumber());
         hearingCaseStatus.setDescription("value");
+        setHearingStatus(hearing);
         hearing.setHearingCaseStatus(hearingCaseStatus);
         hearing.setHearingIdCaseHQ("47743382");
         hearing.setHearingStartTime(LocalDateTime.now());
@@ -129,10 +130,7 @@ public  class TestingUtil {
         hearingCaseStatus.setCode(HearingCode.LISTED.getNumber());
         hearingCaseStatus.setDescription("value");
         hearing.setHearingCaseStatus(hearingCaseStatus);
-        HearingStatus hearingStatus = new HearingStatus();
-        hearingStatus.setDescription("vale");
-        hearingStatus.setCode(HearingStatusCode.PROV.label);
-        hearing.setHearingStatus(hearingStatus);
+        setHearingStatus(hearing);
         hearing.setHearingIdCaseHQ("47743382");
         hearing.setHearingStartTime(LocalDateTime.now());
         hearing.setHearingEndTime(LocalDateTime.now());
@@ -145,6 +143,13 @@ public  class TestingUtil {
         HearingDetailsRequest request = new HearingDetailsRequest();
         request.setHearingResponse(hearingResponse);
         return request;
+    }
+
+    private static void setHearingStatus(Hearing hearing) {
+        HearingStatus hearingStatus = new HearingStatus();
+        hearingStatus.setDescription("vale");
+        hearingStatus.setCode(HearingStatusCode.PROV.label);
+        hearing.setHearingStatus(hearingStatus);
     }
 
     public static HearingDetailsRequest getHearingOptionalFields() {
@@ -166,6 +171,7 @@ public  class TestingUtil {
         HearingCaseStatus hearingCaseStatus = new HearingCaseStatus();
         hearingCaseStatus.setCode(HearingCode.LISTED.getNumber());
         hearingCaseStatus.setDescription("value");
+        setHearingStatus(hearing);
         hearing.setHearingCaseStatus(hearingCaseStatus);
         hearing.setHearingCaseIdHmcts("SW710014");
         hearing.setHearingTranslatorRequired(false);
