@@ -276,9 +276,9 @@ dependencies {
 
   implementation group: 'ch.qos.logback', name: 'logback-classic', version: logback                         // logging-appinsights
   implementation group: 'ch.qos.logback', name: 'logback-core', version: logback                            // logging-appinsights
-  implementation group: 'com.azure', name: 'azure-core', version: '1.55.5'                                  // azure-messaging-servicebus
-  implementation group: 'com.azure', name: 'azure-core-amqp', version: '2.10.1'                              // azure-messaging-servicebus
-  implementation group: 'com.azure', name: 'azure-core-http-netty', version: '1.15.13'                       // azure-messaging-servicebus
+  implementation group: 'com.azure', name: 'azure-core', version: '1.57.0'                                  // azure-messaging-servicebus
+  implementation group: 'com.azure', name: 'azure-core-amqp', version: '2.11.2'                              // azure-messaging-servicebus
+  implementation group: 'com.azure', name: 'azure-core-http-netty', version: '1.16.2'                       // azure-messaging-servicebus
   implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.6.0'                    // idam-java-client
   implementation group: 'commons-io', name: 'commons-io', version: '2.19.0'                                  // idam-java-client
   implementation group: 'io.projectreactor.netty', name: 'reactor-netty-core', version: '1.2.7'            // azure-messaging-servicebus
@@ -331,7 +331,7 @@ dependencies {
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: jetty
 
 
-  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.12'
+  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.16'
   // implementation group: 'com.fasterxml.woodstox', name: 'woodstox-core', version: '6.4.0'
   implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.2.3'
   implementation group: 'jakarta.el', name: 'jakarta.el-api', version: '6.0.1'
