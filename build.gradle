@@ -192,7 +192,7 @@ sonarqube {
 }
 
 ext {
-  set('springCloudVersion', '2024.0.0')
+  set('springCloudVersion', '2024.0.2')
   set('spring-framework.version', '6.2.1')
   set('spring-security.version', '6.4.2')
   set('jackson.version', '2.18.2')
