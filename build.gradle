@@ -204,8 +204,8 @@ ext {
   mapstruct       = '1.6.3'
   tomcatEmbedded  = '10.1.49'
   // test versions
-  junit           = '5.11.4'
-  junitPlatform   = '1.11.4'
+  junit           = '6.0.2'
+  junitPlatform   = '6.0.2'
   testcontainers  = '1.20.4'
 }
 
