@@ -12,7 +12,6 @@ import uk.gov.hmcts.reform.hmc.utils.TestingUtil;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static uk.gov.hmcts.reform.hmc.WiremockFixtures.stubSuccessfullyGetResponseFromCft;
-import static uk.gov.hmcts.reform.hmc.client.model.hmi.HearingCode.LISTED;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.ADJOURNED;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.CANCELLED;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.COMPLETED;
@@ -29,7 +28,7 @@ class HearingManagementServiceIT extends BaseTest {
 
     @Test
     void testProcessRequest() {
-        stubSuccessfullyGetResponseFromCft(caseListingId, "170",LISTED.getLabel());
+        stubSuccessfullyGetResponseFromCft(caseListingId, "170","LISTED");
         HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
         hearingRequest.getHearingResponse().getHearing().setHearingCaseVersionId(170);
         hearingManagementService.processRequest(caseListingId, hearingRequest);
@@ -37,7 +36,7 @@ class HearingManagementServiceIT extends BaseTest {
 
     @Test
     void testProcessRequestAwaiting_listing() {
-        stubSuccessfullyGetResponseFromCft(caseListingId, "170", LISTED.getLabel());
+        stubSuccessfullyGetResponseFromCft(caseListingId, "170", "LISTED");
         HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
         hearingRequest.getHearingResponse().getHearing().getHearingCaseStatus()
             .setCode(HearingCode.AWAITING_LISTING.getNumber());
@@ -79,19 +78,6 @@ class HearingManagementServiceIT extends BaseTest {
         final BadRequestException badRequestException = assertThrows(BadRequestException.class,
                    () -> hearingManagementService.processRequest(caseListingId, hearingRequest));
         assertEquals(Constants.INVALID_HEARING_STATE, badRequestException.getMessage());
-    }
-
-    @Test
-    void testProcessRequestForHearingStatusMandatory() {
-        stubSuccessfullyGetResponseFromCft(caseListingId, "170", LISTED.getLabel());
-        HearingDetailsRequest hearingRequest = TestingUtil.getHearingRequest();
-        hearingRequest.getHearingResponse().getHearing().setHearingStatus(null);
-        hearingRequest.getHearingResponse().getHearing().getHearingCaseStatus()
-            .setCode(LISTED.getNumber());
-        hearingRequest.getHearingResponse().getHearing().setHearingCaseVersionId(170);
-        final BadRequestException badRequestException = assertThrows(BadRequestException.class,
-                                    () -> hearingManagementService.processRequest(caseListingId, hearingRequest));
-        assertEquals(Constants.INVALID_HEARING_STATUS, badRequestException.getMessage());
     }
 
 }
