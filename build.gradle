@@ -288,7 +288,7 @@ dependencies {
   implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-websocket', version: tomcatEmbedded  // spring-boot-starter-web
   implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.17'                                   // spring-*
   implementation group: 'org.slf4j', name: 'jul-to-slf4j', version: '2.0.17'                                // spring-*
-
+  implementation group: 'com.google.guava', name: 'guava', version: '33.5.0-jre'
 
   // end::CVE Vulnerability dependency overrides                                                            // MAIN PARENT DEPENDEDNCY
 
