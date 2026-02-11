@@ -196,7 +196,7 @@ ext {
   set('spring-security.version', '6.4.2')
   set('jackson.version', '2.18.2')
   set('snakeyaml.version', '2.3')
-  jetty           = '12.1.5'
+  jetty           = '12.1.6'
   logback         = '1.5.25'
   lombok          = '1.18.42'
   mapstruct       = '1.6.3'
