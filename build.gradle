@@ -200,7 +200,7 @@ ext {
   logback         = '1.5.29'
   lombok          = '1.18.42'
   mapstruct       = '1.6.3'
-  tomcatEmbedded  = '10.1.49'
+  tomcatEmbedded  = '10.1.52'
   // test versions
   junit           = '5.14.2'
   junitPlatform   = '1.14.2'
