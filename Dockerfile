@@ -1,6 +1,6 @@
 ARG PLATFORM=""
 ARG APP_INSIGHTS_AGENT_VERSION=3.6.2
-FROM eclipse-temurin${PLATFORM}:21 as builder
+FROM eclipse-temurin${PLATFORM}:25 as builder
 
 ARG JAR_FILE=build/libs/hmc-hmi-inbound-adapter.jar
 COPY ${JAR_FILE} application.jar
