@@ -57,7 +57,7 @@ public class MessageSenderConfiguration {
     }
 
     public void sendMessage(String message, MessageType messageType, String hearingId) {
-        validateInput(message, messageType, hearingId);
+        validateInput(messageType, hearingId);
         try {
             log.debug("setting up the connection details for hearingId {}", hearingId);
 
@@ -79,8 +79,8 @@ public class MessageSenderConfiguration {
                 sender = new ServiceBusClientBuilder()
                     .connectionString(applicationParams.getConnectionString())
                     .configuration(new ConfigurationBuilder()
-                                       .putProperty(AMQP_CACHE, AMQP_CACHE_VALUE)
-                                       .build())
+                        .putProperty(AMQP_CACHE, AMQP_CACHE_VALUE)
+                        .build())
                     .sender()
                     .queueName(applicationParams.getQueueName())
                     .buildClient();
@@ -110,7 +110,7 @@ public class MessageSenderConfiguration {
         }
     }
 
-    private void validateInput(String message, MessageType messageType, String hearingId) {
+    private void validateInput(MessageType messageType, String hearingId) {
         Objects.requireNonNull(messageType, "messageType must not be null");
         if (!StringUtils.hasText(hearingId)) {
             throw new IllegalArgumentException("hearingId must not be blank");
