@@ -22,6 +22,8 @@ java:
           alias: HMC_SYSTEM_USER_ID
         - name: idam-hmc-system-user-password
           alias: HMC_SYSTEM_USER_PASSWORD
+        - name: hmi-to-hmc-message-signing-key
+          alias: HMAC_SECRETS_HMI_TO_HMC
 
   environment:
     HMC_SERVICE_BUS_QUEUE: hmc-from-hmi-{{ .Values.global.environment }}
