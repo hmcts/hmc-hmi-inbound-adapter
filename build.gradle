@@ -324,6 +324,7 @@ dependencies {
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-server', version: jetty
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-server', version: jetty
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: jetty
+  implementation group: 'org.eclipse.jetty', name: 'jetty-bom', version: jetty
 
 
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.17'
