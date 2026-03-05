@@ -280,12 +280,9 @@ dependencies {
   // implementation group: 'com.example', name: 'example-lib', version: '1.0.0' //  parent dependency name
 
   implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.18.0'
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.25.3'
+  implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.25.3'
 
-  //CVE-2025-68161
-  constraints {
-    implementation("org.apache.logging.log4j:log4j-api:2.25.3")
-    implementation("org.apache.logging.log4j:log4j-to-slf4j:2.25.3")
-  }
   // end::CVE Vulnerability dependency overrides                                                            // MAIN PARENT DEPENDEDNCY
 
   // Spring
