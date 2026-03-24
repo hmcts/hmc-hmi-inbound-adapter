@@ -69,6 +69,10 @@ jms:
     connection-string: ${HMC_SERVICE_BUS_CONNECTION_STRING}
     queue-name: ${HMC_SERVICE_BUS_QUEUE}
 
+hmac:
+  secrets:
+    hmi-to-hmc: ${HMAC_SECRETS_HMI_TO_HMC}
+
 LOGGING:
   LEVEL:
     uk:
