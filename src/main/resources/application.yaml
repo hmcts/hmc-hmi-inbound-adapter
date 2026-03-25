@@ -71,7 +71,7 @@ jms:
 
 hmac:
   secrets:
-    hmi-to-hmc: ${HMAC_SECRETS_HMI_TO_HMC}
+    hmi-to-hmc: ${HMI_TO_HMC_SIGNING_SECRET:}
 
 LOGGING:
   LEVEL:
