@@ -1,10 +1,7 @@
 package uk.gov.hmcts.reform.hmc.client.model.hmi;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 
-@Getter
 public enum HearingCode {
     LISTED(100, "LISTED"),
     PENDING_RELISTING(6, "PENDING_RELISTING"),

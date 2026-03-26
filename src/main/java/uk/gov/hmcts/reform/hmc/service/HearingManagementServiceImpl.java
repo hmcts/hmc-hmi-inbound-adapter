@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_ERROR_CODE_ERR_MESSAGE;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_PAYLOAD;
-import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_HEARING_STATUS;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_LOCATION_REFERENCES;
 import static uk.gov.hmcts.reform.hmc.constants.Constants.INVALID_VERSION;
 
@@ -101,9 +100,7 @@ public class HearingManagementServiceImpl implements HearingManagementService {
                     getLocationReference(hearingVenue.getLocationReferences());
                 }
             }
-            if (null == hearingDetailsRequest.getHearingResponse().getHearing().getHearingStatus()) {
-                throw new BadRequestException(INVALID_HEARING_STATUS);
-            }
+
             if (null != hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions()) {
                 hearingDetailsRequest.getHearingResponse().getHearing().getHearingSessions().forEach(session -> {
                     if (null != session && null != session.getHearingVenue()
