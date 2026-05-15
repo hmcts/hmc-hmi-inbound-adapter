@@ -238,7 +238,7 @@ dependencyUpdates {
 
 apply from: './gradle/suppress.gradle'
 dependencyCheck {
-  failBuildOnCVSS = 0
+  failBuildOnCVSS = 0.0f
   formats = ['XML']
   scanConfigurations = ['runtimeClasspath']
   suppressionFile = 'config/owasp/suppressions.xml'
