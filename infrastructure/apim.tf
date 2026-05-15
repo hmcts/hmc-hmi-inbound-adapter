@@ -9,8 +9,8 @@ locals {
   idam_audience     = "hmi"
 
   hmi_inbound_adapter_url = "http://hmc-hmi-inbound-adapter-${var.env}.service.core-compute-${var.env}.internal"
-  idam_url                = "${var.env == "prod" ? "https://hmcts-access.service.gov.uk" : "https://idam-web-public.${var.env}.platform.hmcts.net"}"
-  idam_env                = "${var.env == "prod" || var.env == "aat" ? "${var.env}2" : var.env}"
+  idam_url                = var.env == "prod" ? "https://hmcts-access.service.gov.uk" : "https://idam-web-public.${var.env}.platform.hmcts.net"
+  idam_env                = var.env == "prod" || var.env == "aat" ? "${var.env}2" : var.env
   oidc_issuer             = "https://forgerock-am.service.core-compute-idam-${local.idam_env}.internal:8443/openam/oauth2/realms/root/realms/hmcts"
   s2s_url                 = "http://rpe-service-auth-provider-${var.env}.service.core-compute-${var.env}.internal"
 }
@@ -38,7 +38,7 @@ module "api_mgmt_product" {
   subscription_required = "false"
   api_mgmt_name         = local.api_mgmt_name
   api_mgmt_rg           = local.api_mgmt_rg
-  providers             = {
+  providers = {
     azurerm = azurerm.aks-cftapps
   }
 }
@@ -55,7 +55,7 @@ module "api_mgmt_api" {
   protocols     = ["http", "https"]
   swagger_url   = "https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/specs/hmc-hmi-inbound-adapter.json"
   revision      = "1"
-  providers     = {
+  providers = {
     azurerm = azurerm.aks-cftapps
   }
 }
@@ -79,7 +79,7 @@ module "api_mgmt_policy" {
   api_mgmt_rg            = local.api_mgmt_rg
   api_name               = module.api_mgmt_api.name
   api_policy_xml_content = data.template_file.policy_template.rendered
-  providers              = {
+  providers = {
     azurerm = azurerm.aks-cftapps
   }
 }
