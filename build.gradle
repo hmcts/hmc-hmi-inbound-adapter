@@ -59,6 +59,13 @@ tasks.withType(JavaCompile) {
   // options.compilerArgs << "-Xlint:unchecked" << "-Werror"
 }
 
+checkstyle {
+  maxWarnings = 0
+  maxErrors = 0
+  ignoreFailures = false
+  configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+}
+
 tasks.withType(Test) {
     useJUnitPlatform()
 
@@ -262,6 +269,21 @@ repositories {
     url = uri("https://pkgs.dev.azure.com/hmcts/Artifacts/_packaging/hmcts-lib/maven/v1")
   }
   mavenCentral()
+}
+
+afterEvaluate {
+  def priority = [
+    'MavenLocal': 0,
+    'MavenRepo': 1,
+    'maven': 2
+  ]
+  def sorted = repositories.toList().sort { a, b ->
+    def pa = priority.containsKey(a.name) ? priority[a.name] : Integer.MAX_VALUE
+    def pb = priority.containsKey(b.name) ? priority[b.name] : Integer.MAX_VALUE
+    pa <=> pb
+  }
+  repositories.clear()
+  sorted.each { repositories.add(it) }
 }
 
 ext.libraries = [
