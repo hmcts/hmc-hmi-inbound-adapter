@@ -230,7 +230,6 @@ dependencyUpdates {
 
 apply from: './gradle/suppress.gradle'
 dependencyCheck {
-  autoUpdate = false
   suppressionFile = 'config/owasp/suppressions.xml'
 }
 
