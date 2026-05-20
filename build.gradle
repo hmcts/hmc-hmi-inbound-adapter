@@ -322,9 +322,8 @@ dependencies {
   implementation group: 'org.eclipse.jetty', name: 'jetty-alpn-conscrypt-client', version: jetty
   implementation group: 'org.eclipse.jetty', name: 'jetty-bom', version: jetty
 
-
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.18'
-  implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.2.3'
+  implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.2.4'
   implementation group: 'jakarta.el', name: 'jakarta.el-api', version: '6.0.1'
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '9.0'
   implementation group: 'net.minidev', name: 'json-smart', version: '2.6.0'
