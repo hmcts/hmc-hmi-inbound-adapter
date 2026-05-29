@@ -48,6 +48,7 @@
         ]]></notes>
         <packageUrl>pkg:maven/org.apache.logging.log4j/log4j-api@2.25.3</packageUrl>
         <cve>CVE-2026-34477</cve>
+        <cve>CVE-2026-34478</cve>
         <cve>CVE-2026-34479</cve>
     </suppress>
     <suppress>
