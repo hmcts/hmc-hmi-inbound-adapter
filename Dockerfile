@@ -2,9 +2,10 @@ ARG PLATFORM=""
 ARG APP_INSIGHTS_AGENT_VERSION=3.6.2
 FROM eclipse-temurin${PLATFORM}:21 as builder
 
+WORKDIR /workspace
 ARG JAR_FILE=build/libs/hmc-hmi-inbound-adapter.jar
 COPY ${JAR_FILE} application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+RUN java -Djarmode=tools -jar application.jar extract --layers --launcher --destination . --force
 
 FROM hmctsprod.azurecr.io/base/java${PLATFORM}:21-distroless
 USER hmcts
@@ -12,10 +13,10 @@ USER hmcts
 COPY lib/applicationinsights.json /opt/app
 
 # The following layer ARGs are only needed to stop Fortify flagging an issue with the COPY instructions
-ARG DIR_LAYER_APPLICATION=application/
-ARG DIR_LAYER_DEPENDECIES=dependencies/
-ARG DIR_LAYER_SPRING_BOOT_LOADER=spring-boot-loader/
-ARG DIR_LAYER_SNAPSHOT_DEPENDENCIES=snapshot-dependencies/
+ARG DIR_LAYER_APPLICATION=/workspace/application/
+ARG DIR_LAYER_DEPENDECIES=/workspace/dependencies/
+ARG DIR_LAYER_SPRING_BOOT_LOADER=/workspace/spring-boot-loader/
+ARG DIR_LAYER_SNAPSHOT_DEPENDENCIES=/workspace/snapshot-dependencies/
 
 COPY --from=builder ${DIR_LAYER_APPLICATION} /opt/app/
 COPY --from=builder ${DIR_LAYER_DEPENDECIES} /opt/app/
