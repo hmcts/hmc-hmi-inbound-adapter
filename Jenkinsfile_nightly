@@ -154,6 +154,7 @@ withNightlyPipeline(type, product, component) {
         echo "Pushing changes"
 
         def credentialsId = env.GIT_CREDENTIALS_ID
+        echo "Using credentials: ${credentialsId}"
 
         withCredentials([
           gitUsernamePassword(credentialsId: credentialsId, gitToolName: 'Default')
