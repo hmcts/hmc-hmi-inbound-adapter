@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("Infrastructure")
+@Library("Infrastructure@cve-dashboard")
 
 import uk.gov.hmcts.contino.GradleBuilder
 
@@ -21,6 +21,7 @@ env.OAUTH2_CLIENT_ID = "ccd_gateway"
 env.OAUTH2_REDIRECT_URI = "https://www-ccd.aat.platform.hmcts.net/oauth2redirect"
 
 withPipeline(type, product, component) {
+  enableCveDashboardIngestion()
   syncBranchesWithMaster(branchesToSync)
   enableAksStagingDeployment()
   disableLegacyDeployment()
