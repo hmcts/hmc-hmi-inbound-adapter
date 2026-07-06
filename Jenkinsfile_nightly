@@ -33,10 +33,19 @@ withNightlyPipeline(type, product, component) {
 
       def suppressionFile = ''
       script {
-        suppressionFile = sh(
+        def suppressionFileOutput = sh(
           script: './gradlew printSuppressionFile -q',
           returnStdout: true
-        ).trim().split("=")[1]
+        ).trim()
+
+        suppressionFile = suppressionFileOutput
+          .readLines()
+          .find { it.startsWith('SUPPRESSION_FILE=') }
+          ?.split('=', 2)[1]
+
+        if (!suppressionFile) {
+          error "Unable to resolve dependencyCheck suppression file from Gradle output: ${suppressionFileOutput}"
+        }
 
         echo "Suppression file and path: ${suppressionFile}"
 

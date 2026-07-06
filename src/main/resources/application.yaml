@@ -60,6 +60,12 @@ idam:
   system-user:
     id: ${HMC_SYSTEM_USER_ID:master.caseworker@gmail.com}
     password: ${HMC_SYSTEM_USER_PASSWORD:Pa55word11}
+  security:
+    allowed-issuers:
+      - ${OIDC_ISSUER_FORGEROCK:http://fr-am:8080/openam/oauth2/hmcts}
+
+oidc:
+  issuer-uri: ${IDAM_OIDC_URL:http://localhost:5000}/o
 
 azure:
   application-insights:
