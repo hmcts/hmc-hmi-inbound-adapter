@@ -80,4 +80,23 @@
         <packageUrl regex="true">^pkg:maven/org\.eclipse\.angus/angus-activation@.*$</packageUrl>
         <cve>CVE-2025-7962</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+        Temporary suppression for CVEs reported in hmc-inbound-dependency-check-report.html.
+        file names: tomcat-embed-core-10.1.55.jar, tomcat-embed-websocket-10.1.55.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat\.embed/(tomcat-embed-core|tomcat-embed-websocket)@10\.1\.55$</packageUrl>
+        <cve>CVE-2026-50229</cve>
+        <cve>CVE-2026-53404</cve>
+        <cve>CVE-2026-53434</cve>
+        <cve>CVE-2026-55276</cve>
+        <cve>CVE-2026-55955</cve>
+        <cve>CVE-2026-55956</cve>
+    </suppress>
+    <suppress>
+      <cve>CVE-2026-54399</cve>
+    </suppress>
+    <suppress>
+      <cve>CVE-2026-54428</cve>
+    </suppress>
 </suppressions>
