@@ -92,6 +92,28 @@
         <cve>CVE-2026-55276</cve>
         <cve>CVE-2026-55955</cve>
         <cve>CVE-2026-55956</cve>
+        <cve>CVE-2026-59083</cve>
+        <cve>CVE-2026-59084</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        Temporary suppression for CVEs reported in dependency-check-report.html.
+        file names: log4j-api-2.26.0.jar, log4j-to-slf4j-2.26.0.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/(log4j-api|log4j-to-slf4j)@2\.26\.0$</packageUrl>
+        <cve>CVE-2026-49844</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+        Temporary suppression for CVEs reported in dependency-check-report.html.
+        file names: spring-aop-6.2.18.jar, spring-aspects-6.2.18.jar, spring-beans-6.2.18.jar,
+        spring-context-6.2.18.jar, spring-context-support-6.2.18.jar, spring-core-6.2.18.jar,
+        spring-expression-6.2.18.jar, spring-jcl-6.2.18.jar, spring-jdbc-6.2.18.jar,
+        spring-orm-6.2.18.jar, spring-tx-6.2.18.jar, spring-web-6.2.18.jar,
+        spring-webmvc-6.2.18.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.springframework/(spring-aop|spring-aspects|spring-beans|spring-context|spring-context-support|spring-core|spring-expression|spring-jcl|spring-jdbc|spring-orm|spring-tx|spring-web|spring-webmvc)@6\.2\.18$</packageUrl>
+        <cve>CVE-2026-41839</cve>
     </suppress>
     <suppress>
       <cve>CVE-2026-54399</cve>
