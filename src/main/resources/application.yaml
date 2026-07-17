@@ -81,4 +81,5 @@ LOGGING:
       gov:
         hmcts:
           reform:
-            hmc: DEBUG
+            hmc:
+              config: DEBUG
