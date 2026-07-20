@@ -8,6 +8,9 @@
       "springIntegration": {
         "enabled": true
       },
+      "logging": {
+        "level": "DEBUG"
+      },
     "captureControllerSpans": true,
     "captureLoggingLevelAsCustomDimension": true,
     "captureLogbackMarker":  true,
@@ -30,4 +33,6 @@
       ]
     }
   }
+
+
 }
