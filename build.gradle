@@ -200,8 +200,8 @@ ext {
   lombok          = '1.18.42'
   mapstruct       = '1.6.3'
   // test versions
-  junit           = '6.0.2'
-  junitPlatform   = '6.0.2'
+  junit           = '6.1.2'
+  junitPlatform   = '6.1.2'
   testcontainers  = '1.20.4'
 }
 
