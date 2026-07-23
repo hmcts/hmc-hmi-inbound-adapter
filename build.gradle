@@ -47,10 +47,10 @@ sourceSets {
 idea {
   module {
     // config to allow Intellij to mark test source and resource files correctly to help linting tools
-    testSourceDirs += project.sourceSets.functionalTest.java.srcDirs
-    testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
-    testResourceDirs += project.sourceSets.functionalTest.resources.srcDirs
-    testResourceDirs += project.sourceSets.integrationTest.resources.srcDirs
+    testSources.from(project.sourceSets.functionalTest.java.srcDirs)
+    testSources.from(project.sourceSets.integrationTest.java.srcDirs)
+    testResources.from(project.sourceSets.functionalTest.resources.srcDirs)
+    testResources.from(project.sourceSets.integrationTest.resources.srcDirs)
   }
 }
 
@@ -84,7 +84,7 @@ task functional(type: Test) {
 
     javaexec {
       environment "OAUTH2_CLIENT_SECRET", "DUMMY"
-      main = "uk.gov.hmcts.reform.hmc.hmi.befta.InboundAdapterBeftaMain"
+      mainClass = "uk.gov.hmcts.reform.hmc.hmi.befta.InboundAdapterBeftaMain"
       classpath += sourceSets.functionalTest.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
       args = [
         '--threads', '10',
@@ -133,7 +133,7 @@ task smoke(type: Test) {
     generateCucumberReports.enabled = true
     javaexec {
       environment "OAUTH2_CLIENT_SECRET", "DUMMY"
-      main = "uk.gov.hmcts.reform.hmc.hmi.befta.InboundAdapterBeftaMain"
+      mainClass = "uk.gov.hmcts.reform.hmc.hmi.befta.InboundAdapterBeftaMain"
       classpath += sourceSets.functionalTest.runtimeClasspath + sourceSets.main.output + sourceSets.test.output
       args = [
         '--threads', '10',
