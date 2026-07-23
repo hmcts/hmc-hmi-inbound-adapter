@@ -10,118 +10,23 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-        Temporary Suppression for CVEs reported in dependency-check-report-master-hmc-hmi-inbound.html.
-        ]]></notes>
-        <cve>CVE-2023-44487</cve>
-        <cve>CVE-2026-33117</cve>
-        <cve>CVE-2026-40988</cve>
-        <cve>CVE-2026-41003</cve>
-        <cve>CVE-2026-41694</cve>
-        <cve>CVE-2026-41706</cve>
-        <cve>CVE-2026-41838</cve>
-        <cve>CVE-2026-41844</cve>
-        <cve>CVE-2026-41845</cve>
-        <cve>CVE-2026-41846</cve>
-        <cve>CVE-2026-41848</cve>
-        <cve>CVE-2026-41852</cve>
-        <cve>CVE-2026-41853</cve>
-        <cve>CVE-2026-41854</cve>
-        <cve>CVE-2026-41855</cve>
-        <cve>CVE-2026-44249</cve>
-        <cve>CVE-2026-44250</cve>
-        <cve>CVE-2026-44890</cve>
-        <cve>CVE-2026-44892</cve>
-        <cve>CVE-2026-44893</cve>
-        <cve>CVE-2026-44894</cve>
-        <cve>CVE-2026-45416</cve>
-        <cve>CVE-2026-45536</cve>
-        <cve>CVE-2026-45673</cve>
-        <cve>CVE-2026-45674</cve>
-        <cve>CVE-2026-46340</cve>
-        <cve>CVE-2026-47244</cve>
-        <cve>CVE-2026-47691</cve>
-        <cve>CVE-2026-47838</cve>
-        <cve>CVE-2026-48006</cve>
-        <cve>CVE-2026-48043</cve>
-        <cve>CVE-2026-48059</cve>
-        <cve>CVE-2026-48748</cve>
-        <cve>CVE-2026-50009</cve>
-        <cve>CVE-2026-50010</cve>
-        <cve>CVE-2026-50011</cve>
-        <cve>CVE-2026-50020</cve>
-        <cve>CVE-2026-50560</cve>
-        <cve>CVE-2026-54512</cve>
-        <cve>CVE-2026-54513</cve>
-        <cve>CVE-2026-54514</cve>
-        <cve>CVE-2026-54515</cve>
-        <cve>CVE-2026-55833</cve>
-        <cve>CVE-2026-44891</cve>
-        <cve>CVE-2026-55831</cve>
-    </suppress>
-    <suppress>
-        <cve>CVE-2026-41842</cve>
-    </suppress>
-    <suppress>
-        <cve>CVE-2026-41850</cve>
-    </suppress>
-    <suppress>
-        <cve>CVE-2026-41851</cve>
-    </suppress>
-    <suppress>
-        <cve>CVE-2026-41840</cve>
-    </suppress>
-    <suppress>
-        <cve>CVE-2026-41841</cve>
-    </suppress>
-    <suppress>
-        <cve>CVE-2026-41843</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
         file name: angus-activation-2.0.3.jar
+        Believed to be a false positive, see https://github.com/dependency-check/DependencyCheck/issues/8130
         ]]></notes>
         <packageUrl regex="true">^pkg:maven/org\.eclipse\.angus/angus-activation@.*$</packageUrl>
         <cve>CVE-2025-7962</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
-        Temporary suppression for CVEs reported in hmc-inbound-dependency-check-report.html.
-        file names: tomcat-embed-core-10.1.55.jar, tomcat-embed-websocket-10.1.55.jar
+        The cve.org records for these CVEs indicate that they only apply to httpcore 5.x, but the NVD records state
+        that they apply to all versions up to and including 5.4.2.
+        Discussion at https://github.com/dependency-check/DependencyCheck/issues/8653 suggests NVD need to update their
+        records to exclude versions before 5.x, but there is a suggestion that it could also affect 4.4.16.
+        Apache httpcore 4 is EOL (https://hc.apache.org/httpcomponents-core-4.4.x/index.html) so there may not be any
+        more releases of it.
         ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.tomcat\.embed/(tomcat-embed-core|tomcat-embed-websocket)@10\.1\.55$</packageUrl>
-        <cve>CVE-2026-50229</cve>
-        <cve>CVE-2026-53404</cve>
-        <cve>CVE-2026-53434</cve>
-        <cve>CVE-2026-55276</cve>
-        <cve>CVE-2026-55955</cve>
-        <cve>CVE-2026-55956</cve>
-        <cve>CVE-2026-59083</cve>
-        <cve>CVE-2026-59084</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-        Temporary suppression for CVEs reported in dependency-check-report.html.
-        file names: log4j-api-2.26.0.jar, log4j-to-slf4j-2.26.0.jar
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.logging\.log4j/(log4j-api|log4j-to-slf4j)@2\.26\.0$</packageUrl>
-        <cve>CVE-2026-49844</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-        Temporary suppression for CVEs reported in dependency-check-report.html.
-        file names: spring-aop-6.2.18.jar, spring-aspects-6.2.18.jar, spring-beans-6.2.18.jar,
-        spring-context-6.2.18.jar, spring-context-support-6.2.18.jar, spring-core-6.2.18.jar,
-        spring-expression-6.2.18.jar, spring-jcl-6.2.18.jar, spring-jdbc-6.2.18.jar,
-        spring-orm-6.2.18.jar, spring-tx-6.2.18.jar, spring-web-6.2.18.jar,
-        spring-webmvc-6.2.18.jar
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.springframework/(spring-aop|spring-aspects|spring-beans|spring-context|spring-context-support|spring-core|spring-expression|spring-jcl|spring-jdbc|spring-orm|spring-tx|spring-web|spring-webmvc)@6\.2\.18$</packageUrl>
-        <cve>CVE-2026-41839</cve>
-    </suppress>
-    <suppress>
-      <cve>CVE-2026-54399</cve>
-    </suppress>
-    <suppress>
-      <cve>CVE-2026-54428</cve>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.httpcomponents/httpcore@4\.4\.16$</packageUrl>
+        <cve>CVE-2026-54399</cve>
+        <cve>CVE-2026-54428</cve>
     </suppress>
 </suppressions>
