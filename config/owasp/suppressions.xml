@@ -30,8 +30,11 @@
         <cve>CVE-2026-54428</cve>
     </suppress>
     <suppress>
-      <cve>CVE-2026-55833</cve>
-      <cve>CVE-2026-44891</cve>
-      <cve>CVE-2026-55831</cve>
+        <notes><![CDATA[
+        See https://tools.hmcts.net/jira/browse/HMAN-1157
+        ]]></notes>
+        <cve>CVE-2026-55833</cve>
+        <cve>CVE-2026-44891</cve>
+        <cve>CVE-2026-55831</cve>
     </suppress>
 </suppressions>
