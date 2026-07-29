@@ -3,13 +3,23 @@
   "role": {
     "name": "hmc-hmi-inbound-adapter"
   },
+  "instrumentation": {
+    "logging": {
+      "level": "DEBUG"
+    }
+  },
+  "demo": {
+    "logging": {
+      "level": {
+        "root": "INFO",
+        "uk.gov.hmcts.reform.hmc": "DEBUG"
+      }
+    }
+  },
   "preview": {
     "instrumentation": {
       "springIntegration": {
         "enabled": true
-      },
-      "logging": {
-        "level": "DEBUG"
       },
     "captureControllerSpans": true,
     "captureLoggingLevelAsCustomDimension": true,
