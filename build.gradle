@@ -195,6 +195,7 @@ ext {
   set('springCloudVersion', '2025.0.1')
   set('tomcat.version', '10.1.57')
   set('jackson.version', '2.18.9')
+  set('netty.version', '4.1.136.Final')
   set('snakeyaml.version', '2.3')
   logback         = '1.5.29'
   lombok          = '1.18.42'
