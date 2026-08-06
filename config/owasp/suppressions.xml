@@ -92,7 +92,8 @@
         CVE-2026-56817 refer [Ticket]
         CVE-2026-56816 refer [Ticket]
         CVE-2026-56819 refer [Ticket]
-        CVE-2026-56746 refer [Ticket]</notes>
+        CVE-2026-56746 refer [Ticket]
+        CVE-2026-66299 refer [Ticket]</notes>
     <cve>CVE-2026-41838</cve>
     <cve>CVE-2026-41848</cve>
     <cve>CVE-2026-41844</cve>
@@ -159,5 +160,6 @@
     <cve>CVE-2026-56816</cve>
     <cve>CVE-2026-56819</cve>
     <cve>CVE-2026-56746</cve>
+    <cve>CVE-2026-66299</cve>
   </suppress>
 </suppressions>
