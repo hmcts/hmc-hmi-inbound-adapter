@@ -15,6 +15,7 @@
         file name: angus-activation-2.0.3.jar
         Believed to be a false positive, see https://github.com/dependency-check/DependencyCheck/issues/8130
         ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.eclipse\.angus/angus-activation@2\.0\.3$</packageUrl>
         <cve>CVE-2025-7962</cve>
     </suppress>
     <suppress>
