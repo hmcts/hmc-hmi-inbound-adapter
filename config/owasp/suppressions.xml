@@ -2,18 +2,19 @@
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
     <suppress>
         <notes><![CDATA[
-        The Azure Key Vault Keys advisory does not apply to these Azure Service Bus runtime artifacts,
-        but dependency-check incorrectly matches the shared Azure SDK CPE against them.
-        ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.azure/(azure-core@1\.58\.0|azure-core-amqp@2\.11\.4|azure-core-http-netty@1\.16\.4|azure-json@1\.5\.1)$</packageUrl>
-        <cpe regex="true">^cpe:/a:microsoft:azure_sdk_for_java.*$</cpe>
+        The Azure Key Vault Keys advisory does not apply to these Azure Service Bus runtime artifacts:
+        azure-core, azure-core-amqp, azure-core-http-netty and azure-json
+        However, dependency-check incorrectly matches the shared Azure SDK (azure_sdk_for_java) CPE against them.
+        See https://github.com/dependency-check/DependencyCheck/issues/8553
+        ]]>
+        </notes>
+        <cve>CVE-2026-33117</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
         file name: angus-activation-2.0.3.jar
         Believed to be a false positive, see https://github.com/dependency-check/DependencyCheck/issues/8130
         ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.eclipse\.angus/angus-activation@.*$</packageUrl>
         <cve>CVE-2025-7962</cve>
     </suppress>
     <suppress>
@@ -25,16 +26,56 @@
         Apache httpcore 4 is EOL (https://hc.apache.org/httpcomponents-core-4.4.x/index.html) so there may not be any
         more releases of it.
         ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.httpcomponents/httpcore@4\.4\.16$</packageUrl>
         <cve>CVE-2026-54399</cve>
         <cve>CVE-2026-54428</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
-        See https://tools.hmcts.net/jira/browse/HMAN-1157
+        Temporary Suppression
         ]]></notes>
-        <cve>CVE-2026-55833</cve>
-        <cve>CVE-2026-44891</cve>
-        <cve>CVE-2026-55831</cve>
+        <cve>CVE-2026-56820</cve>
+        <cve>CVE-2026-55851</cve>
+        <cve>CVE-2026-56745</cve>
+        <cve>CVE-2026-56817</cve>
+        <cve>CVE-2026-56816</cve>
+        <cve>CVE-2026-56819</cve>
+        <cve>CVE-2026-56746</cve>
+        <cve>CVE-2026-66299</cve>
+    </suppress>
+    <suppress>
+      <notes><![CDATA[
+      file name: proton-j-0.34.1.jar
+      ]]></notes>
+      <cve>CVE-2026-66257</cve>
+    </suppress>
+    <suppress>
+      <notes><![CDATA[
+      file name: proton-j-0.34.1.jar
+      ]]></notes>
+      <cve>CVE-2026-66273</cve>
+    </suppress>
+    <suppress>
+      <notes><![CDATA[
+      file name: proton-j-0.34.1.jar
+      ]]></notes>
+      <cve>CVE-2026-66274</cve>
+    </suppress>
+    <suppress>
+      <notes><![CDATA[
+      file name: proton-j-0.34.1.jar
+      ]]></notes>
+      <cve>CVE-2026-66277</cve>
+    </suppress>
+    <suppress>
+      <notes><![CDATA[
+      file name: proton-j-0.34.1.jar
+      ]]></notes>
+      <cve>CVE-2026-66275</cve>
+    </suppress>
+    <suppress>
+      <notes><![CDATA[
+      file name: proton-j-0.34.1.jar
+      ]]></notes>
+      <cve>CVE-2026-66276</cve>
     </suppress>
 </suppressions>

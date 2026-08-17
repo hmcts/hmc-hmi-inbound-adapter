@@ -195,13 +195,14 @@ ext {
   set('springCloudVersion', '2025.0.1')
   set('tomcat.version', '10.1.57')
   set('jackson.version', '2.18.9')
+  set('netty.version', '4.1.136.Final')
   set('snakeyaml.version', '2.3')
   logback         = '1.5.29'
   lombok          = '1.18.42'
   mapstruct       = '1.6.3'
   // test versions
-  junit           = '6.1.2'
-  junitPlatform   = '6.1.2'
+  junit           = '6.1.3'
+  junitPlatform   = '6.1.3'
   testcontainers  = '1.20.4'
 }
 
@@ -279,7 +280,7 @@ dependencies {
   implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.6.0'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.26.1'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.26.1'
-  implementation platform('tools.jackson:jackson-bom:3.2.0')
+  implementation platform('tools.jackson:jackson-bom:3.2.1')
 
   // end::CVE Vulnerability dependency overrides                                                            // MAIN PARENT DEPENDEDNCY
 
@@ -298,7 +299,7 @@ dependencies {
 
   // HMCTS
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '8.0.0'
-  implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.3'
+  implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.5'
   implementation group: 'com.github.hmcts', name: 'idam-java-client', version: '3.0.5'
 
   implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.18'
