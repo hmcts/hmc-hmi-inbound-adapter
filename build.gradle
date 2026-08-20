@@ -280,7 +280,7 @@ dependencies {
   implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.6.0'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.26.1'
   implementation group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: '2.26.1'
-  implementation platform('tools.jackson:jackson-bom:3.2.1')
+  implementation platform('tools.jackson:jackson-bom:3.2.2')
 
   // end::CVE Vulnerability dependency overrides                                                            // MAIN PARENT DEPENDEDNCY
 
@@ -295,7 +295,7 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
-  implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.8.17'
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.9.0'
 
   // HMCTS
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '8.0.0'
