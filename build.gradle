@@ -198,7 +198,7 @@ ext {
   set('netty.version', '4.1.136.Final')
   set('snakeyaml.version', '2.3')
   logback         = '1.5.29'
-  lombok          = '1.18.42'
+  lombok          = '1.18.46'
   mapstruct       = '1.6.3'
   // test versions
   junit           = '6.1.3'
