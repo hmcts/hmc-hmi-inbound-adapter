@@ -82,4 +82,4 @@ logging:
         hmcts:
           reform:
             hmc:
-              config: DEBUG
+              config: INFO
