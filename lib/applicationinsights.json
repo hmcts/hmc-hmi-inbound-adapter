@@ -3,18 +3,23 @@
   "role": {
     "name": "hmc-hmi-inbound-adapter"
   },
+  "instrumentation": {
+    "logging": {
+      "level": "DEBUG"
+    }
+  },
   "preview": {
     "instrumentation": {
       "springIntegration": {
         "enabled": true
-      },
+      }
+    },
     "captureControllerSpans": true,
     "captureLoggingLevelAsCustomDimension": true,
     "captureLogbackMarker":  true,
     "captureLog4jMarker":  true,
-    "captureLogbackCodeAttributes": true
-  },
-      "sampling": {
+    "captureLogbackCodeAttributes": true,
+    "sampling": {
       "overrides": [
         {
           "telemetryType": "request",
