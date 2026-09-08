@@ -44,7 +44,7 @@ hmc:
 
 idam:
   api:
-    url: ${IDAM_API_URL:http://localhost:5000}
+    url: ${IDAM_HMCTS_ACCESS_URL:http://localhost:9002}
   client:
     id: hmc_hmi_inbound_adapter
     secret: ${IDAM_CLIENT_SECRET:hmc_hmi_inbound_adapter_secret}
@@ -65,7 +65,7 @@ idam:
       - ${OIDC_ISSUER_FORGEROCK:http://fr-am:8080/openam/oauth2/hmcts}
 
 oidc:
-  issuer-uri: ${IDAM_OIDC_URL:http://localhost:5000}/o
+  issuer-uri: ${IDAM_OIDC_URL:http://localhost:9002}/o
 
 azure:
   application-insights:
