@@ -68,7 +68,7 @@ idam:
       - ${OIDC_ISSUER_FORGEROCK:http://fr-am:8080/openam/oauth2/hmcts}
 
 oidc:
-  issuer-uri: ${IDAM_OIDC_URL:http:idam.api.url}/o
+  issuer-uri: ${IDAM_OIDC_URL:http://localhost:9002}/o
 
 azure:
   application-insights:
