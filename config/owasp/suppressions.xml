@@ -178,4 +178,12 @@
     <suppress>
         <cve>CVE-2026-89044</cve>
     </suppress>
+
+    <suppress>
+      <cve>CVE-2026-75595</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-75596</cve>
+    </suppress>
 </suppressions>
