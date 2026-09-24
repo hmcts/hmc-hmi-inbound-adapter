@@ -182,6 +182,14 @@
     <suppress>
       <cve>CVE-2026-75595</cve>
     </suppress>
+
+    <suppress>
+      <cve>CVE-2026-59902</cve>
+    </suppress>
+    
+    <suppress>
+      <cve>CVE-2026-59903</cve>
+    </suppress>
     
     <suppress>
         <cve>CVE-2026-75596</cve>
