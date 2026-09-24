@@ -45,6 +45,8 @@ hmc:
 idam:
   api:
     url: ${IDAM_API_URL:http://localhost:5000}
+  oidc:
+    url: ${IDAM_OIDC_HOST:localhost:5000}
   client:
     id: hmc_hmi_inbound_adapter
     secret: ${IDAM_CLIENT_SECRET:hmc_hmi_inbound_adapter_secret}
