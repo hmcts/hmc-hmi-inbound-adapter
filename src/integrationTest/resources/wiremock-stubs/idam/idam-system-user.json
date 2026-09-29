@@ -1,7 +1,7 @@
 {
     "request": {
         "method": "POST",
-        "url": "/idam/o/token"
+        "url": "/o/token"
     },
     "response": {
         "status": 200,
