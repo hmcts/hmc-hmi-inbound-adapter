@@ -30,18 +30,6 @@
         <cve>CVE-2026-54428</cve>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-        Temporary Suppression
-        ]]></notes>
-        <cve>CVE-2026-56820</cve>
-        <cve>CVE-2026-55851</cve>
-        <cve>CVE-2026-56745</cve>
-        <cve>CVE-2026-56817</cve>
-        <cve>CVE-2026-56816</cve>
-        <cve>CVE-2026-56819</cve>
-        <cve>CVE-2026-56746</cve>
-    </suppress>
-    <suppress>
       <notes><![CDATA[
       file name: proton-j-0.34.1.jar
       ]]></notes>
@@ -77,38 +65,39 @@
       ]]></notes>
       <cve>CVE-2026-66276</cve>
     </suppress>
+
     <suppress>
-      <cve>CVE-2026-62380</cve>
+      <notes>
+        Not applicable - FreeMarker/SpringTemplateLoader is not present
+        on the runtime classpath or used by this application.
+      </notes>
+      <cve>CVE-2026-59280</cve>
     </suppress>
-  
+
     <suppress>
         <cve>CVE-2026-47892</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-47893</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-59270</cve>
     </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-59280</cve>
-    </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-59283</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-59284</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-59313</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-59314</cve>
     </suppress>
@@ -150,51 +139,31 @@
     <suppress>
         <cve>CVE-2026-47883</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-47884</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-47885</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-47886</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-47887</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-47888</cve>
     </suppress>
-    
+
     <suppress>
         <cve>CVE-2026-47889</cve>
     </suppress>
 
-    <suppress>
-        <cve>CVE-2026-89044</cve>
-    </suppress>
-
-    <suppress>
-      <cve>CVE-2026-75595</cve>
-    </suppress>
-
-    <suppress>
-      <cve>CVE-2026-59902</cve>
-    </suppress>
-    
-    <suppress>
-      <cve>CVE-2026-59903</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-75596</cve>
-    </suppress>
-  
     <suppress>
         <cve>CVE-2026-41707</cve>
     </suppress>
