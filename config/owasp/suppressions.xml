@@ -67,6 +67,14 @@
     </suppress>
 
     <suppress>
+      <notes>
+        Not applicable - FreeMarker/SpringTemplateLoader is not present
+        on the runtime classpath or used by this application.
+      </notes>
+      <cve>CVE-2026-59280</cve>
+    </suppress>
+
+    <suppress>
         <cve>CVE-2026-47892</cve>
     </suppress>
 
@@ -76,10 +84,6 @@
 
     <suppress>
         <cve>CVE-2026-59270</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-59280</cve>
     </suppress>
 
     <suppress>
@@ -158,26 +162,6 @@
 
     <suppress>
         <cve>CVE-2026-47889</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-89044</cve>
-    </suppress>
-
-    <suppress>
-      <cve>CVE-2026-75595</cve>
-    </suppress>
-
-    <suppress>
-      <cve>CVE-2026-59902</cve>
-    </suppress>
-
-    <suppress>
-      <cve>CVE-2026-59903</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-75596</cve>
     </suppress>
 
     <suppress>

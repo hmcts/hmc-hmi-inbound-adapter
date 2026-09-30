@@ -197,6 +197,8 @@ ext {
   set('jackson.version', '2.18.9')
   set('netty.version', '4.1.138.Final')
   set('snakeyaml.version', '2.3')
+  // CVE fixes
+  set('spring-security.version', '6.5.11')
   logback         = '1.5.29'
   lombok          = '1.18.42'
   mapstruct       = '1.6.3'
