@@ -65,7 +65,6 @@
       ]]></notes>
       <cve>CVE-2026-66276</cve>
     </suppress>
-
     <suppress>
       <notes>
         Not applicable - FreeMarker/SpringTemplateLoader is not present
@@ -165,7 +164,12 @@
     </suppress>
 
     <suppress>
-        <cve>CVE-2026-41707</cve>
+      <notes>
+        Not applicable - this vulnerability requires use of Spring
+        Security DPoP functionality (DPoPProofJwtDecoderFactory),
+        which is not used by this application.
+      </notes>
+      <cve>CVE-2026-41707</cve>
     </suppress>
 
 </suppressions>
