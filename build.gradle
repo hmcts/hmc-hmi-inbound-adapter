@@ -295,14 +295,14 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
-  implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.9.0'
+  implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.9.1'
 
   // HMCTS
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '8.0.0'
   implementation group: 'com.github.hmcts', name: 'service-auth-provider-java-client', version: '5.3.5'
-  implementation group: 'com.github.hmcts', name: 'idam-java-client', version: '3.0.5'
+  implementation group: 'com.github.hmcts', name: 'idam-java-client', version: '3.1.0'
 
-  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.18'
+  implementation group: 'com.azure', name: 'azure-messaging-servicebus', version: '7.17.19'
   implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '3.2.4'
   implementation group: 'jakarta.el', name: 'jakarta.el-api', version: '6.0.1'
   implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '9.0'
@@ -322,7 +322,7 @@ dependencies {
 
   functionalTestImplementation sourceSets.main.runtimeClasspath
   functionalTestImplementation sourceSets.test.runtimeClasspath
-  functionalTestImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.2.10'
+  functionalTestImplementation group: 'com.github.hmcts', name: 'befta-fw', version: '9.2.11'
 }
 
 bootJar {
