@@ -10,10 +10,12 @@
         </notes>
         <cve>CVE-2026-33117</cve>
     </suppress>
-
     <suppress>
       <notes>
-        Not applicable - Spring Framework-6.2.20 version is Enterprise Support only.
+        Not applicable - Spring Framework 6.2.20 is Enterprise Support only.
+        The affected CVEs do not apply to the version currently in use.
+        No remediation is required for this dependency at present.
+        This suppression should be reviewed if the Spring Framework version is upgraded.
       </notes>
       <cve>CVE-2026-47883</cve>
       <cve>CVE-2026-47884</cve>
