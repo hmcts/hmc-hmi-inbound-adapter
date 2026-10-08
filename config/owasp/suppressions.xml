@@ -11,106 +11,49 @@
         <cve>CVE-2026-33117</cve>
     </suppress>
     <suppress>
-        <notes><![CDATA[
-        file name: angus-activation-2.0.3.jar
-        Believed to be a false positive, see https://github.com/dependency-check/DependencyCheck/issues/8130
-        ]]></notes>
-        <cve>CVE-2025-7962</cve>
+      <notes>
+        Not applicable - Spring Framework 6.2.20 is Enterprise Support only.
+        The affected CVEs do not apply to the version currently in use.
+        No remediation is required for this dependency at present.
+        This suppression should be reviewed if the Spring Framework version is upgraded.
+      </notes>
+      <cve>CVE-2026-47883</cve>
+      <cve>CVE-2026-47884</cve>
+      <cve>CVE-2026-47885</cve>
+      <cve>CVE-2026-47886</cve>
+      <cve>CVE-2026-47887</cve>
+      <cve>CVE-2026-47888</cve>
+      <cve>CVE-2026-47889</cve>
+      <cve>CVE-2026-47890</cve>
+      <cve>CVE-2026-47891</cve>
+      <cve>CVE-2026-47892</cve>
+      <cve>CVE-2026-47893</cve>
+      <cve>CVE-2026-59281</cve>
+      <cve>CVE-2026-59282</cve>
+      <cve>CVE-2026-59283</cve>
+      <cve>CVE-2026-59313</cve>
+      <cve>CVE-2026-59314</cve>
+      <cve>CVE-2026-47841</cve>
+      <cve>CVE-2026-47842</cve>
+      <cve>CVE-2026-59270</cve>
+      <cve>CVE-2026-59276</cve>
     </suppress>
+
     <suppress>
-        <notes><![CDATA[
-        The cve.org records for these CVEs indicate that they only apply to httpcore 5.x, but the NVD records state
-        that they apply to all versions up to and including 5.4.2.
-        Discussion at https://github.com/dependency-check/DependencyCheck/issues/8653 suggests NVD need to update their
-        records to exclude versions before 5.x, but there is a suggestion that it could also affect 4.4.16.
-        Apache httpcore 4 is EOL (https://hc.apache.org/httpcomponents-core-4.4.x/index.html) so there may not be any
-        more releases of it.
-        ]]></notes>
-        <cve>CVE-2026-54399</cve>
-        <cve>CVE-2026-54428</cve>
+      <notes>
+        Not applicable - FreeMarker/SpringTemplateLoader is not present
+        on the runtime classpath or used by this application.
+      </notes>
+      <cve>CVE-2026-59280</cve>
     </suppress>
+
     <suppress>
-        <notes><![CDATA[
-        Temporary Suppression
-        ]]></notes>
-        <cve>CVE-2026-56820</cve>
-        <cve>CVE-2026-55851</cve>
-        <cve>CVE-2026-56745</cve>
-        <cve>CVE-2026-56817</cve>
-        <cve>CVE-2026-56816</cve>
-        <cve>CVE-2026-56819</cve>
-        <cve>CVE-2026-56746</cve>
-    </suppress>
-    <suppress>
-      <notes><![CDATA[
-      file name: proton-j-0.34.1.jar
+      <notes>
+        <![CDATA[
+      The application does not enable or expose the writable /actuator/env
+      endpoint, so the vulnerable functionality is not reachable.
       ]]></notes>
-      <cve>CVE-2026-66257</cve>
-    </suppress>
-    <suppress>
-      <notes><![CDATA[
-      file name: proton-j-0.34.1.jar
-      ]]></notes>
-      <cve>CVE-2026-66273</cve>
-    </suppress>
-    <suppress>
-      <notes><![CDATA[
-      file name: proton-j-0.34.1.jar
-      ]]></notes>
-      <cve>CVE-2026-66274</cve>
-    </suppress>
-    <suppress>
-      <notes><![CDATA[
-      file name: proton-j-0.34.1.jar
-      ]]></notes>
-      <cve>CVE-2026-66277</cve>
-    </suppress>
-    <suppress>
-      <notes><![CDATA[
-      file name: proton-j-0.34.1.jar
-      ]]></notes>
-      <cve>CVE-2026-66275</cve>
-    </suppress>
-    <suppress>
-      <notes><![CDATA[
-      file name: proton-j-0.34.1.jar
-      ]]></notes>
-      <cve>CVE-2026-66276</cve>
-    </suppress>
-    <suppress>
-      <cve>CVE-2026-62380</cve>
-    </suppress>
-  
-    <suppress>
-        <cve>CVE-2026-47892</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-47893</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-59270</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-59280</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-59283</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-59284</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-59313</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-59314</cve>
+      <cve>CVE-2026-59284</cve>
     </suppress>
 
     <suppress>
@@ -118,85 +61,22 @@
     </suppress>
 
     <suppress>
-        <cve>CVE-2026-47890</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-47891</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-59276</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-59281</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-59282</cve>
-    </suppress>
-
-    <suppress>
+      <notes>
+        <![CDATA[
+      Spring Data JPA is present, but the application does not accept
+      untrusted Sort/Pageable values for native SQL queries.
+      ]]>
+      </notes>
       <cve>CVE-2026-47834</cve>
     </suppress>
-    <suppress>
-        <cve>CVE-2026-47841</cve>
-    </suppress>
-    <suppress>
-        <cve>CVE-2026-47842</cve>
-    </suppress>
 
     <suppress>
-        <cve>CVE-2026-47883</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-47884</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-47885</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-47886</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-47887</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-47888</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-47889</cve>
-    </suppress>
-
-    <suppress>
-        <cve>CVE-2026-89044</cve>
-    </suppress>
-
-    <suppress>
-      <cve>CVE-2026-75595</cve>
-    </suppress>
-
-    <suppress>
-      <cve>CVE-2026-59902</cve>
-    </suppress>
-    
-    <suppress>
-      <cve>CVE-2026-59903</cve>
-    </suppress>
-    
-    <suppress>
-        <cve>CVE-2026-75596</cve>
-    </suppress>
-  
-    <suppress>
-        <cve>CVE-2026-41707</cve>
+      <notes>
+        Not applicable - this vulnerability requires use of Spring
+        Security DPoP functionality (DPoPProofJwtDecoderFactory),
+        which is not used by this application.
+      </notes>
+      <cve>CVE-2026-41707</cve>
     </suppress>
 
 </suppressions>
