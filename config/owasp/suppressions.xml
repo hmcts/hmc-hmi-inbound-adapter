@@ -12,13 +12,6 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-        file name: angus-activation-2.0.3.jar
-        Believed to be a false positive, see https://github.com/dependency-check/DependencyCheck/issues/8130
-        ]]></notes>
-        <cve>CVE-2025-7962</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
         The cve.org records for these CVEs indicate that they only apply to httpcore 5.x, but the NVD records state
         that they apply to all versions up to and including 5.4.2.
         Discussion at https://github.com/dependency-check/DependencyCheck/issues/8653 suggests NVD need to update their
