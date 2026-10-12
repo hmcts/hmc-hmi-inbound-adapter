@@ -195,7 +195,7 @@ ext {
   set('springCloudVersion', '2025.0.1')
   set('tomcat.version', '10.1.59')
   set('jackson.version', '2.18.9')
-  set('netty.version', '4.1.136.Final')
+  set('netty.version', '4.1.138.Final')
   set('snakeyaml.version', '2.3')
   logback         = '1.5.29'
   lombok          = '1.18.42'
@@ -228,12 +228,22 @@ dependencyUpdates {
 
 apply from: './gradle/suppress.gradle'
 dependencyCheck {
+  formats = ['HTML', 'XML']
   suppressionFile = 'config/owasp/suppressions.xml'
 }
 
 tasks.register("printSuppressionFile") {
   doLast {
-    println "SUPPRESSION_FILE=${dependencyCheck.suppressionFile.get()}"
+    def suppressionFile = dependencyCheck.getSuppressionFile()
+    if (suppressionFile?.metaClass?.respondsTo(suppressionFile, "getOrNull")) {
+      suppressionFile = suppressionFile.getOrNull()
+    } else if (suppressionFile?.metaClass?.respondsTo(suppressionFile, "get")) {
+      suppressionFile = suppressionFile.get()
+    }
+    if (!suppressionFile) {
+      throw new GradleException("No dependency-check suppression file configured")
+    }
+    println "SUPPRESSION_FILE=${suppressionFile}"
   }
 }
 
