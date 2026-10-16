@@ -193,6 +193,8 @@ sonarqube {
 
 ext {
   set('springCloudVersion', '2025.0.1')
+  set('spring-framework.version', '6.2.20')
+  set('spring-security.version', '6.5.12')
   set('tomcat.version', '10.1.59')
   set('jackson.version', '2.18.9')
   set('netty.version', '4.1.138.Final')
@@ -290,6 +292,7 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-oauth2-resource-server'
   implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign'
+  implementation group: 'org.springframework.cloud', name: 'spring-cloud-commons', version: '4.3.4'
   implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.9.1'
 
   // HMCTS
