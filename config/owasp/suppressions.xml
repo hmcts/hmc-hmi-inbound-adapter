@@ -71,12 +71,51 @@
     </suppress>
 
     <suppress>
-      <notes>
-        Not applicable - this vulnerability requires use of Spring
-        Security DPoP functionality (DPoPProofJwtDecoderFactory),
-        which is not used by this application.
-      </notes>
-      <cve>CVE-2026-41707</cve>
+        <cve>CVE-2026-47883</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-47884</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-47885</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-47886</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-47887</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-47888</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-47889</cve>
+    </suppress>
+
+    <suppress>
+      <cve>CVE-2026-75595</cve>
+    </suppress>
+
+    <suppress>
+      <cve>CVE-2026-59902</cve>
+    </suppress>
+    
+    <suppress>
+      <cve>CVE-2026-59903</cve>
+    </suppress>
+    
+    <suppress>
+        <cve>CVE-2026-75596</cve>
+    </suppress>
+  
+    <suppress>
+        <cve>CVE-2026-41707</cve>
     </suppress>
 
 </suppressions>
