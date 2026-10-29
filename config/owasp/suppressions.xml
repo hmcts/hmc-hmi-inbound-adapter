@@ -9,7 +9,7 @@
         ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/com\.azure/(azure-core|azure-core-amqp|azure-core-http-netty|azure-json)@.*$</packageUrl>
-        <cpe>cpe:2.3:a:microsoft:azure_sdk_for_java</cpe>
+        <cpe regex="true">^cpe:2\.3:a:microsoft:azure_sdk_for_java(:.*)?$</cpe>
     </suppress>
     <suppress>
       <notes>
