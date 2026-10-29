@@ -1,0 +1,16 @@
+{
+  "_guid_": "F-125_Test_Swagger_JSON_Base_Data",
+  "title": "Verify swagger JSON Content",
+
+  "productName": "HMC Hmi Inbound Adapter",
+  "operationName": "Get Swagger Json API",
+
+  "method": "GET",
+  "uri": "/v3/api-docs",
+
+  "expectedResponse": {
+    "headers" : {
+      "Content-Type" : "application/json"
+    }
+  }
+}
