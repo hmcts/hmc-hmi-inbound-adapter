@@ -9,7 +9,7 @@
         ]]>
         </notes>
         <packageUrl regex="true">^pkg:maven/com\.azure/(azure-core|azure-core-amqp|azure-core-http-netty|azure-json)@.*$</packageUrl>
-        <cpe regex="true">^cpe:2\.3:a:microsoft:azure_sdk_for_java(:.*)?$</cpe>
+        <cve>CVE-2026-33117</cve>
     </suppress>
     <suppress>
       <notes>
