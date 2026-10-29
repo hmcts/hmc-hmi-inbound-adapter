@@ -7,12 +7,6 @@
     "to observe the swagger json content"
   ],
 
-  "request" :{
-    "pathVariables" : {
-      "hmc-hmi-inbound-adapter-version": "hmc-hmi-inbound-adapter.json"
-    }
-  },
-
   "expectedResponse": {
     "responseCode" : 200,
     "responseMessage" : "OK",
