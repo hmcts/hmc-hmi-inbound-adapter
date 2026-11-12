@@ -5,7 +5,7 @@
     <inbound>
         <base/>
         <!-- validate access token -->
-        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" require-scheme="Bearer" require-signed-tokens="true" clock-skew="5">
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" require-scheme="Bearer" require-signed-tokens="true" clock-skew="10">
             <openid-config url="${idam_base_url}/o/.well-known/openid-configuration" />
             <audiences>
                 <audience>${audience}</audience>
