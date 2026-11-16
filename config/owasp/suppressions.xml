@@ -7,6 +7,13 @@
         However, dependency-check incorrectly matches the shared Azure SDK (azure_sdk_for_java) CPE against them.
         See https://github.com/dependency-check/DependencyCheck/issues/8553
         ]]>
+        False positive: CVE-2026-33117 affects com.azure:azure-security-keyvault-keys versions before 4.10.6.
+        This project does not include azure-security-keyvault-keys; the reported Azure Service Bus runtime artifacts
+        (azure-core, azure-core-amqp, azure-core-http-netty, and azure-json) do not contain the affected Key Vault
+        Keys local cryptographic verification code. Dependency-Check 12.2.2 reports them because NVD associates
+        the CVE with the broad azure_sdk_for_java CPE. Microsoft identifies the affected component as the Key Vault
+        Keys library; see https://github.com/advisories/GHSA-97jf-46m3-8953 and
+        https://github.com/dependency-check/DependencyCheck/issues/8553.
         </notes>
         <cve>CVE-2026-33117</cve>
     </suppress>
