@@ -1,17 +1,13 @@
 {
   "_guid_": "S-125.2",
-  "title": "Must return a positive appropriate response when Swagger JSON URL is accessed",
+  "title": "Must return a positive appropriate response when service OpenAPI JSON URL is accessed",
   "_extends_": "F-125_Test_Swagger_JSON_Base_Data",
 
   "specs": [
     "to observe the swagger json content"
   ],
 
-  "request" :{
-    "pathVariables" : {
-      "hmc-hmi-inbound-adapter-version": "hmc-hmi-inbound-adapter.json"
-    }
-  },
+  "request": {},
 
   "expectedResponse": {
     "responseCode" : 200,
