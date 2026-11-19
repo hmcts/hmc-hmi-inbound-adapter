@@ -5,6 +5,7 @@ import com.azure.core.util.ConfigurationBuilder;
 import com.azure.messaging.servicebus.ServiceBusClientBuilder;
 import com.azure.messaging.servicebus.ServiceBusMessage;
 import com.azure.messaging.servicebus.ServiceBusSenderClient;
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
@@ -21,6 +22,7 @@ import static uk.gov.hmcts.reform.hmc.constants.Constants.WRITE;
 public class MessageSenderConfiguration {
 
     private final ApplicationParams applicationParams;
+    private ServiceBusSenderClient senderClient;
 
     private static final String MESSAGE_TYPE = "message_type";
     private static final String HEARING_ID = "hearing_id";
@@ -31,21 +33,11 @@ public class MessageSenderConfiguration {
 
     public void sendMessage(String message, MessageType messageType, String hearingId) {
         try {
-            log.debug("setting up the connection details for hearingId {}", hearingId);
             ServiceBusMessage serviceBusMessage = new ServiceBusMessage(message);
             serviceBusMessage.getApplicationProperties().put(MESSAGE_TYPE, messageType.name());
             serviceBusMessage.getApplicationProperties().put(HEARING_ID, hearingId);
-            ServiceBusSenderClient senderClient = new ServiceBusClientBuilder()
-                .connectionString(applicationParams.getConnectionString())
-                .configuration(new ConfigurationBuilder()
-                                   .putProperty(AMQP_CACHE, AMQP_CACHE_VALUE)
-                                   .build())
-                .sender()
-                .queueName(applicationParams.getQueueName())
-                .buildClient();
-            log.debug("Connected to Queue {}", applicationParams.getQueueName());
             log.debug("Sending message to Queue {}", message);
-            senderClient.sendMessage(serviceBusMessage);
+            getSenderClient().sendMessage(serviceBusMessage);
             log.debug("Message has been sent to the Queue {}", applicationParams.getQueueName());
         } catch (Exception e) {
             log.error("Error while sending the message to queue:{}", e.getMessage());
@@ -56,6 +48,27 @@ public class MessageSenderConfiguration {
                 WRITE,
                 hearingId
             );
+        }
+    }
+
+    private synchronized ServiceBusSenderClient getSenderClient() {
+        if (senderClient == null) {
+            senderClient = new ServiceBusClientBuilder()
+                .connectionString(applicationParams.getConnectionString())
+                .configuration(new ConfigurationBuilder()
+                    .putProperty(AMQP_CACHE, AMQP_CACHE_VALUE)
+                    .build())
+                .sender()
+                .queueName(applicationParams.getQueueName())
+                .buildClient();
+        }
+        return senderClient;
+    }
+
+    @PreDestroy
+    synchronized void closeSenderClient() {
+        if (senderClient != null) {
+            senderClient.close();
         }
     }
 }
