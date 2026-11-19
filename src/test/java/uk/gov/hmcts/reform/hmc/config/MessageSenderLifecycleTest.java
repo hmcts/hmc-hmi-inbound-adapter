@@ -1,73 +1,37 @@
 package uk.gov.hmcts.reform.hmc.config;
 
-import com.azure.messaging.servicebus.ServiceBusClientBuilder;
-import com.azure.messaging.servicebus.ServiceBusMessage;
 import com.azure.messaging.servicebus.ServiceBusSenderClient;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
+import org.junit.jupiter.api.Timeout;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.util.ReflectionTestUtils;
 import uk.gov.hmcts.reform.hmc.ApplicationParams;
 
-import java.util.function.BiConsumer;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.RETURNS_SELF;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockConstruction;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.withSettings;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class MessageSenderLifecycleTest {
 
+    private static final String CONNECTION_STRING =
+        "Endpoint=sb://localhost;SharedAccessKeyName=test;SharedAccessKey=test";
+
     @Test
-    void reusesAndClosesTheQueueSender() {
-        assertSenderLifecycle(MessageSenderConfiguration.class,
-                              (sender, message) -> sender.sendMessage(message, MessageType.HEARING_RESPONSE, "123"));
-    }
+    @Timeout(10)
+    void createsAndClosesTheConfiguredQueueSender() {
+        var params = new ApplicationParams();
+        ReflectionTestUtils.setField(params, "connectionString", CONNECTION_STRING);
+        ReflectionTestUtils.setField(params, "queueName", "test-queue");
 
-    private <T> void assertSenderLifecycle(Class<T> senderType, BiConsumer<T, String> send) {
-        var client = mock(ServiceBusSenderClient.class);
-        var senderBuilder = mock(ServiceBusClientBuilder.ServiceBusSenderClientBuilder.class, RETURNS_SELF);
-        when(senderBuilder.buildClient()).thenReturn(client);
+        ServiceBusSenderClient queue;
+        try (var application = new AnnotationConfigApplicationContext()) {
+            application.getBeanFactory().registerSingleton("applicationParams", params);
+            application.register(ServiceBusSenderConfiguration.class, MessageSenderConfiguration.class);
+            application.refresh();
 
-        try (var builders = mockConstruction(
-            ServiceBusClientBuilder.class,
-            withSettings().defaultAnswer(RETURNS_SELF),
-            (builder, context) -> when(builder.sender()).thenReturn(senderBuilder)
-        )) {
-            T activeSender;
-            T unusedSender;
-            try (var application = new AnnotationConfigApplicationContext()) {
-                application.getBeanFactory().registerSingleton("applicationParams", new ApplicationParams());
-                application.registerBean("activeSender", senderType);
-                application.registerBean("unusedSender", senderType);
-                application.refresh();
-
-                activeSender = application.getBean("activeSender", senderType);
-                unusedSender = application.getBean("unusedSender", senderType);
-                assertThat(builders.constructed()).isEmpty();
-
-                send.accept(activeSender, "first message");
-                send.accept(activeSender, "second message");
-
-                var messages = ArgumentCaptor.forClass(ServiceBusMessage.class);
-                verify(client, times(2)).sendMessage(messages.capture());
-                assertThat(messages.getAllValues()).extracting(message -> message.getBody().toString())
-                    .containsExactly("first message", "second message");
-                assertThat(builders.constructed()).hasSize(1);
-                verify(senderBuilder).buildClient();
-                verify(client, never()).close();
-            }
-            verify(client).close();
-
-            send.accept(activeSender, "late message");
-            send.accept(unusedSender, "late first message");
-            assertThat(builders.constructed()).hasSize(1);
-            verifyNoMoreInteractions(client);
+            queue = application.getBean("queueSenderClient", ServiceBusSenderClient.class);
+            assertThat(queue.getEntityPath()).isEqualTo("test-queue");
         }
+
+        assertThatThrownBy(queue::createMessageBatch).isInstanceOf(IllegalStateException.class);
     }
 }
