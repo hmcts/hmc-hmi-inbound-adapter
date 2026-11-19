@@ -23,6 +23,7 @@ public class MessageSenderConfiguration {
 
     private final ApplicationParams applicationParams;
     private ServiceBusSenderClient senderClient;
+    private boolean closed;
 
     private static final String MESSAGE_TYPE = "message_type";
     private static final String HEARING_ID = "hearing_id";
@@ -52,6 +53,9 @@ public class MessageSenderConfiguration {
     }
 
     private synchronized ServiceBusSenderClient getSenderClient() {
+        if (closed) {
+            throw new IllegalStateException("Service Bus sender is closed");
+        }
         if (senderClient == null) {
             senderClient = new ServiceBusClientBuilder()
                 .connectionString(applicationParams.getConnectionString())
@@ -67,6 +71,7 @@ public class MessageSenderConfiguration {
 
     @PreDestroy
     synchronized void closeSenderClient() {
+        closed = true;
         if (senderClient != null) {
             senderClient.close();
         }
