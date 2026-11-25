@@ -1,38 +1,28 @@
 package uk.gov.hmcts.reform.hmc.config;
 
+import com.azure.messaging.servicebus.ServiceBusMessage;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import uk.gov.hmcts.reform.hmc.ApplicationParams;
+import org.mockito.ArgumentCaptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import uk.gov.hmcts.reform.hmc.BaseTest;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
-import static uk.gov.hmcts.reform.hmc.WiremockFixtures.stubSuccessfullyGetResponseFromHmi;
 
 class MessageSenderConfigurationIT extends BaseTest {
 
-    private final String caseListingId = "test-listing-id";
-
-    @MockBean
+    @Autowired
     private MessageSenderConfiguration messageSenderConfiguration;
 
-    @MockBean
-    private ApplicationParams applicationParams;
-
     @Test
-    void shouldSuccessfullyProcessRequest() {
-        stubSuccessfullyGetResponseFromHmi(caseListingId);
+    void sendsTheHearingResponse() {
         messageSenderConfiguration.sendMessage("Test Message", MessageType.HEARING_RESPONSE, "123456");
-        verify(messageSenderConfiguration, times(1)).sendMessage(any(), any(), any());
-    }
 
-
-    @Test
-    void shouldNotSuccessfullyProcessRequest() {
-        MessageSenderConfiguration messageSenderConfigurationClass = new MessageSenderConfiguration(applicationParams);
-        stubSuccessfullyGetResponseFromHmi(caseListingId);
-        messageSenderConfigurationClass.sendMessage("Test Message", MessageType.HEARING_RESPONSE, "123456");
-        verify(messageSenderConfiguration, times(0)).sendMessage(any(), any(), any());
+        var message = ArgumentCaptor.forClass(ServiceBusMessage.class);
+        verify(queueSenderClient).sendMessage(message.capture());
+        assertThat(message.getValue().getBody().toString()).isEqualTo("Test Message");
+        assertThat(message.getValue().getApplicationProperties())
+            .containsEntry("message_type", "HEARING_RESPONSE")
+            .containsEntry("hearing_id", "123456");
     }
 }
